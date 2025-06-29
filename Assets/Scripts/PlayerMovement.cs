@@ -57,7 +57,7 @@ public class PlayerMovement : MonoBehaviour
     // 控制角色朝向鼠标方向
     private void ApplyRotation()
     {
-        Vector3 lookingDirection = player.aim.GetMousePosition() - transform.position;
+        Vector3 lookingDirection = player.aim.GetMouseHitInfo().point - transform.position;
         lookingDirection.y = 0f;
         lookingDirection.Normalize(); // 获取一个没有长度的向量
 
