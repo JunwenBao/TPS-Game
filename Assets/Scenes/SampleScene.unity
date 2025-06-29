@@ -232,7 +232,7 @@ Transform:
   m_GameObject: {fileID: 330585543}
   serializedVersion: 2
   m_LocalRotation: {x: 0.38405356, y: 0, z: 0, w: 0.9233109}
-  m_LocalPosition: {x: 0, y: -5.551059, z: -6.2343407}
+  m_LocalPosition: {x: -0.04, y: -2.5410585, z: -4.8543415}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -695,7 +695,7 @@ Transform:
   m_GameObject: {fileID: 901609475}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.91, y: 2.99, z: 15.66}
+  m_LocalPosition: {x: -0.04, y: 2.99, z: 11.98}
   m_LocalScale: {x: 0.25, y: 0.25, z: 0.25}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -739,7 +739,7 @@ MonoBehaviour:
   m_StreamingVersion: 20241001
   m_LegacyPriority: 0
   Target:
-    TrackingTarget: {fileID: 3831623231545439912}
+    TrackingTarget: {fileID: 901609479}
     LookAtTarget: {fileID: 0}
     CustomLookAtTarget: 0
   Lens:
@@ -771,7 +771,7 @@ Transform:
   m_GameObject: {fileID: 1155390865}
   serializedVersion: 2
   m_LocalRotation: {x: 0.38405356, y: 0, z: 0, w: 0.9233109}
-  m_LocalPosition: {x: 0, y: -5.551058, z: -6.2343397}
+  m_LocalPosition: {x: -0.04, y: -2.5410585, z: -4.854341}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -804,7 +804,7 @@ MonoBehaviour:
   TargetOffset: {x: 0, y: 0, z: 0}
   Damping: {x: 1, y: 1, z: 1}
   Lookahead:
-    Enabled: 0
+    Enabled: 1
     Time: 0
     Smoothing: 0
     IgnoreY: 0
@@ -4917,10 +4917,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   walkSpeed: 4
   runSpeed: 7
-  aim: {fileID: 901609479}
-  aimLayerMask:
-    serializedVersion: 2
-    m_Bits: 192
+  turnSpeed: 10
 --- !u!4 &3704391339397594925
 Transform:
   m_ObjectHideFlags: 0
@@ -5941,10 +5938,11 @@ GameObject:
   m_Component:
   - component: {fileID: 3831623231545439912}
   - component: {fileID: 5523332488620459933}
+  - component: {fileID: 5523332488620459934}
   - component: {fileID: 3694553223196509286}
   - component: {fileID: 4750008326860362774}
-  - component: {fileID: 3770095690253150224}
   - component: {fileID: 133522350}
+  - component: {fileID: 3770095690253150224}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -6021,6 +6019,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 834e9e6a8f631e643b03cda3c0bf4ced, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &5523332488620459934
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5303962106459934912}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d8ba560772cf3fb42ac48881c7582379, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  minCameraDistance: 1
+  maxCameraDistance: 10
+  aimSensetivity: 5
+  aim: {fileID: 901609479}
+  aimLayerMask:
+    serializedVersion: 2
+    m_Bits: 192
 --- !u!1 &5562133738835512501
 GameObject:
   m_ObjectHideFlags: 0
