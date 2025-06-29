@@ -166,7 +166,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &7103599794502566618
 Transform:
   m_ObjectHideFlags: 0
@@ -340,6 +340,7 @@ GameObject:
   - component: {fileID: 3093321784628683151}
   - component: {fileID: 6360054894556803583}
   - component: {fileID: 3312975168672304633}
+  - component: {fileID: 743842243612331997}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -430,6 +431,31 @@ CharacterController:
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 1, z: 0}
+--- !u!114 &743842243612331997
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5779079561183458601}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 86863b9bf900a3248aacb249d19103f0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gunTransforms:
+  - {fileID: 88477137972894635}
+  - {fileID: 4482018153611460720}
+  - {fileID: 7103599794502566618}
+  - {fileID: 1589571339419992447}
+  pistol: {fileID: 88477137972894635}
+  autoRifle: {fileID: 4482018153611460720}
+  shotgun: {fileID: 7103599794502566618}
+  sniper: {fileID: 1589571339419992447}
+  rigIncreaseStep: 2
+  leftHandIK: {fileID: 6031664286721586534}
+  leftHand_Target: {fileID: 1494388046090665462}
+  leftHandIK_IncreaseStep: 3
 --- !u!1 &5793384890532602170
 GameObject:
   m_ObjectHideFlags: 0
@@ -592,7 +618,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6711485233536400144}
-  - component: {fileID: 3454288162072890979}
   m_Layer: 0
   m_Name: Weapon_Holder
   m_TagString: Untagged
@@ -619,28 +644,6 @@ Transform:
   - {fileID: 1589571339419992447}
   m_Father: {fileID: 969204906274265501}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3454288162072890979
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7300579639955728668}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 86863b9bf900a3248aacb249d19103f0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  gunTransforms:
-  - {fileID: 88477137972894635}
-  - {fileID: 4482018153611460720}
-  - {fileID: 7103599794502566618}
-  - {fileID: 1589571339419992447}
-  pistol: {fileID: 88477137972894635}
-  autoRifle: {fileID: 4482018153611460720}
-  shotgun: {fileID: 7103599794502566618}
-  sniper: {fileID: 1589571339419992447}
-  leftHand: {fileID: 969107750343919203}
 --- !u!1 &7305540729326526136
 GameObject:
   m_ObjectHideFlags: 0
@@ -700,7 +703,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &88477137972894635
 Transform:
   m_ObjectHideFlags: 0
@@ -898,12 +901,7 @@ PrefabInstance:
       objectReference: {fileID: 9100000, guid: d32b652113ed4f946aecaf47d21d380f, type: 2}
     - target: {fileID: 95888452146818522, guid: 0d0607f3d6e989742a573ba5f4173669, type: 3}
       propertyPath: m_WarningMessage
-      value: "\nBinding warning: Some generic clip(s) animate transforms that are
-        already bound by a Humanoid avatar. These transforms can only be changed
-        by Humanoid clips.\n\tTransform 'Head'\n\tTransform 'LeftArm'\n\tTransform
-        'Neck'\n\tTransform 'RightHand'\n\tTransform 'LeftHand'\n\tTransform 'LeftShoulder'\n\tTransform
-        'RightForeArm'\n\tTransform 'Head'\n\tTransform 'LeftArm'\n\tTransform 'Neck'\n\tand
-        more ..."
+      value: 
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -927,6 +925,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 1335379607261236, guid: 0d0607f3d6e989742a573ba5f4173669, type: 3}
       insertIndex: -1
       addedObject: {fileID: 8700590403011679291}
+    - targetCorrespondingSourceObject: {fileID: 1335379607261236, guid: 0d0607f3d6e989742a573ba5f4173669, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7088819730772784995}
   m_SourcePrefab: {fileID: 100100000, guid: 0d0607f3d6e989742a573ba5f4173669, type: 3}
 --- !u!1 &965839369404019643 stripped
 GameObject:
@@ -1037,6 +1038,18 @@ MonoBehaviour:
   - {fileID: 967618235830385459}
   - {fileID: 969134148047963657}
   - {fileID: 967521665644431641}
+--- !u!114 &7088819730772784995
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 965839369404019643}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 733bbbbfcf05028478cbfaf9ed836129, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &967148064527273251 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4476408710737580, guid: 0d0607f3d6e989742a573ba5f4173669, type: 3}
