@@ -166,7 +166,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &7103599794502566618
 Transform:
   m_ObjectHideFlags: 0
@@ -387,8 +387,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 54862961cc7375e47afe63584b7b9a98, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  walkSpeed: 2
-  runSpeed: 4
+  walkSpeed: 4
+  runSpeed: 7
   aim: {fileID: 0}
   aimLayerMask:
     serializedVersion: 2
@@ -613,8 +613,8 @@ Transform:
   m_LocalScale: {x: 0.49999994, y: 0.49999982, z: 0.49999982}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 4482018153611460720}
   - {fileID: 88477137972894635}
+  - {fileID: 4482018153611460720}
   - {fileID: 7103599794502566618}
   - {fileID: 1589571339419992447}
   m_Father: {fileID: 969204906274265501}
@@ -667,7 +667,7 @@ Transform:
   m_GameObject: {fileID: 7305540729326526136}
   serializedVersion: 2
   m_LocalRotation: {x: -0.4459176, y: -0.58244413, z: -0.49826765, w: -0.46221823}
-  m_LocalPosition: {x: 8.61, y: -2.8, z: 1.65}
+  m_LocalPosition: {x: 9.71, y: -6.65, z: 7.31}
   m_LocalScale: {x: 0.05, y: 0.05000001, z: 0.05000001}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -734,7 +734,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &4482018153611460720
 Transform:
   m_ObjectHideFlags: 0
@@ -898,7 +898,12 @@ PrefabInstance:
       objectReference: {fileID: 9100000, guid: d32b652113ed4f946aecaf47d21d380f, type: 2}
     - target: {fileID: 95888452146818522, guid: 0d0607f3d6e989742a573ba5f4173669, type: 3}
       propertyPath: m_WarningMessage
-      value: 
+      value: "\nBinding warning: Some generic clip(s) animate transforms that are
+        already bound by a Humanoid avatar. These transforms can only be changed
+        by Humanoid clips.\n\tTransform 'Head'\n\tTransform 'LeftArm'\n\tTransform
+        'Neck'\n\tTransform 'RightHand'\n\tTransform 'LeftHand'\n\tTransform 'LeftShoulder'\n\tTransform
+        'RightForeArm'\n\tTransform 'Head'\n\tTransform 'LeftArm'\n\tTransform 'Neck'\n\tand
+        more ..."
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

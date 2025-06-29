@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 59a9e9699144f9d49b2e0089fd60f70e
+guid: 5ca6c561c26ea654d95c05f1a8968559
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
@@ -34,8 +34,8 @@ ModelImporter:
       name: Firing Sniper
       takeName: mixamo.com
       internalID: -203655887218126122
-      firstFrame: 5
-      lastFrame: 55
+      firstFrame: 0
+      lastFrame: 2
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
