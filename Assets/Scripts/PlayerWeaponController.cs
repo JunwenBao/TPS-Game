@@ -8,6 +8,9 @@ public class PlayerWeaponController : MonoBehaviour
     [SerializeField] private float bulletSpeed;
     [SerializeField] private Transform gunPoint;
 
+    [SerializeField] private Transform weaponHolder;
+    [SerializeField] private Transform aim;
+
     private void Start()
     {
         player = GetComponent<Player>();
@@ -18,10 +21,31 @@ public class PlayerWeaponController : MonoBehaviour
     {
         GameObject newBullet = Instantiate(bulletPrefab, gunPoint.position, Quaternion.LookRotation(gunPoint.forward));
 
-        newBullet.GetComponent<Rigidbody>().linearVelocity = gunPoint.forward * bulletSpeed;
+        newBullet.GetComponent<Rigidbody>().linearVelocity = BulletDirection() * bulletSpeed;
 
         Destroy(newBullet, 10);
 
         GetComponentInChildren<Animator>().SetTrigger("Fire");
+    }
+
+    private Vector3 BulletDirection()
+    {
+        Vector3 direction = (aim.position - gunPoint.position).normalized;
+
+        if(player.aim.CanAimPrecisly() == false) direction.y = 0;
+
+        /* 控制子弹飞行方向 */
+        weaponHolder.LookAt(aim);
+        gunPoint.LookAt(aim);
+
+        return direction;
+    }
+
+    private void OnDrawGizmon()
+    {
+        Gizmos.DrawLine(weaponHolder.position, weaponHolder.position + weaponHolder.forward * 25);
+
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawLine(gunPoint.position, gunPoint.position + BulletDirection() * 25);
     }
 }

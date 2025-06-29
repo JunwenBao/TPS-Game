@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEditor.ShaderGraph;
 using UnityEngine;
 
@@ -8,6 +9,8 @@ public class PlayerAim : MonoBehaviour
 
     [Header("Aim Control")]
     [SerializeField] private Transform aim;
+
+    [SerializeField] private bool isAimingPrecisely;
 
     [Header("Camera Control")]
     [SerializeField] private Transform cameraTarget;
@@ -31,9 +34,35 @@ public class PlayerAim : MonoBehaviour
 
     private void Update()
     {
+        if(Input.GetKeyDown(KeyCode.P))
+        {
+            isAimingPrecisely = !isAimingPrecisely;
+        }
+
+        UpdateAimPosition();
+        UpdateCameraPosition();
+    }
+
+    private void UpdateAimPosition()
+    {
         aim.position = GetMouseHitInfo().point;
-        aim.position = new Vector3(aim.position.x, transform.position.y + 3f, aim.position.z);
+
+        if (!isAimingPrecisely)
+        {
+            aim.position = new Vector3(aim.position.x, transform.position.y + 3f, aim.position.z);
+        }
+    }
+    
+    private void UpdateCameraPosition()
+    {
         cameraTarget.position = Vector3.Lerp(cameraTarget.position, DesieredCameraPosition(), cameraSensetivity * Time.deltaTime);
+    }
+
+    public bool CanAimPrecisly()
+    {
+        if (isAimingPrecisely) return true;
+
+        return false;
     }
 
     private Vector3 DesieredCameraPosition()
