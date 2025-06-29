@@ -12,6 +12,7 @@ public class PlayerMovement : MonoBehaviour
     [Header("Movement Info")]
     [SerializeField] private float walkSpeed;
     [SerializeField] private float runSpeed;
+    [SerializeField] private float turnSpeed;
 
     private float speed;
     private float verticalVelocity;
@@ -60,7 +61,9 @@ public class PlayerMovement : MonoBehaviour
         lookingDirection.y = 0f;
         lookingDirection.Normalize(); // 获取一个没有长度的向量
 
-        transform.forward = lookingDirection;
+        // 平滑旋转
+        Quaternion desireRotation = Quaternion.LookRotation(lookingDirection);
+        transform.rotation = Quaternion.Slerp(transform.rotation, desireRotation, turnSpeed * Time.deltaTime);
     }
 
     // 控制角色移动
