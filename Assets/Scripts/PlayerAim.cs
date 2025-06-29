@@ -1,4 +1,6 @@
+using System;
 using TMPro;
+using UnityEditor.Search;
 using UnityEditor.ShaderGraph;
 using UnityEngine;
 
@@ -6,6 +8,9 @@ public class PlayerAim : MonoBehaviour
 {
     private Player player;
     private PlayerControls controls;
+
+    [Header("Aim Visual Laser")]
+    [SerializeField] private LineRenderer aimLaser;
 
     [Header("Aim Control")]
     [SerializeField] private Transform aim;
@@ -45,8 +50,30 @@ public class PlayerAim : MonoBehaviour
             isLockingToTarget = !isLockingToTarget;
         }
 
+        UpdateAimLaser();
         UpdateAimPosition();
         UpdateCameraPosition();
+    }
+
+    private void UpdateAimLaser()
+    {
+        Transform gunPoint = player.weapon.GunPoint();
+        Vector3 laserDirection = player.weapon.BulletDirection(); // 计算子弹方向
+
+        float laserTipLength = 0.5f;
+        float gunDistance = 4f;
+
+        Vector3 endPoint = gunPoint.position + laserDirection * gunDistance;
+
+        if(Physics.Raycast(gunPoint.position, laserDirection, out RaycastHit hit, gunDistance))
+        {
+            endPoint = hit.point;
+            laserTipLength = 0;
+        }
+
+        aimLaser.SetPosition(0, gunPoint.position); // 第一段激光
+        aimLaser.SetPosition(1, endPoint);          // 第二段激光
+        aimLaser.SetPosition(2, endPoint + laserDirection * laserTipLength); // 第三段激光（透明）
     }
 
     public Transform Target()
