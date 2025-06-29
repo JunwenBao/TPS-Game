@@ -58,7 +58,7 @@ public class PlayerMovement : MonoBehaviour
         animator.SetBool("IsRunning", playerRunAnimation);
     }
 
-    // 
+    // 控制角色朝向鼠标方向
     private void AimTowardMouse()
     {
         Ray ray = Camera.main.ScreenPointToRay(aimInput);
