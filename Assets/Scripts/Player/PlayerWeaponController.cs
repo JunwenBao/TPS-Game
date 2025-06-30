@@ -35,6 +35,9 @@ public class PlayerWeaponController : MonoBehaviour
     {
         currentWeapon = weaponSlots[i];
         currentWeapon.bulletInMagzine = weaponSlots[i].bulletInMagzine;
+
+        player.weaponVisuals.SwitchOffWeaponModels();
+        player.weaponVisuals.PlayWeaponEquipAnimation();
     }
 
     // ¶ªÆúÎäÆ÷

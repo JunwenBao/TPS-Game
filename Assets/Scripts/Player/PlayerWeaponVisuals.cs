@@ -17,8 +17,8 @@ public class PlayerWeaponVisuals : MonoBehaviour
     [Header("Left Hand IK")]
     [SerializeField] private float leftHandIKWeightIncreaseRate;
     [SerializeField] private TwoBoneIKConstraint leftHandIK;
-    [SerializeField] private Transform leftHand_Target;
-    private bool shouldIncrease_LeftHandWeight;
+    [SerializeField] private Transform leftHandIK_Target;
+    private bool shouldIncrease_LeftHandIKWeight;
 
     private void Start()
     {
@@ -30,8 +30,6 @@ public class PlayerWeaponVisuals : MonoBehaviour
 
     private void Update()
     {
-        CheckWeaponSwitch();
-
         UpdateRigWeight();
         UpdateLeftHandIKWeight();
     }
@@ -62,13 +60,74 @@ public class PlayerWeaponVisuals : MonoBehaviour
         ReduceRigWeight();
     }
 
+    // 切换指定武器
+    public void SwitchOnCurrentWeaponModel()
+    {
+        int animationLayerIndex = (int)CurrentWeaponModle().holdType;
+
+        SwitchAnimationLayer(animationLayerIndex);
+        CurrentWeaponModle().gameObject.SetActive(true);
+        AttachLeftHand();
+    }
+
+    // 关闭所有武器
+    public void SwitchOffWeaponModels()
+    {
+        for(int i = 0; i < weaponModels.Length; i++)
+        {
+            weaponModels[i].gameObject.SetActive(false);
+        }
+    }
+
+    // 切换不同武器的动画层
+    private void SwitchAnimationLayer(int layerIndex)
+    {
+        for(int i = 0; i < animator.layerCount; i++)
+        {
+            animator.SetLayerWeight(i, 0);
+        }
+
+        animator.SetLayerWeight(layerIndex, 1);
+    }
+
+    // 控制拿取武器动画
+    public void PlayWeaponEquipAnimation()
+    {
+        GrabType grabType = CurrentWeaponModle().grabType;
+
+        leftHandIK.weight = 0;
+        ReduceRigWeight();
+        animator.SetFloat("WeaponGrabType", (float)grabType);
+        animator.SetTrigger("WeaponGrab");
+
+        SetBusyGrabbingWeaponTo(true);
+    }
+
+    // 设置当前正在播放拿取武器动画，放置在拿取武器时播放其他动画，从而打断
+    public void SetBusyGrabbingWeaponTo(bool busy)
+    {
+        isGrabbingWeapon = busy;
+        animator.SetBool("BusyGrabbingWeapon", isGrabbingWeapon);
+    }
+
+    #region Animation Rigging Method
+
+    // 切换武器时，绑定左手在不同武器的位置
+    private void AttachLeftHand()
+    {
+        Transform targetTransform = CurrentWeaponModle().holdPoint;
+
+        leftHandIK_Target.localPosition = targetTransform.localPosition;
+        leftHandIK_Target.localRotation = targetTransform.localRotation;
+    }
+
     private void UpdateLeftHandIKWeight()
     {
-        if (shouldIncrease_LeftHandWeight)
+        if (shouldIncrease_LeftHandIKWeight)
         {
             leftHandIK.weight += leftHandIKWeightIncreaseRate * Time.deltaTime;
 
-            if (leftHandIK.weight >= 1) shouldIncrease_LeftHandWeight = false;
+            if (leftHandIK.weight >= 1) shouldIncrease_LeftHandIKWeight = false;
         }
     }
 
@@ -88,89 +147,7 @@ public class PlayerWeaponVisuals : MonoBehaviour
     }
 
     public void MaximizeRigWeight() => shouldIncrease_RigWeight = true;
-    public void MaximizeLeftHandWeight() => shouldIncrease_LeftHandWeight = true;
+    public void MaximizeLeftHandWeight() => shouldIncrease_LeftHandIKWeight = true;
 
-    // 根据输入切换武器
-    private void CheckWeaponSwitch()
-    {
-        if (Input.GetKeyDown(KeyCode.Alpha1))
-        {
-            SwitchOn();
-            SwitchAnimationLayer(1);
-            PlayWeaponGrabAnimation(GrabType.SideGrab);
-        }
-        if (Input.GetKeyDown(KeyCode.Alpha2))
-        {
-            SwitchOn();
-            SwitchAnimationLayer(1);
-            PlayWeaponGrabAnimation(GrabType.BackGrab);
-        }
-        if (Input.GetKeyDown(KeyCode.Alpha3))
-        {
-            SwitchOn();
-            SwitchAnimationLayer(2);
-            PlayWeaponGrabAnimation(GrabType.BackGrab);
-        }
-        if (Input.GetKeyDown(KeyCode.Alpha4))
-        {
-            SwitchOn();
-            SwitchAnimationLayer(3);
-            PlayWeaponGrabAnimation(GrabType.BackGrab);
-        }
-    }
-
-    // 切换指定武器
-    private void SwitchOn()
-    {
-        SwitchOffWeaponModels();
-
-        CurrentWeaponModle().gameObject.SetActive(true);
-
-        AttachLeftHand();
-    }
-
-    // 关闭所有武器
-    private void SwitchOffWeaponModels()
-    {
-        for(int i = 0; i < weaponModels.Length; i++)
-        {
-            weaponModels[i].gameObject.SetActive(false);
-        }
-    }
-
-    // 切换武器时，绑定左手在不同武器的位置
-    private void AttachLeftHand()
-    {
-        Transform targetTransform = CurrentWeaponModle().holdPoint;
-
-        leftHand_Target.localPosition = targetTransform.localPosition;
-        leftHand_Target.localRotation = targetTransform.localRotation;
-    }
-
-    // 切换不同武器的动画层
-    private void SwitchAnimationLayer(int layerIndex)
-    {
-        for(int i = 0; i < animator.layerCount; i++)
-        {
-            animator.SetLayerWeight(i, 0);
-        }
-
-        animator.SetLayerWeight(layerIndex, 1);
-    }
-
-    // 控制拿取武器动画
-    private void PlayWeaponGrabAnimation(GrabType grabType)
-    {
-        leftHandIK.weight = 0;
-        ReduceRigWeight();
-        animator.SetFloat("WeaponGrabType", (float)grabType);
-        animator.SetTrigger("WeaponGrab");
-        SetBusyGrabbingWeaponTo(true);
-    }
-
-    public void SetBusyGrabbingWeaponTo(bool busy)
-    {
-        isGrabbingWeapon = busy;
-        animator.SetBool("BusyGrabbingWeapon", isGrabbingWeapon);
-    }
+    #endregion
 }

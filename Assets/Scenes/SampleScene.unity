@@ -135,7 +135,7 @@ MonoBehaviour:
   rigWeightIncreaseRate: 3
   leftHandIKWeightIncreaseRate: 2.5
   leftHandIK: {fileID: 5340382835504124047}
-  leftHand_Target: {fileID: 942727112948766751}
+  leftHandIK_Target: {fileID: 942727112948766751}
 --- !u!1 &330585543
 GameObject:
   m_ObjectHideFlags: 0
