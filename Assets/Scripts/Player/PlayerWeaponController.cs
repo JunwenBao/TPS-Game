@@ -30,24 +30,12 @@ public class PlayerWeaponController : MonoBehaviour
         currentWeapon.ammo = currentWeapon.maxAmmo;
     }
 
-    // 输入事件
-    private void AssignInputEvent()
-    {
-        PlayerControls controls = player.controls;
-
-        controls.Character.Fire.performed += context => Shoot();
-
-        controls.Character.EquipSlot1.performed += context => EquipWeapon(0);
-        controls.Character.EquipSlot2.performed += context => EquipWeapon(1);
-
-        controls.Character.DropCurrentWeapon.performed += context => DropWeapon();
-    }
-
+    #region Slot Managment - Pickup/Equip/Drop Weapon
     // 装备武器
     private void EquipWeapon(int i)
     {
         currentWeapon = weaponSlots[i];
-        currentWeapon.ammo = currentWeapon.maxAmmo;
+        currentWeapon.ammo = weaponSlots[i].ammo;
     }
 
     // 丢弃武器
@@ -67,15 +55,12 @@ public class PlayerWeaponController : MonoBehaviour
         
         weaponSlots.Add(newWeapon);
     }
+    #endregion 
 
     private void Shoot()
     {
-        /* 控制子弹数量 */
-        if(currentWeapon.ammo <= 0)
-        {
-            return;
-        }
-        currentWeapon.ammo--;
+        /* 检查当前武器子弹数量 */
+        if(currentWeapon.CanShoot() == false) return;
 
         /* 生成子弹GameObject */
         GameObject newBullet = Instantiate(bulletPrefab, gunPoint.position, Quaternion.LookRotation(gunPoint.forward));
@@ -105,4 +90,19 @@ public class PlayerWeaponController : MonoBehaviour
     }
 
     public Transform GunPoint() => gunPoint;
+
+    #region GameInputEvent
+    // 输入事件
+    private void AssignInputEvent()
+    {
+        PlayerControls controls = player.controls;
+
+        controls.Character.Fire.performed += context => Shoot();
+
+        controls.Character.EquipSlot1.performed += context => EquipWeapon(0);
+        controls.Character.EquipSlot2.performed += context => EquipWeapon(1);
+
+        controls.Character.DropCurrentWeapon.performed += context => DropWeapon();
+    }
+    #endregion
 }
