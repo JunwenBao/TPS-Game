@@ -14,7 +14,7 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float runSpeed;
     [SerializeField] private float turnSpeed;
 
-    private float speed;
+    private float speed; // 角色当前移动速度
     private float verticalVelocity;
 
     public Vector2 moveInput {  get; private set; }
@@ -39,6 +39,26 @@ public class PlayerMovement : MonoBehaviour
         ApplyMovement();
         ApplyRotation();
         AnimatorControllers();
+    }
+
+    // 分配输入系统的各项参数
+    private void AssignInputEvents()
+    {
+        controls = player.controls;
+
+        controls.Character.Movement.performed += context => moveInput = context.ReadValue<Vector2>();
+        controls.Character.Movement.canceled += context => moveInput = Vector2.zero;
+
+        controls.Character.Run.performed += context =>
+        {
+            speed = runSpeed;
+            isRunning = true;
+        };
+        controls.Character.Run.canceled += context =>
+        {
+            speed = walkSpeed;
+            isRunning = false;
+        };
     }
 
     // 控制角色动画：使用点积
@@ -90,25 +110,5 @@ public class PlayerMovement : MonoBehaviour
         {
             verticalVelocity = -0.5f;
         }
-    }
-
-    // 分配输入系统的各项参数
-    private void AssignInputEvents()
-    {
-        controls = player.controls;
-
-        controls.Character.Movement.performed += context => moveInput = context.ReadValue<Vector2>();
-        controls.Character.Movement.canceled += context => moveInput = Vector2.zero;
-
-        controls.Character.Run.performed += context =>
-        {
-            speed = runSpeed;
-            isRunning = true;
-        };
-        controls.Character.Run.canceled += context =>
-        {
-            speed = walkSpeed;
-            isRunning = false;
-        };
     }
 }
