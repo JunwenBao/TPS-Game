@@ -9,7 +9,6 @@ public class PlayerWeaponController : MonoBehaviour
     private Player player;
 
     [SerializeField] private Weapon currentWeapon;
-    [SerializeField] private Weapon secondWeapon;
 
     [Header("Bullet Detals")]
     [SerializeField] private GameObject bulletPrefab;
@@ -27,7 +26,7 @@ public class PlayerWeaponController : MonoBehaviour
         player = GetComponent<Player>();
         AssignInputEvent();
 
-        currentWeapon.ammo = currentWeapon.maxAmmo;
+        currentWeapon = weaponSlots[0];
     }
 
     #region Slot Managment - Pickup/Equip/Drop Weapon
@@ -35,7 +34,7 @@ public class PlayerWeaponController : MonoBehaviour
     private void EquipWeapon(int i)
     {
         currentWeapon = weaponSlots[i];
-        currentWeapon.ammo = weaponSlots[i].ammo;
+        currentWeapon.bulletInMagzine = weaponSlots[i].bulletInMagzine;
     }
 
     // ¶ªÆúÎäÆ÷
@@ -89,6 +88,7 @@ public class PlayerWeaponController : MonoBehaviour
         return direction;
     }
 
+    public Weapon CurrentWeapon() => currentWeapon;
     public Transform GunPoint() => gunPoint;
 
     #region GameInputEvent
@@ -103,6 +103,14 @@ public class PlayerWeaponController : MonoBehaviour
         controls.Character.EquipSlot2.performed += context => EquipWeapon(1);
 
         controls.Character.DropCurrentWeapon.performed += context => DropWeapon();
+
+        controls.Character.Reload.performed += context =>
+        {
+            if (currentWeapon.CanReload())
+            {
+                player.weaponVisuals.PlayReloadAnimation();
+            }
+        };
     }
     #endregion
 }

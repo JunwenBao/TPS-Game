@@ -1391,8 +1391,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weapon:
     weaponType: 1
-    ammo: 40
-    maxAmmo: 40
+    bulletInMagzine: 0
+    magzineCapacity: 0
+    totalReserveAmmo: 0
 --- !u!4 &1196608922
 Transform:
   m_ObjectHideFlags: 0
@@ -6607,12 +6608,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentWeapon:
     weaponType: 0
-    ammo: 0
-    maxAmmo: 10
-  secondWeapon:
-    weaponType: 0
-    ammo: 0
-    maxAmmo: 0
+    bulletInMagzine: 0
+    magzineCapacity: 0
+    totalReserveAmmo: 50
   bulletPrefab: {fileID: 516076149687506628, guid: 668a02e411692f949b21746152b0ba4c, type: 3}
   bulletSpeed: 100
   gunPoint: {fileID: 2077096537}
@@ -6620,14 +6618,13 @@ MonoBehaviour:
   maxSlots: 2
   weaponSlots:
   - weaponType: 0
-    ammo: 0
-    maxAmmo: 7
+    bulletInMagzine: 15
+    magzineCapacity: 15
+    totalReserveAmmo: 30
   - weaponType: 1
-    ammo: 0
-    maxAmmo: 30
-  - weaponType: 0
-    ammo: 0
-    maxAmmo: 0
+    bulletInMagzine: 30
+    magzineCapacity: 30
+    totalReserveAmmo: 90
 --- !u!4 &4939291074479087353
 Transform:
   m_ObjectHideFlags: 0

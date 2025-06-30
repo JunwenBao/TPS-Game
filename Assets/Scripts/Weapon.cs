@@ -10,23 +10,56 @@ public enum WeaponType
 public class Weapon
 {
     public WeaponType weaponType;
-    public int ammo;
-    public int maxAmmo;
+
+    public int bulletInMagzine;  // 弹夹子弹数量
+    public int magzineCapacity;  // 弹夹数量
+    public int totalReserveAmmo; // 总子弹数量
 
     public bool CanShoot()
     {
         return HaveEnoughBullets();
     }
 
-    // 检查武器是否有足够多的弹药
+    // 判断：武器是否有足够多的弹药
     private bool HaveEnoughBullets()
     {
-        if (ammo > 0)
+        if (bulletInMagzine > 0)
         {
-            ammo--;
+            bulletInMagzine--;
             return true;
         }
 
         return false;
+    }
+
+    // 判断：剩余子弹数量是否可以装弹
+    public bool CanReload()
+    {
+        if (bulletInMagzine == magzineCapacity) return false;
+
+        if (totalReserveAmmo > 0) return true;
+
+        return false;
+    }
+
+    // 装弹
+    public void RefillBullets()
+    {
+        totalReserveAmmo += bulletInMagzine;
+
+        int bulletsToReload = magzineCapacity;
+
+        if(bulletsToReload > totalReserveAmmo)
+        {
+            bulletsToReload = totalReserveAmmo;
+        }
+
+        totalReserveAmmo -= bulletsToReload;
+        bulletInMagzine = bulletsToReload;
+
+        if(totalReserveAmmo < 0)
+        {
+            totalReserveAmmo = 0;
+        }
     }
 }
