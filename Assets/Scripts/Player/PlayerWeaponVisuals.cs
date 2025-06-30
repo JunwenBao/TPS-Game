@@ -5,7 +5,7 @@ public class PlayerWeaponVisuals : MonoBehaviour
 {
     private Player player;
     private Animator animator;
-    private bool isGrabbingWeapon;
+    private bool isEquipingWeapon;
 
     [SerializeField] private WeaponModel[] weaponModels;
     [SerializeField] private BackupWeaponModel[] backupWeaponModels;
@@ -56,9 +56,13 @@ public class PlayerWeaponVisuals : MonoBehaviour
     // 播放装弹动画
     public void PlayReloadAnimation()
     {
-        if (isGrabbingWeapon) return;
+        if (isEquipingWeapon) return;
 
+        float reloadSpeed = player.weapon.CurrentWeapon().reloadSpeed;
+
+        animator.SetFloat("ReloadSpeed", reloadSpeed);
         animator.SetTrigger("Reload");
+
         ReduceRigWeight();
     }
 
@@ -127,12 +131,15 @@ public class PlayerWeaponVisuals : MonoBehaviour
     // 控制拿取武器动画
     public void PlayWeaponEquipAnimation()
     {
-        GrabType grabType = CurrentWeaponModle().grabType;
+        EquipType equipType = CurrentWeaponModle().equipAnimationType;
+
+        float equipmentSpeed = player.weapon.CurrentWeapon().equipmentSpeed;
 
         leftHandIK.weight = 0;
         ReduceRigWeight();
-        animator.SetFloat("WeaponGrabType", (float)grabType);
-        animator.SetTrigger("WeaponGrab");
+        animator.SetTrigger("EquipWeapon");
+        animator.SetFloat("EquipType", (float)equipType);
+        animator.SetFloat("EquipSpeed", equipmentSpeed);
 
         SetBusyGrabbingWeaponTo(true);
     }
@@ -140,8 +147,8 @@ public class PlayerWeaponVisuals : MonoBehaviour
     // 设置当前正在播放拿取武器动画，放置在拿取武器时播放其他动画，从而打断
     public void SetBusyGrabbingWeaponTo(bool busy)
     {
-        isGrabbingWeapon = busy;
-        animator.SetBool("BusyGrabbingWeapon", isGrabbingWeapon);
+        isEquipingWeapon = busy;
+        animator.SetBool("BusyEquipingWeapon", isEquipingWeapon);
     }
 
     #region Animation Rigging Method

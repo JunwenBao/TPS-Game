@@ -1,3 +1,6 @@
+using NUnit.Framework;
+using UnityEngine;
+
 public enum WeaponType
 {
     Pistol,
@@ -14,6 +17,11 @@ public class Weapon
     public int bulletInMagzine;  // 弹夹子弹数量
     public int magzineCapacity;  // 弹夹数量
     public int totalReserveAmmo; // 总子弹数量
+
+    [UnityEngine.Range(1, 5)]
+    public float reloadSpeed = 1;
+    [UnityEngine.Range(1, 2)]
+    public float equipmentSpeed = 1;
 
     public bool CanShoot()
     {

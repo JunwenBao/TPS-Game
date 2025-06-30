@@ -880,7 +880,7 @@ Camera:
     height: 1
   near clip plane: 0.01
   far clip plane: 1000
-  field of view: 68.2
+  field of view: 50
   orthographic: 0
   orthographic size: 5
   m_Depth: -1
@@ -906,8 +906,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 330585543}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.29718316, y: 0, z: 0, w: 0.9548206}
-  m_LocalPosition: {x: -0.04, y: -1.2698421, z: -6.3203726}
+  m_LocalRotation: {x: 0.2588191, y: 0, z: 0, w: 0.9659258}
+  m_LocalPosition: {x: -0.04, y: 13.000002, z: -5.340506}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2949,7 +2949,7 @@ MonoBehaviour:
     LookAtTarget: {fileID: 0}
     CustomLookAtTarget: 0
   Lens:
-    FieldOfView: 68.2
+    FieldOfView: 50
     OrthographicSize: 5
     NearClipPlane: 0.01
     FarClipPlane: 1000
@@ -2976,13 +2976,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1155390865}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.29718316, y: -0, z: -0, w: 0.9548206}
-  m_LocalPosition: {x: -0.04, y: -1.2698421, z: -6.3203726}
+  m_LocalRotation: {x: 0.2588191, y: 0, z: 0, w: 0.9659258}
+  m_LocalPosition: {x: -0.04, y: 13.000002, z: -5.340506}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1894831153}
-  m_LocalEulerAnglesHint: {x: 34.577, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 30, y: 0, z: 0}
 --- !u!114 &1155390868
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2995,7 +2995,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 886251e9a18ece04ea8e61686c173e1b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CameraDistance: 12
+  CameraDistance: 20
   DeadZoneDepth: 0
   Composition:
     ScreenPosition: {x: 0, y: 0}
@@ -3007,7 +3007,7 @@ MonoBehaviour:
       Size: {x: 0.8, y: 0.8}
       Offset: {x: 0, y: 0}
   CenterOnActivate: 0
-  TargetOffset: {x: 0, y: 2, z: 0}
+  TargetOffset: {x: 0, y: 0, z: 0}
   Damping: {x: 1, y: 1, z: 1}
   Lookahead:
     Enabled: 1
@@ -3070,6 +3070,8 @@ MonoBehaviour:
     bulletInMagzine: 0
     magzineCapacity: 0
     totalReserveAmmo: 0
+    reloadSpeed: 1
+    equipmentSpeed: 1
 --- !u!4 &1196608922
 Transform:
   m_ObjectHideFlags: 0
@@ -4422,7 +4424,7 @@ Transform:
   m_GameObject: {fileID: 1894831152}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 13.08, z: 8.42}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -9797,6 +9799,8 @@ MonoBehaviour:
     bulletInMagzine: 0
     magzineCapacity: 0
     totalReserveAmmo: 50
+    reloadSpeed: 1
+    equipmentSpeed: 1
   bulletPrefab: {fileID: 516076149687506628, guid: 668a02e411692f949b21746152b0ba4c, type: 3}
   bulletSpeed: 100
   gunPoint: {fileID: 2077096537}
@@ -9807,10 +9811,14 @@ MonoBehaviour:
     bulletInMagzine: 15
     magzineCapacity: 15
     totalReserveAmmo: 30
+    reloadSpeed: 1
+    equipmentSpeed: 2
   - weaponType: 1
     bulletInMagzine: 30
     magzineCapacity: 30
     totalReserveAmmo: 90
+    reloadSpeed: 1
+    equipmentSpeed: 1.5
 --- !u!4 &4939291074479087353
 Transform:
   m_ObjectHideFlags: 0
@@ -10273,7 +10281,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weaponType: 3
-  grabType: 1
+  equipAnimationType: 1
   holdType: 3
   gunPoint: {fileID: 1801790619}
   holdPoint: {fileID: 6022688203222644900}
@@ -11731,7 +11739,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weaponType: 2
-  grabType: 1
+  equipAnimationType: 1
   holdType: 2
   gunPoint: {fileID: 1371622410}
   holdPoint: {fileID: 6022688203222644900}
@@ -11777,7 +11785,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weaponType: 0
-  grabType: 0
+  equipAnimationType: 0
   holdType: 1
   gunPoint: {fileID: 2077096537}
   holdPoint: {fileID: 3708941319001906776}
@@ -12253,7 +12261,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weaponType: 1
-  grabType: 1
+  equipAnimationType: 1
   holdType: 3
   gunPoint: {fileID: 599824634}
   holdPoint: {fileID: 1291022043373269149}
