@@ -131,15 +131,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 086805ffa653ea24894c84067265b03b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gunTransforms:
-  - {fileID: 1770559165597236802}
-  - {fileID: 2853958975840265625}
-  - {fileID: 8880272949735532339}
-  - {fileID: 1127964672841442454}
-  pistol: {fileID: 1770559165597236802}
-  autoRifle: {fileID: 2853958975840265625}
-  shotgun: {fileID: 8880272949735532339}
-  sniper: {fileID: 1127964672841442454}
+  weaponModels: []
   rigWeightIncreaseRate: 3
   leftHandIKWeightIncreaseRate: 2.5
   leftHandIK: {fileID: 5340382835504124047}
@@ -651,6 +643,37 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &599824633
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 599824634}
+  m_Layer: 8
+  m_Name: GunPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &599824634
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 599824633}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.086, z: 1.136}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2853958975840265625}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &608614832
 GameObject:
@@ -1410,6 +1433,37 @@ Transform:
   - {fileID: 1957005874}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: -91.498, z: 0}
+--- !u!1 &1371622409
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1371622410}
+  m_Layer: 8
+  m_Name: GunPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1371622410
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1371622409}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.1, z: 1.295}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8880272949735532339}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1530324984
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1693,6 +1747,37 @@ LineRenderer:
   m_UseWorldSpace: 1
   m_Loop: 0
   m_ApplyActiveColorSpace: 1
+--- !u!1 &1801790618
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1801790619}
+  m_Layer: 8
+  m_Name: GunPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1801790619
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1801790618}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0, y: 0.112, z: 1.747}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1127964672841442454}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1894831152
 GameObject:
   m_ObjectHideFlags: 0
@@ -1912,6 +1997,7 @@ Transform:
   m_Children:
   - {fileID: 3708411542589928469}
   - {fileID: 3868741483802511203}
+  - {fileID: 1801790619}
   - {fileID: 695753407334050019}
   m_Father: {fileID: 4939291074479087353}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1924,6 +2010,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8880272949735532339}
+  - component: {fileID: 8880272949735532340}
   m_Layer: 8
   m_Name: Weapon_Shotgun
   m_TagString: Untagged
@@ -5550,8 +5637,8 @@ Transform:
   m_Children:
   - {fileID: 5731710400807709970}
   - {fileID: 9114140920182306528}
-  - {fileID: 3708941319001906776}
   - {fileID: 2077096537}
+  - {fileID: 3708941319001906776}
   m_Father: {fileID: 4939291074479087353}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1920595788999856070
@@ -5684,6 +5771,7 @@ Transform:
   m_Children:
   - {fileID: 8682718087950607356}
   - {fileID: 9216378430267628283}
+  - {fileID: 599824634}
   - {fileID: 1291022043373269149}
   m_Father: {fileID: 4939291074479087353}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -5986,7 +6074,7 @@ Transform:
   m_GameObject: {fileID: 5437381414979555319}
   serializedVersion: 2
   m_LocalRotation: {x: -0.4459176, y: -0.58244413, z: -0.49826765, w: -0.46221823}
-  m_LocalPosition: {x: 8.61, y: -2.8, z: 1.65}
+  m_LocalPosition: {x: 0.001, y: 0.221, z: -0.064}
   m_LocalScale: {x: 0.05, y: 0.05000001, z: 0.05000001}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -7066,6 +7154,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1127964672841442454}
+  - component: {fileID: 5562133738835512502}
   m_Layer: 8
   m_Name: Weapon_Sniper
   m_TagString: Untagged
@@ -7073,6 +7162,23 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 0
+--- !u!114 &5562133738835512502
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5562133738835512501}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c14c47dd6f8b581448ac14141266b37f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weaponType: 3
+  grabType: 1
+  holdType: 3
+  gunPoint: {fileID: 1801790619}
+  holdPoint: {fileID: 6022688203222644900}
 --- !u!64 &5728025523981584566
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -8510,9 +8616,27 @@ Transform:
   m_Children:
   - {fileID: 5156625870054469754}
   - {fileID: 7905942961646770421}
+  - {fileID: 1371622410}
   - {fileID: 6022688203222644900}
   m_Father: {fileID: 4939291074479087353}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8880272949735532340
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1211059869544941930}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c14c47dd6f8b581448ac14141266b37f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weaponType: 2
+  grabType: 1
+  holdType: 2
+  gunPoint: {fileID: 1371622410}
+  holdPoint: {fileID: 6022688203222644900}
 --- !u!114 &8919542539030090378
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8534,6 +8658,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1770559165597236802}
+  - component: {fileID: 8938231623276663484}
   m_Layer: 8
   m_Name: Weapon_Psitol
   m_TagString: Untagged
@@ -8541,6 +8666,23 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &8938231623276663484
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8938231623276663483}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c14c47dd6f8b581448ac14141266b37f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weaponType: 0
+  grabType: 0
+  holdType: 1
+  gunPoint: {fileID: 2077096537}
+  holdPoint: {fileID: 3708941319001906776}
 --- !u!1 &8992107104248920913
 GameObject:
   m_ObjectHideFlags: 0
@@ -8992,6 +9134,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2853958975840265625}
+  - component: {fileID: 9158694475684911776}
   m_Layer: 8
   m_Name: Weapon _Auto-Rifle
   m_TagString: Untagged
@@ -8999,6 +9142,23 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 0
+--- !u!114 &9158694475684911776
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9158694475684911775}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c14c47dd6f8b581448ac14141266b37f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  weaponType: 1
+  grabType: 1
+  holdType: 3
+  gunPoint: {fileID: 599824634}
+  holdPoint: {fileID: 1291022043373269149}
 --- !u!33 &9188253793245538779
 MeshFilter:
   m_ObjectHideFlags: 0

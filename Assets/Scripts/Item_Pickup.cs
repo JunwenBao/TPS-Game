@@ -7,5 +7,6 @@ public class Item_Pickup : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         other.GetComponent<PlayerWeaponController>()?.PickupWeapon(weapon);
+        Destroy(this);
     }
 }

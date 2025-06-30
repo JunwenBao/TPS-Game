@@ -3,18 +3,15 @@ using UnityEngine.Animations.Rigging;
 
 public class PlayerWeaponVisuals : MonoBehaviour
 {
+    private Player player;
     private Animator animator;
-    [SerializeField] private Transform[] gunTransforms;
+    private bool isGrabbingWeapon;
 
-    [SerializeField] private Transform pistol;
-    [SerializeField] private Transform autoRifle;
-    [SerializeField] private Transform shotgun;
-    [SerializeField] private Transform sniper;
-
-    private Transform currentGun;
+    [SerializeField] private WeaponModel[] weaponModels;
 
     [Header("Rig")]
     [SerializeField] private float rigWeightIncreaseRate;
+    private Rig rig;
     private bool shouldIncrease_RigWeight;
 
     [Header("Left Hand IK")]
@@ -22,16 +19,13 @@ public class PlayerWeaponVisuals : MonoBehaviour
     [SerializeField] private TwoBoneIKConstraint leftHandIK;
     [SerializeField] private Transform leftHand_Target;
     private bool shouldIncrease_LeftHandWeight;
-    private Rig rig;
-
-    private bool isGrabbingWeapon;
 
     private void Start()
     {
+        player = GetComponent<Player>();
         animator = GetComponentInChildren<Animator>();
         rig = GetComponentInChildren<Rig>();
-
-        SwitchOn(pistol);
+        weaponModels = GetComponentsInChildren<WeaponModel>(true);
     }
 
     private void Update()
@@ -40,6 +34,23 @@ public class PlayerWeaponVisuals : MonoBehaviour
 
         UpdateRigWeight();
         UpdateLeftHandIKWeight();
+    }
+
+    // 获取武器模型：主要得到GunPoint和LeftHandPoint
+    public WeaponModel CurrentWeaponModle()
+    {
+        WeaponModel weaponModel = null;
+        WeaponType weaponType = player.weapon.CurrentWeapon().weaponType;
+
+        for(int i = 0; i < weaponModels.Length; i++)
+        {
+            if (weaponModels[i].weaponType == weaponType)
+            {
+                weaponModel = weaponModels[i];
+            }
+        }
+
+        return weaponModel;
     }
 
     // 播放装弹动画
@@ -84,53 +95,53 @@ public class PlayerWeaponVisuals : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
-            SwitchOn(pistol);
+            SwitchOn();
             SwitchAnimationLayer(1);
             PlayWeaponGrabAnimation(GrabType.SideGrab);
         }
         if (Input.GetKeyDown(KeyCode.Alpha2))
         {
-            SwitchOn(autoRifle);
+            SwitchOn();
             SwitchAnimationLayer(1);
             PlayWeaponGrabAnimation(GrabType.BackGrab);
         }
         if (Input.GetKeyDown(KeyCode.Alpha3))
         {
-            SwitchOn(shotgun);
+            SwitchOn();
             SwitchAnimationLayer(2);
             PlayWeaponGrabAnimation(GrabType.BackGrab);
         }
         if (Input.GetKeyDown(KeyCode.Alpha4))
         {
-            SwitchOn(sniper);
+            SwitchOn();
             SwitchAnimationLayer(3);
             PlayWeaponGrabAnimation(GrabType.BackGrab);
         }
     }
 
     // 切换指定武器
-    private void SwitchOn(Transform gunTransform)
+    private void SwitchOn()
     {
-        SwitchOffGuns();
-        gunTransform.gameObject.SetActive(true);
-        currentGun = gunTransform;
+        SwitchOffWeaponModels();
+
+        CurrentWeaponModle().gameObject.SetActive(true);
 
         AttachLeftHand();
     }
 
     // 关闭所有武器
-    private void SwitchOffGuns()
+    private void SwitchOffWeaponModels()
     {
-        for(int i = 0; i < gunTransforms.Length; i++)
+        for(int i = 0; i < weaponModels.Length; i++)
         {
-            gunTransforms[i].gameObject.SetActive(false);
+            weaponModels[i].gameObject.SetActive(false);
         }
     }
 
     // 切换武器时，绑定左手在不同武器的位置
     private void AttachLeftHand()
     {
-        Transform targetTransform = currentGun.GetComponentInChildren<LeftHandTargetTransform>().transform;
+        Transform targetTransform = CurrentWeaponModle().holdPoint;
 
         leftHand_Target.localPosition = targetTransform.localPosition;
         leftHand_Target.localRotation = targetTransform.localRotation;
@@ -163,5 +174,3 @@ public class PlayerWeaponVisuals : MonoBehaviour
         animator.SetBool("BusyGrabbingWeapon", isGrabbingWeapon);
     }
 }
-
-public enum GrabType { SideGrab, BackGrab };
