@@ -19,6 +19,7 @@ public class PlayerWeaponController : MonoBehaviour
     [SerializeField] private Transform weaponHolder;
 
     [Header("Inventory")]
+    [SerializeField] private int maxSlots = 2;
     [SerializeField] private List<Weapon> weaponSlots;
 
     private void Start()
@@ -57,6 +58,14 @@ public class PlayerWeaponController : MonoBehaviour
         weaponSlots.Remove(currentWeapon);
 
         currentWeapon = weaponSlots[0];
+    }
+
+    // Ê°È¡ÎäÆ÷
+    public void PickupWeapon(Weapon newWeapon)
+    {
+        if (weaponSlots.Count >= maxSlots) return;
+        
+        weaponSlots.Add(newWeapon);
     }
 
     private void Shoot()
