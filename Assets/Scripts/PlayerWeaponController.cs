@@ -6,6 +6,10 @@ public class PlayerWeaponController : MonoBehaviour
 
     private Player player;
 
+    [SerializeField] private Weapon currentWeapon;
+    [SerializeField] private Weapon secondWeapon;
+
+    [Header("Bullet Detals")]
     [SerializeField] private GameObject bulletPrefab;
     [SerializeField] private float bulletSpeed;
     [SerializeField] private Transform gunPoint;
@@ -16,10 +20,20 @@ public class PlayerWeaponController : MonoBehaviour
     {
         player = GetComponent<Player>();
         player.controls.Character.Fire.performed += context => Shoot();
+
+        currentWeapon.ammo = currentWeapon.maxAmmo;
     }
 
     private void Shoot()
     {
+        /* 控制子弹数量 */
+        if(currentWeapon.ammo <= 0)
+        {
+            return;
+        }
+        currentWeapon.ammo--;
+
+        /* 生成子弹GameObject */
         GameObject newBullet = Instantiate(bulletPrefab, gunPoint.position, Quaternion.LookRotation(gunPoint.forward));
 
         Rigidbody rbNewBullet = newBullet.GetComponent<Rigidbody>();
