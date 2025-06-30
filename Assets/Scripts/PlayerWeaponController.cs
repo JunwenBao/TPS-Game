@@ -1,3 +1,5 @@
+using NUnit.Framework;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerWeaponController : MonoBehaviour
@@ -16,12 +18,45 @@ public class PlayerWeaponController : MonoBehaviour
 
     [SerializeField] private Transform weaponHolder;
 
+    [Header("Inventory")]
+    [SerializeField] private List<Weapon> weaponSlots;
+
     private void Start()
     {
         player = GetComponent<Player>();
-        player.controls.Character.Fire.performed += context => Shoot();
+        AssignInputEvent();
 
         currentWeapon.ammo = currentWeapon.maxAmmo;
+    }
+
+    // 输入事件
+    private void AssignInputEvent()
+    {
+        PlayerControls controls = player.controls;
+
+        controls.Character.Fire.performed += context => Shoot();
+
+        controls.Character.EquipSlot1.performed += context => EquipWeapon(0);
+        controls.Character.EquipSlot2.performed += context => EquipWeapon(1);
+
+        controls.Character.DropCurrentWeapon.performed += context => DropWeapon();
+    }
+
+    // 装备武器
+    private void EquipWeapon(int i)
+    {
+        currentWeapon = weaponSlots[i];
+        currentWeapon.ammo = currentWeapon.maxAmmo;
+    }
+
+    // 丢弃武器
+    private void DropWeapon()
+    {
+        if (weaponSlots.Count <= 1) return;
+
+        weaponSlots.Remove(currentWeapon);
+
+        currentWeapon = weaponSlots[0];
     }
 
     private void Shoot()

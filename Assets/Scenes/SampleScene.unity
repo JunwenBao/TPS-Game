@@ -6456,10 +6456,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a5735181c67af1b469f113321c145e7b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentWeapon:
+    weaponType: 0
+    ammo: 0
+    maxAmmo: 10
+  secondWeapon:
+    weaponType: 0
+    ammo: 0
+    maxAmmo: 0
   bulletPrefab: {fileID: 516076149687506628, guid: 668a02e411692f949b21746152b0ba4c, type: 3}
   bulletSpeed: 100
   gunPoint: {fileID: 2077096537}
   weaponHolder: {fileID: 4939291074479087353}
+  weaponSlots:
+  - weaponType: 0
+    ammo: 0
+    maxAmmo: 7
+  - weaponType: 1
+    ammo: 0
+    maxAmmo: 30
+  - weaponType: 0
+    ammo: 0
+    maxAmmo: 0
 --- !u!4 &4939291074479087353
 Transform:
   m_ObjectHideFlags: 0
