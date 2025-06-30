@@ -36,18 +36,16 @@ public class PlayerWeaponController : MonoBehaviour
         currentWeapon = weaponSlots[i];
         currentWeapon.bulletInMagzine = weaponSlots[i].bulletInMagzine;
 
-        player.weaponVisuals.SwitchOffWeaponModels();
         player.weaponVisuals.PlayWeaponEquipAnimation();
     }
 
     // ¶ªÆúÎäÆ÷
     private void DropWeapon()
     {
-        if (weaponSlots.Count <= 1) return;
+        if (HasOnlyOoneWeapon()) return;
 
         weaponSlots.Remove(currentWeapon);
-
-        currentWeapon = weaponSlots[0];
+        EquipWeapon(0);
     }
 
     // Ê°È¡ÎäÆ÷
@@ -56,6 +54,7 @@ public class PlayerWeaponController : MonoBehaviour
         if (weaponSlots.Count >= maxSlots) return;
         
         weaponSlots.Add(newWeapon);
+        player.weaponVisuals.SwichOnBackupWeaponWeaponModel();
     }
     #endregion 
 
@@ -91,7 +90,17 @@ public class PlayerWeaponController : MonoBehaviour
         return direction;
     }
 
+    public bool HasOnlyOoneWeapon() => weaponSlots.Count <= 1;
     public Weapon CurrentWeapon() => currentWeapon;
+    public Weapon BackupWeapon()
+    {
+        foreach(Weapon weapon in weaponSlots)
+        {
+            if(weapon != currentWeapon) return weapon;
+        }
+
+        return null;
+    }
     public Transform GunPoint() => gunPoint;
 
     #region GameInputEvent

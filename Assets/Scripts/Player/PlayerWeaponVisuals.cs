@@ -8,6 +8,7 @@ public class PlayerWeaponVisuals : MonoBehaviour
     private bool isGrabbingWeapon;
 
     [SerializeField] private WeaponModel[] weaponModels;
+    [SerializeField] private BackupWeaponModel[] backupWeaponModels;
 
     [Header("Rig")]
     [SerializeField] private float rigWeightIncreaseRate;
@@ -26,6 +27,7 @@ public class PlayerWeaponVisuals : MonoBehaviour
         animator = GetComponentInChildren<Animator>();
         rig = GetComponentInChildren<Rig>();
         weaponModels = GetComponentsInChildren<WeaponModel>(true);
+        backupWeaponModels = GetComponentsInChildren<BackupWeaponModel>(true);
     }
 
     private void Update()
@@ -65,9 +67,41 @@ public class PlayerWeaponVisuals : MonoBehaviour
     {
         int animationLayerIndex = (int)CurrentWeaponModle().holdType;
 
+        /* 首先关闭所有武器 */
+        SwitchOffWeaponModels();
+
+        /* 显示第二武器 */
+        SwitchOffBakcupWeaponModel();
+        if(player.weapon.HasOnlyOoneWeapon() == false)
+        {
+            SwichOnBackupWeaponWeaponModel();
+        }
+
+        /* 触发拿取武器动画 */
         SwitchAnimationLayer(animationLayerIndex);
         CurrentWeaponModle().gameObject.SetActive(true);
         AttachLeftHand();
+    }
+
+    private void SwitchOffBakcupWeaponModel()
+    {
+        foreach(BackupWeaponModel backupModel in backupWeaponModels)
+        {
+            backupModel.gameObject.SetActive(false);
+        }
+    }
+
+    public void SwichOnBackupWeaponWeaponModel()
+    {
+        WeaponType weaponType = player.weapon.BackupWeapon().weaponType;
+
+        foreach(BackupWeaponModel backupModel in backupWeaponModels)
+        {
+            if(backupModel.weaponType == weaponType)
+            {
+                backupModel.gameObject.SetActive(true);
+            }
+        }
     }
 
     // 关闭所有武器
