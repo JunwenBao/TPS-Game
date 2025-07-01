@@ -66,15 +66,16 @@ public class PlayerWeaponController : MonoBehaviour
         /* 检查当前武器子弹数量 */
         if(currentWeapon.CanShoot() == false) return;
 
-        /* 生成子弹GameObject */
-        GameObject newBullet = Instantiate(bulletPrefab, gunPoint.position, Quaternion.LookRotation(gunPoint.forward));
+        /* 从对象池中获取子弹GameObject */
+        //GameObject newBullet = Instantiate(bulletPrefab, gunPoint.position, Quaternion.LookRotation(gunPoint.forward));
+        GameObject newBullet = ObjectPool.Instance.GetBullet();
+        newBullet.transform.position = gunPoint.position;
+        newBullet.transform.rotation = Quaternion.LookRotation(gunPoint.forward);
 
         Rigidbody rbNewBullet = newBullet.GetComponent<Rigidbody>();
 
         rbNewBullet.mass = REFERENCE_BULLET_SPEED / bulletSpeed;
         rbNewBullet.linearVelocity = BulletDirection() * bulletSpeed;
-
-        Destroy(newBullet, 10);
 
         GetComponentInChildren<Animator>().SetTrigger("Fire");
     }

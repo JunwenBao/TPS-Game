@@ -10,7 +10,7 @@ public class Bullet : MonoBehaviour
     {
         CreateImpactFX(collision);
 
-        Destroy(gameObject);
+        ObjectPool.Instance.ReturnBullet(gameObject);
     }
 
     // 制造子弹碰撞特效
