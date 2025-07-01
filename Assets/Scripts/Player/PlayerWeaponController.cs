@@ -11,6 +11,7 @@ public class PlayerWeaponController : MonoBehaviour
 
     [SerializeField] private Weapon currentWeapon;
     private bool weaponReady;
+    private bool isShooting;
 
     [Header("Bullet Detals")]
     [SerializeField] private GameObject bulletPrefab;
@@ -28,6 +29,11 @@ public class PlayerWeaponController : MonoBehaviour
         AssignInputEvent();
 
         Invoke("EquipStartingWeapon", 0.1f);
+    }
+
+    private void Update()
+    {
+        if(isShooting) Shoot();
     }
 
     #region Slot Managment - Pickup/Equip/Drop Weapon
@@ -75,6 +81,8 @@ public class PlayerWeaponController : MonoBehaviour
         /* 检查当前武器子弹数量 */
         if(currentWeapon.CanShoot() == false) return;
 
+        if (currentWeapon.shootType == ShootType.Single) isShooting = false;
+
         /* 从对象池中获取子弹GameObject */
         //GameObject newBullet = Instantiate(bulletPrefab, gunPoint.position, Quaternion.LookRotation(gunPoint.forward));
         GameObject newBullet = ObjectPool.Instance.GetBullet();
@@ -83,8 +91,10 @@ public class PlayerWeaponController : MonoBehaviour
 
         Rigidbody rbNewBullet = newBullet.GetComponent<Rigidbody>();
 
+        Vector3 bulletDirection = currentWeapon.ApplySpread(BulletDirection());
+
         rbNewBullet.mass = REFERENCE_BULLET_SPEED / bulletSpeed;
-        rbNewBullet.linearVelocity = BulletDirection() * bulletSpeed;
+        rbNewBullet.linearVelocity = bulletDirection * bulletSpeed;
 
         player.weaponVisuals.PlayerFireAnimation();
     }
@@ -129,7 +139,8 @@ public class PlayerWeaponController : MonoBehaviour
     {
         PlayerControls controls = player.controls;
 
-        controls.Character.Fire.performed += context => Shoot();
+        controls.Character.Fire.performed += context => isShooting = true;
+        controls.Character.Fire.canceled += context => isShooting = false;
 
         controls.Character.EquipSlot1.performed += context => EquipWeapon(0);
         controls.Character.EquipSlot2.performed += context => EquipWeapon(1);
