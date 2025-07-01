@@ -23,15 +23,14 @@ public class Weapon
     [UnityEngine.Range(1, 2)]
     public float equipmentSpeed = 1;
 
+    [Space]
+    public float fireRate = 1; // 射速：n/s
+
+    private float lastShootTime;
+
     public bool CanShoot()
     {
-        return HaveEnoughBullets();
-    }
-
-    // 判断：武器是否有足够多的弹药
-    private bool HaveEnoughBullets()
-    {
-        if (bulletInMagzine > 0)
+        if(HaveEnoughBullets() && ReadyToFire())
         {
             bulletInMagzine--;
             return true;
@@ -39,6 +38,21 @@ public class Weapon
 
         return false;
     }
+
+    private bool ReadyToFire()
+    {
+        /* 计算射速 */
+        if(Time.time > lastShootTime + 1 / fireRate)
+        {
+            lastShootTime = Time.time;
+            return true;
+        }
+        return false;
+    }
+
+    #region Reload Methods
+    // 判断：武器是否有足够多的弹药
+    private bool HaveEnoughBullets() => bulletInMagzine > 0;
 
     // 判断：剩余子弹数量是否可以装弹
     public bool CanReload()
@@ -70,4 +84,5 @@ public class Weapon
             totalReserveAmmo = 0;
         }
     }
+    #endregion
 }

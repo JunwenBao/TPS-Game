@@ -1,6 +1,7 @@
 using NUnit.Framework;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngineInternal;
 
 public class PlayerWeaponController : MonoBehaviour
 {
@@ -9,11 +10,11 @@ public class PlayerWeaponController : MonoBehaviour
     private Player player;
 
     [SerializeField] private Weapon currentWeapon;
+    private bool weaponReady;
 
     [Header("Bullet Detals")]
     [SerializeField] private GameObject bulletPrefab;
     [SerializeField] private float bulletSpeed;
-    [SerializeField] private Transform gunPoint;
 
     [SerializeField] private Transform weaponHolder;
 
@@ -36,8 +37,10 @@ public class PlayerWeaponController : MonoBehaviour
     // 装备武器
     private void EquipWeapon(int i)
     {
+        SetWeaponReady(false);
+
         currentWeapon = weaponSlots[i];
-        currentWeapon.bulletInMagzine = weaponSlots[i].bulletInMagzine;
+        currentWeapon.bulletInMagzine = weaponSlots[i].bulletInMagzine; //TODO:本来是没有的
 
         player.weaponVisuals.PlayWeaponEquipAnimation();
     }
@@ -59,31 +62,44 @@ public class PlayerWeaponController : MonoBehaviour
         weaponSlots.Add(newWeapon);
         player.weaponVisuals.SwichOnBackupWeaponWeaponModel();
     }
+
+    //
+    public void SetWeaponReady(bool ready) => weaponReady = ready;
+    public bool WeaponReady() => weaponReady;
     #endregion 
 
     private void Shoot()
     {
+        if (WeaponReady() == false) return;
+
         /* 检查当前武器子弹数量 */
         if(currentWeapon.CanShoot() == false) return;
 
         /* 从对象池中获取子弹GameObject */
         //GameObject newBullet = Instantiate(bulletPrefab, gunPoint.position, Quaternion.LookRotation(gunPoint.forward));
         GameObject newBullet = ObjectPool.Instance.GetBullet();
-        newBullet.transform.position = gunPoint.position;
-        newBullet.transform.rotation = Quaternion.LookRotation(gunPoint.forward);
+        newBullet.transform.position = GunPoint().position;
+        newBullet.transform.rotation = Quaternion.LookRotation(GunPoint().forward);
 
         Rigidbody rbNewBullet = newBullet.GetComponent<Rigidbody>();
 
         rbNewBullet.mass = REFERENCE_BULLET_SPEED / bulletSpeed;
         rbNewBullet.linearVelocity = BulletDirection() * bulletSpeed;
 
-        GetComponentInChildren<Animator>().SetTrigger("Fire");
+        player.weaponVisuals.PlayerFireAnimation();
+    }
+
+    // 重新装弹
+    private void Reload()
+    {
+        SetWeaponReady(false);
+        player.weaponVisuals.PlayReloadAnimation();
     }
 
     public Vector3 BulletDirection()
     {
         Transform aim = player.aim.Aim();
-        Vector3 direction = (aim.position - gunPoint.position).normalized;
+        Vector3 direction = (aim.position - GunPoint().position).normalized;
 
         if(player.aim.CanAimPrecisly() == false && player.aim.Target() == null) direction.y = 0;
 
@@ -105,7 +121,7 @@ public class PlayerWeaponController : MonoBehaviour
 
         return null;
     }
-    public Transform GunPoint() => gunPoint;
+    public Transform GunPoint() => player.weaponVisuals.CurrentWeaponModle().gunPoint;
 
     #region GameInputEvent
     // 输入事件
@@ -122,9 +138,9 @@ public class PlayerWeaponController : MonoBehaviour
 
         controls.Character.Reload.performed += context =>
         {
-            if (currentWeapon.CanReload())
+            if (currentWeapon.CanReload() && WeaponReady())
             {
-                player.weaponVisuals.PlayReloadAnimation();
+                Reload();
             }
         };
     }
