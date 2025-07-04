@@ -3082,6 +3082,7 @@ MonoBehaviour:
     reloadSpeed: 1
     equipmentSpeed: 1
     gunDistance: 4
+    cameraDistance: 6
     baseSpread: 0
     maximumSpread: 3
     spreadIncreaseRate: 0.15
@@ -4467,6 +4468,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1894831153}
+  - component: {fileID: 1894831154}
   m_Layer: 0
   m_Name: Camera
   m_TagString: Untagged
@@ -4491,6 +4493,19 @@ Transform:
   - {fileID: 330585546}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1894831154
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1894831152}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 66d455b92faf0134380189099b4d87d0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  distanceChangeRate: 0.5
 --- !u!4 &1957005874 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4281310863623318, guid: 5383a89c238e109428d1a987ed2bbab4, type: 3}
@@ -9870,6 +9885,7 @@ MonoBehaviour:
     reloadSpeed: 1
     equipmentSpeed: 1
     gunDistance: 10
+    cameraDistance: 7
     baseSpread: 0
     maximumSpread: 3
     spreadIncreaseRate: 0.15
@@ -9894,6 +9910,7 @@ MonoBehaviour:
     reloadSpeed: 1
     equipmentSpeed: 1.5
     gunDistance: 20
+    cameraDistance: 15
     baseSpread: 0
     maximumSpread: 2
     spreadIncreaseRate: 0.15
@@ -9912,7 +9929,8 @@ MonoBehaviour:
     totalReserveAmmo: 90
     reloadSpeed: 1
     equipmentSpeed: 1.5
-    gunDistance: 6
+    gunDistance: 10
+    cameraDistance: 10
     baseSpread: 10
     maximumSpread: 10
     spreadIncreaseRate: 0.15

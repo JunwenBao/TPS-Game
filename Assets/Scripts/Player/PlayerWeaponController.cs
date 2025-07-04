@@ -53,6 +53,8 @@ public class PlayerWeaponController : MonoBehaviour
         currentWeapon.bulletInMagzine = weaponSlots[i].bulletInMagzine; //TODO:本来是没有的
 
         player.weaponVisuals.PlayWeaponEquipAnimation();
+
+        CameraManager.Instance.ChangeCameraDistance(currentWeapon.cameraDistance);
     }
 
     // 丢弃武器

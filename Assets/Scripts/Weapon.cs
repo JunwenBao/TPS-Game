@@ -46,6 +46,8 @@ public class Weapon
     public float equipmentSpeed = 1f;
     [UnityEngine.Range(2, 20)]
     public float gunDistance = 4f;
+    [UnityEngine.Range(2, 20)]
+    public float cameraDistance = 6f;
 
     [Header("Spread")]
     public float baseSpread;                 // »ù´¡spreadÖµ
