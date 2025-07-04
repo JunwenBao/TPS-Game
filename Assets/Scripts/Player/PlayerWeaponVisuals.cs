@@ -90,21 +90,44 @@ public class PlayerWeaponVisuals : MonoBehaviour
     {
         foreach(BackupWeaponModel backupModel in backupWeaponModels)
         {
-            backupModel.gameObject.SetActive(false);
+            backupModel.Activate(false);
         }
     }
 
     public void SwichOnBackupWeaponWeaponModel()
     {
-        WeaponType weaponType = player.weapon.BackupWeapon().weaponType;
+        SwitchOffBakcupWeaponModel();
 
-        foreach(BackupWeaponModel backupModel in backupWeaponModels)
+        BackupWeaponModel lowHnagWeapon  = null;
+        BackupWeaponModel backHnagWeapon = null;
+        BackupWeaponModel sideHnagWeapon = null;
+
+        foreach (BackupWeaponModel backupModel in backupWeaponModels)
         {
-            if(backupModel.weaponType == weaponType)
+            if (backupModel.weaponType == player.weapon.CurrentWeapon().weaponType) continue;
+
+            if (player.weapon.HasWeaponTypeInInventory(backupModel.weaponType))
             {
-                backupModel.gameObject.SetActive(true);
+                if(backupModel.HangTypeIs(HangType.LowBackhand))
+                {
+                    lowHnagWeapon = backupModel;
+                }
+
+                if (backupModel.HangTypeIs(HangType.Backhand))
+                {
+                    backHnagWeapon = backupModel;
+                }
+
+                if (backupModel.HangTypeIs(HangType.SideHang))
+                {
+                    sideHnagWeapon = backupModel;
+                }
             }
         }
+
+        lowHnagWeapon?.Activate(true);
+        backHnagWeapon?.Activate(true);
+        sideHnagWeapon?.Activate(true);
     }
 
     // πÿ±’À˘”–Œ‰∆˜

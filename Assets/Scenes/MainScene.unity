@@ -147,7 +147,7 @@ Transform:
   m_GameObject: {fileID: 129846486}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0, y: -0.056, z: 0.157}
+  m_LocalPosition: {x: 0, y: -0.056, z: 0.398}
   m_LocalScale: {x: 1.5, y: 1.5, z: 1.5}
   m_ConstrainProportionsScale: 1
   m_Children:
@@ -242,8 +242,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 086805ffa653ea24894c84067265b03b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  weaponModels: []
-  backupWeaponModels: []
+  weaponModels:
+  - {fileID: 8938231623276663484}
+  - {fileID: 9158694475684911776}
+  - {fileID: 8880272949735532340}
+  - {fileID: 5562133738835512502}
+  backupWeaponModels:
+  - {fileID: 324874721}
+  - {fileID: 319065789}
+  - {fileID: 237782067}
+  - {fileID: 2109493750}
   rigWeightIncreaseRate: 3
   leftHandIKWeightIncreaseRate: 2.5
   leftHandIK: {fileID: 5340382835504124047}
@@ -608,7 +616,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &237782066
 Transform:
   m_ObjectHideFlags: 0
@@ -617,15 +625,15 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 237782065}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.040826004, y: 0.000000029802319, z: 0.000000014901159, w: 0.99916625}
-  m_LocalPosition: {x: -0.0000007897616, y: -0.50347805, z: -2.7201538}
+  m_LocalRotation: {x: -0.3844111, y: -0.00000017881393, z: -0.000000044703484, w: 0.92316204}
+  m_LocalPosition: {x: 0.0000014901163, y: -0.96489656, z: -2.4528024}
   m_LocalScale: {x: 0.5, y: 0.5000001, z: 0.5000001}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 129846487}
   - {fileID: 1293451281}
   m_Father: {fileID: 610226951}
-  m_LocalEulerAnglesHint: {x: 4.68, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -45.214, y: 0, z: 0}
 --- !u!114 &237782067
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -639,6 +647,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weaponType: 2
+  hangeType: 0
 --- !u!1 &275795997
 GameObject:
   m_ObjectHideFlags: 0
@@ -772,6 +781,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weaponType: 1
+  hangeType: 1
 --- !u!1 &324874719
 GameObject:
   m_ObjectHideFlags: 0
@@ -819,6 +829,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weaponType: 0
+  hangeType: 2
 --- !u!1 &330585543
 GameObject:
   m_ObjectHideFlags: 0
@@ -4975,7 +4986,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &2109493749
 Transform:
   m_ObjectHideFlags: 0
@@ -4985,7 +4996,7 @@ Transform:
   m_GameObject: {fileID: 2109493748}
   serializedVersion: 2
   m_LocalRotation: {x: 0.040826004, y: 0.000000029802319, z: 0.000000014901159, w: 0.99916625}
-  m_LocalPosition: {x: -0.0000029057267, y: -0.47462595, z: -2.8143444}
+  m_LocalPosition: {x: -0, y: -0.349, z: -2.804}
   m_LocalScale: {x: 0.5, y: 0.5000001, z: 0.5000001}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -5006,6 +5017,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weaponType: 3
+  hangeType: 1
 --- !u!1 &2121331321
 GameObject:
   m_ObjectHideFlags: 0
@@ -9894,6 +9906,26 @@ MonoBehaviour:
   weaponHolder: {fileID: 4939291074479087353}
   maxSlots: 2
   weaponSlots:
+  - weaponType: 0
+    shootType: 0
+    bulletsPerShot: 5
+    defaultFireRate: 1
+    fireRate: 1
+    burstAvailble: 0
+    burstActive: 0
+    burstFireRate: 0
+    burstModeFireRate: 0
+    burstFireDelay: 0
+    bulletInMagzine: 30
+    magzineCapacity: 30
+    totalReserveAmmo: 90
+    reloadSpeed: 1
+    equipmentSpeed: 1.5
+    gunDistance: 10
+    cameraDistance: 10
+    baseSpread: 10
+    maximumSpread: 10
+    spreadIncreaseRate: 0.15
   - weaponType: 1
     shootType: 1
     bulletsPerShot: 1
@@ -9931,6 +9963,26 @@ MonoBehaviour:
     equipmentSpeed: 1.5
     gunDistance: 10
     cameraDistance: 10
+    baseSpread: 10
+    maximumSpread: 10
+    spreadIncreaseRate: 0.15
+  - weaponType: 3
+    shootType: 0
+    bulletsPerShot: 5
+    defaultFireRate: 1
+    fireRate: 1
+    burstAvailble: 0
+    burstActive: 0
+    burstFireRate: 0
+    burstModeFireRate: 0
+    burstFireDelay: 0
+    bulletInMagzine: 30
+    magzineCapacity: 30
+    totalReserveAmmo: 90
+    reloadSpeed: 1
+    equipmentSpeed: 1.5
+    gunDistance: 20
+    cameraDistance: 20
     baseSpread: 10
     maximumSpread: 10
     spreadIncreaseRate: 0.15
