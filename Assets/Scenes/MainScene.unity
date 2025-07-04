@@ -3068,12 +3068,23 @@ MonoBehaviour:
   weapon:
     weaponType: 1
     shootType: 0
+    bulletsPerShot: 0
+    defaultFireRate: 0
     fireRate: 1
+    burstAvailble: 0
+    burstActive: 0
+    burstFireRate: 0
+    burstModeFireRate: 0
+    burstFireDelay: 0.1
     bulletInMagzine: 0
     magzineCapacity: 0
     totalReserveAmmo: 0
     reloadSpeed: 1
     equipmentSpeed: 1
+    gunDistance: 4
+    baseSpread: 0
+    maximumSpread: 3
+    spreadIncreaseRate: 0.15
 --- !u!4 &1196608922
 Transform:
   m_ObjectHideFlags: 0
@@ -9845,33 +9856,66 @@ MonoBehaviour:
   currentWeapon:
     weaponType: 0
     shootType: 0
+    bulletsPerShot: 0
+    defaultFireRate: 0
     fireRate: 1
+    burstAvailble: 0
+    burstActive: 0
+    burstFireRate: 0
+    burstModeFireRate: 0
+    burstFireDelay: 0.1
     bulletInMagzine: 0
     magzineCapacity: 0
     totalReserveAmmo: 50
     reloadSpeed: 1
     equipmentSpeed: 1
+    gunDistance: 10
+    baseSpread: 0
+    maximumSpread: 3
+    spreadIncreaseRate: 0.15
   bulletPrefab: {fileID: 516076149687506628, guid: 668a02e411692f949b21746152b0ba4c, type: 3}
   bulletSpeed: 100
   weaponHolder: {fileID: 4939291074479087353}
   maxSlots: 2
   weaponSlots:
-  - weaponType: 0
-    shootType: 0
-    fireRate: 1
-    bulletInMagzine: 15
-    magzineCapacity: 15
-    totalReserveAmmo: 30
-    reloadSpeed: 1
-    equipmentSpeed: 2
   - weaponType: 1
-    shootType: 0
-    fireRate: 5
+    shootType: 1
+    bulletsPerShot: 1
+    defaultFireRate: 10
+    fireRate: 10
+    burstAvailble: 1
+    burstActive: 0
+    burstFireRate: 3
+    burstModeFireRate: 1.5
+    burstFireDelay: 0.1
     bulletInMagzine: 30
     magzineCapacity: 30
     totalReserveAmmo: 90
     reloadSpeed: 1
     equipmentSpeed: 1.5
+    gunDistance: 20
+    baseSpread: 0
+    maximumSpread: 2
+    spreadIncreaseRate: 0.15
+  - weaponType: 2
+    shootType: 0
+    bulletsPerShot: 5
+    defaultFireRate: 1
+    fireRate: 1
+    burstAvailble: 0
+    burstActive: 0
+    burstFireRate: 0
+    burstModeFireRate: 0
+    burstFireDelay: 0
+    bulletInMagzine: 30
+    magzineCapacity: 30
+    totalReserveAmmo: 90
+    reloadSpeed: 1
+    equipmentSpeed: 1.5
+    gunDistance: 6
+    baseSpread: 10
+    maximumSpread: 10
+    spreadIncreaseRate: 0.15
 --- !u!4 &4939291074479087353
 Transform:
   m_ObjectHideFlags: 0

@@ -22,8 +22,18 @@ public class Weapon
 
     [Header("Shooting Specifics")]
     public ShootType shootType;
+    public int bulletsPerShot;
+    public float defaultFireRate;
     public float fireRate = 1; // 射速：n/s
     private float lastShootTime;
+
+    [Header("Burst Fire")]
+    public bool burstAvailble;
+    public bool burstActive;
+
+    public int burstFireRate;
+    public float burstModeFireRate;
+    public float burstFireDelay = 0.1f;
 
     [Header("Magzine Details")]
     public int bulletInMagzine;  // 弹夹子弹数量
@@ -31,9 +41,11 @@ public class Weapon
     public int totalReserveAmmo; // 总子弹数量
 
     [UnityEngine.Range(1, 5)]
-    public float reloadSpeed = 1;
+    public float reloadSpeed = 1f;
     [UnityEngine.Range(1, 2)]
-    public float equipmentSpeed = 1;
+    public float equipmentSpeed = 1f;
+    [UnityEngine.Range(2, 20)]
+    public float gunDistance = 4f;
 
     [Header("Spread")]
     public float baseSpread;                 // 基础spread值
@@ -76,17 +88,42 @@ public class Weapon
         currentSpread = Mathf.Clamp(currentSpread + spreadIncreaseRate, baseSpread, maximumSpread);
     }
     #endregion
-    public bool CanShoot()
+
+    #region Burst Methods
+
+    public bool BurstActivated()
     {
-        if(HaveEnoughBullets() && ReadyToFire())
+        if(weaponType == WeaponType.Shotgun)
         {
-            bulletInMagzine--;
+            burstFireDelay = 0;
             return true;
         }
 
-        return false;
+        return burstActive;
     }
 
+    // 修改Burst状态
+    public void ToggleBurst()
+    {
+        if (burstAvailble == false) return;
+
+        burstActive = !burstActive;
+
+        if(burstActive)
+        {
+            bulletsPerShot = burstFireRate;
+            fireRate = burstFireRate;
+        }
+        else
+        {
+            bulletsPerShot = 1;
+            fireRate = defaultFireRate;
+        }
+    }
+
+    #endregion
+
+    public bool CanShoot() => HaveEnoughBullets() && ReadyToFire();
     private bool ReadyToFire()
     {
         /* 计算射速 */

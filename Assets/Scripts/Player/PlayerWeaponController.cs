@@ -1,4 +1,5 @@
 using NUnit.Framework;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngineInternal;
@@ -34,6 +35,9 @@ public class PlayerWeaponController : MonoBehaviour
     private void Update()
     {
         if(isShooting) Shoot();
+
+        // 按键Input：修改当前武器Burst状态
+        if(Input.GetKeyDown(KeyCode.T)) currentWeapon.ToggleBurst();
     }
 
     #region Slot Managment - Pickup/Equip/Drop Weapon
@@ -74,14 +78,44 @@ public class PlayerWeaponController : MonoBehaviour
     public bool WeaponReady() => weaponReady;
     #endregion 
 
+    private IEnumerator BurstFire()
+    {
+        SetWeaponReady(false); // 设置射击锁：在多发射击时不能再次射击
+
+        for(int i = 1; i <= currentWeapon.bulletsPerShot; i++)
+        {
+            FireSingleBullet();
+
+            yield return new WaitForSeconds(currentWeapon.burstFireDelay);
+
+            if(i >= currentWeapon.bulletsPerShot) SetWeaponReady(true); // 解锁
+        }
+    }
+
     private void Shoot()
     {
         if (WeaponReady() == false) return;
 
         /* 检查当前武器子弹数量 */
-        if(currentWeapon.CanShoot() == false) return;
+        if (currentWeapon.CanShoot() == false) return;
+
+        player.weaponVisuals.PlayerFireAnimation();
 
         if (currentWeapon.shootType == ShootType.Single) isShooting = false;
+
+        if(currentWeapon.BurstActivated() == true)
+        {
+            StartCoroutine(BurstFire());
+            return;
+        }
+
+        FireSingleBullet();
+    }
+
+    // 单发射击
+    private void FireSingleBullet()
+    {
+        currentWeapon.bulletInMagzine--;
 
         /* 从对象池中获取子弹GameObject */
         //GameObject newBullet = Instantiate(bulletPrefab, gunPoint.position, Quaternion.LookRotation(gunPoint.forward));
@@ -91,12 +125,13 @@ public class PlayerWeaponController : MonoBehaviour
 
         Rigidbody rbNewBullet = newBullet.GetComponent<Rigidbody>();
 
+        Bullet bulletScript = newBullet.GetComponent<Bullet>();
+        bulletScript.BuletSetup(currentWeapon.gunDistance);
+
         Vector3 bulletDirection = currentWeapon.ApplySpread(BulletDirection());
 
         rbNewBullet.mass = REFERENCE_BULLET_SPEED / bulletSpeed;
         rbNewBullet.linearVelocity = bulletDirection * bulletSpeed;
-
-        player.weaponVisuals.PlayerFireAnimation();
     }
 
     // 重新装弹
