@@ -125,6 +125,15 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Toggle Weapon Mode"",
+                    ""type"": ""Button"",
+                    ""id"": ""46319d31-47e1-4580-9de0-af290f3cd5e7"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -292,6 +301,17 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""action"": ""Equip Slot - 5"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""d11d0fdc-f831-4616-95f2-96688a2d95ef"",
+                    ""path"": ""<Keyboard>/t"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Toggle Weapon Mode"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -311,6 +331,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         m_Character_EquipSlot3 = m_Character.FindAction("Equip Slot - 3", throwIfNotFound: true);
         m_Character_EquipSlot4 = m_Character.FindAction("Equip Slot - 4", throwIfNotFound: true);
         m_Character_EquipSlot5 = m_Character.FindAction("Equip Slot - 5", throwIfNotFound: true);
+        m_Character_ToggleWeaponMode = m_Character.FindAction("Toggle Weapon Mode", throwIfNotFound: true);
     }
 
     ~@PlayerControls()
@@ -388,6 +409,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
     private readonly InputAction m_Character_EquipSlot3;
     private readonly InputAction m_Character_EquipSlot4;
     private readonly InputAction m_Character_EquipSlot5;
+    private readonly InputAction m_Character_ToggleWeaponMode;
     public struct CharacterActions
     {
         private @PlayerControls m_Wrapper;
@@ -403,6 +425,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         public InputAction @EquipSlot3 => m_Wrapper.m_Character_EquipSlot3;
         public InputAction @EquipSlot4 => m_Wrapper.m_Character_EquipSlot4;
         public InputAction @EquipSlot5 => m_Wrapper.m_Character_EquipSlot5;
+        public InputAction @ToggleWeaponMode => m_Wrapper.m_Character_ToggleWeaponMode;
         public InputActionMap Get() { return m_Wrapper.m_Character; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -445,6 +468,9 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @EquipSlot5.started += instance.OnEquipSlot5;
             @EquipSlot5.performed += instance.OnEquipSlot5;
             @EquipSlot5.canceled += instance.OnEquipSlot5;
+            @ToggleWeaponMode.started += instance.OnToggleWeaponMode;
+            @ToggleWeaponMode.performed += instance.OnToggleWeaponMode;
+            @ToggleWeaponMode.canceled += instance.OnToggleWeaponMode;
         }
 
         private void UnregisterCallbacks(ICharacterActions instance)
@@ -482,6 +508,9 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @EquipSlot5.started -= instance.OnEquipSlot5;
             @EquipSlot5.performed -= instance.OnEquipSlot5;
             @EquipSlot5.canceled -= instance.OnEquipSlot5;
+            @ToggleWeaponMode.started -= instance.OnToggleWeaponMode;
+            @ToggleWeaponMode.performed -= instance.OnToggleWeaponMode;
+            @ToggleWeaponMode.canceled -= instance.OnToggleWeaponMode;
         }
 
         public void RemoveCallbacks(ICharacterActions instance)
@@ -512,5 +541,6 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         void OnEquipSlot3(InputAction.CallbackContext context);
         void OnEquipSlot4(InputAction.CallbackContext context);
         void OnEquipSlot5(InputAction.CallbackContext context);
+        void OnToggleWeaponMode(InputAction.CallbackContext context);
     }
 }

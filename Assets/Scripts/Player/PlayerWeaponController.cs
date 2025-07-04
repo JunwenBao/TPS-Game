@@ -35,9 +35,6 @@ public class PlayerWeaponController : MonoBehaviour
     private void Update()
     {
         if(isShooting) Shoot();
-
-        // 按键Input：修改当前武器Burst状态
-        if(Input.GetKeyDown(KeyCode.T)) currentWeapon.ToggleBurst();
     }
 
     #region Slot Managment - Pickup/Equip/Drop Weapon
@@ -160,25 +157,16 @@ public class PlayerWeaponController : MonoBehaviour
     }
 
     public bool HasOnlyOoneWeapon() => weaponSlots.Count <= 1;
-    public bool HasWeaponTypeInInventory(WeaponType weaponType)
+    public Weapon WeaponInSlots(WeaponType weaponType)
     {
         foreach(Weapon weapon in weaponSlots)
         {
-            if(weapon.weaponType == weaponType) return true;
-        }
-
-        return false;
-    }
-    public Weapon CurrentWeapon() => currentWeapon;
-    public Weapon BackupWeapon()
-    {
-        foreach(Weapon weapon in weaponSlots)
-        {
-            if(weapon != currentWeapon) return weapon;
+            if(weapon.weaponType == weaponType) return weapon;
         }
 
         return null;
     }
+    public Weapon CurrentWeapon() => currentWeapon;
     public Transform GunPoint() => player.weaponVisuals.CurrentWeaponModle().gunPoint;
 
     #region GameInputEvent
@@ -205,6 +193,8 @@ public class PlayerWeaponController : MonoBehaviour
                 Reload();
             }
         };
+
+        controls.Character.ToggleWeaponMode.performed += context => currentWeapon.ToggleBurst();
     }
     #endregion
 }
