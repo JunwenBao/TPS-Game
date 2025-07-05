@@ -120,7 +120,7 @@ public class PlayerWeaponController : MonoBehaviour
 
         /* 从对象池中获取子弹GameObject */
         //GameObject newBullet = Instantiate(bulletPrefab, gunPoint.position, Quaternion.LookRotation(gunPoint.forward));
-        GameObject newBullet = ObjectPool.Instance.GetBullet();
+        GameObject newBullet = ObjectPool.Instance.GetObject(bulletPrefab);
         newBullet.transform.position = GunPoint().position;
         newBullet.transform.rotation = Quaternion.LookRotation(GunPoint().forward);
 
