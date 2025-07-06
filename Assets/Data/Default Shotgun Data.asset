@@ -30,5 +30,5 @@ MonoBehaviour:
   weaponType: 2
   reloadSpeed: 1
   equipmentSpeed: 1
-  gunDistance: 4
-  cameraDistance: 4
+  gunDistance: 10
+  cameraDistance: 10

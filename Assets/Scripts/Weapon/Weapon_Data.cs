@@ -30,12 +30,12 @@ public class Weapon_Data : ScriptableObject
 
     [Header("Weapon Generics")]
     public WeaponType weaponType;
-    [Range(1, 3)]
+    [Range(1, 5)]
     public float reloadSpeed;
-    [Range(1, 3)]
+    [Range(1, 5)]
     public float equipmentSpeed;
-    [Range(4, 8)]
+    [Range(1, 20)]
     public float gunDistance = 4f;
-    [Range(4, 8)]
+    [Range(1, 20)]
     public float cameraDistance = 1f;
 }
