@@ -27,6 +27,8 @@ public class PlayerWeaponController : MonoBehaviour
     [SerializeField] private int maxSlots = 4;
     [SerializeField] private List<Weapon> weaponSlots;
 
+    [SerializeField] private GameObject weaponPickupPrefab;
+
     private void Start()
     {
         player = GetComponent<Player>();
@@ -69,27 +71,37 @@ public class PlayerWeaponController : MonoBehaviour
     {
         if (HasOnlyOoneWeapon()) return;
 
+        CreateWeaponOnTheGround();
+
         weaponSlots.Remove(currentWeapon);
         EquipWeapon(0);
     }
 
-    // 拾取武器
-    public void PickupWeapon(Weapon_Data newWeaponData)
+    // 在角色当前位置生成一个被丢弃武器的Gameobjct
+    private void CreateWeaponOnTheGround()
     {
-        Weapon newWeapon = new Weapon(newWeaponData);
+        GameObject droppedWeapon = ObjectPool.Instance.GetObject(weaponPickupPrefab);
+        droppedWeapon.GetComponent<Pickup_Weapon>()?.SetupPickupWeapon(currentWeapon, transform);
+    }
 
+    // 拾取武器
+    public void PickupWeapon(Weapon newWeapon)
+    {
         if(WeaponInSlots(newWeapon.weaponType) != null)
         {
             WeaponInSlots(newWeapon.weaponType).totalReserveAmmo += newWeapon.bulletInMagzine;
             return;
         }
 
+        // 判断：当持有武器数量达到上限，
         if (weaponSlots.Count >= maxSlots && newWeapon.weaponType != currentWeapon.weaponType)
         {
             int weaponIndex = weaponSlots.IndexOf(currentWeapon);
 
             player.weaponVisuals.SwitchOffWeaponModels();
             weaponSlots[weaponIndex] = newWeapon;
+
+            CreateWeaponOnTheGround();
             EquipWeapon(weaponIndex);
 
             return;

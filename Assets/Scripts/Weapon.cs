@@ -54,6 +54,8 @@ public class Weapon
     private float lastSpreadUpdateTime = 1;  // 最后更新spread值的时间（用于重置该值）
     private float spreadCooldown;            // 重置spread值所需时间
 
+    public Weapon_Data weaponData {  get; private set; }
+
     public Weapon(Weapon_Data weaponData)
     {
         bulletInMagzine = weaponData.bulletInMagzine;
@@ -82,6 +84,8 @@ public class Weapon
         cameraDistance = weaponData.cameraDistance;
 
         defaultFireRate = fireRate;
+        
+        this.weaponData = weaponData;
     }
 
     #region Spread Methods

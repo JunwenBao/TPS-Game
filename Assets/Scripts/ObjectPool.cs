@@ -10,10 +10,18 @@ public class ObjectPool : MonoBehaviour
 
     private Dictionary<GameObject, Queue<GameObject>> poolDictionary = new Dictionary<GameObject, Queue<GameObject>>();
 
+    [Header("To Initialize")]
+    [SerializeField] private GameObject weaponPickup;
+
     private void Awake()
     {
         if (Instance == null) Instance = this;
         else Destroy(gameObject);
+    }
+
+    private void Start()
+    {
+        InitializeNewPool(weaponPickup);
     }
 
     public GameObject GetObject(GameObject prefab)
@@ -50,12 +58,19 @@ public class ObjectPool : MonoBehaviour
 
         objectToReturn.SetActive(false);
         objectToReturn.transform.parent = transform;
-        
+
+        if (poolDictionary.ContainsKey(originalPrefab) == false)
+        {
+            Debug.Log("?");
+        }
+
         poolDictionary[originalPrefab].Enqueue(objectToReturn);
     }
 
     private void InitializeNewPool(GameObject prefab)
     {
+        Debug.Log(prefab.ToString());
+
         poolDictionary[prefab] = new Queue<GameObject>();
 
         for(int i = 0; i < poolSize; i++)

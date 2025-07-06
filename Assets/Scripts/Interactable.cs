@@ -37,9 +37,9 @@ public class Interactable : MonoBehaviour
 
         if (playerInteraction == null) return;
 
-        HighlightActive(true);
+        //HighlightActive(true);
 
-        playerInteraction.interactables.Add(this);
+        playerInteraction.GetInteractables().Add(this);
         playerInteraction.UpdateClosestInteractable();
     }
 
@@ -49,9 +49,9 @@ public class Interactable : MonoBehaviour
 
         if (playerInteraction == null) return;
 
-        HighlightActive(false);
+        //HighlightActive(false);
 
-        playerInteraction.interactables.Remove(this);
+        playerInteraction.GetInteractables().Remove(this);
         playerInteraction.UpdateClosestInteractable();
     }
 }
