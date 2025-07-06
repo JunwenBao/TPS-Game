@@ -2,9 +2,9 @@ using UnityEngine;
 
 public class Interactable : MonoBehaviour
 {
-    [SerializeField] private MeshRenderer mesh;
-    [SerializeField] private Material highlightMaterial;
+    private MeshRenderer mesh;
     private Material defaultMaterial;
+    [SerializeField] private Material highlightMaterial;
 
     private void Start()
     {
@@ -13,7 +13,7 @@ public class Interactable : MonoBehaviour
         defaultMaterial = mesh.material;
     }
 
-    public void Interaction()
+    public virtual void Interaction()
     {
         Debug.Log("INteract with");
     }
@@ -24,28 +24,27 @@ public class Interactable : MonoBehaviour
         else mesh.material = defaultMaterial;
     }
 
-    private void OnTriggerEnter(Collider other)
+    protected virtual void OnTriggerEnter(Collider other)
     {
         PlayerInteraction playerInteraction = other.GetComponent<PlayerInteraction>();
 
         if (playerInteraction == null) return;
 
-        playerInteraction.interactables.Add(this);
         HighlightActive(true);
 
+        playerInteraction.interactables.Add(this);
         playerInteraction.UpdateClosestInteractable();
     }
 
-    private void OnTriggerExit(Collider other)
+    protected virtual void OnTriggerExit(Collider other)
     {
         PlayerInteraction playerInteraction = other.GetComponent<PlayerInteraction>();
 
         if (playerInteraction == null) return;
 
-        playerInteraction.interactables.Remove(this);
-
         HighlightActive(false);
 
+        playerInteraction.interactables.Remove(this);
         playerInteraction.UpdateClosestInteractable();
     }
 }

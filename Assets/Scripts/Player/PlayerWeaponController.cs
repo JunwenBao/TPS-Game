@@ -24,7 +24,7 @@ public class PlayerWeaponController : MonoBehaviour
     [SerializeField] private Transform weaponHolder;
 
     [Header("Inventory")]
-    [SerializeField] private int maxSlots = 2;
+    [SerializeField] private int maxSlots = 4;
     [SerializeField] private List<Weapon> weaponSlots;
 
     private void Start()
