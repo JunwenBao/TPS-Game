@@ -10,6 +10,8 @@ public class PlayerWeaponController : MonoBehaviour
 
     private Player player;
 
+    [SerializeField] private Weapon_Data defaultWeaponData;
+
     [SerializeField] private Weapon currentWeapon;
     private bool weaponReady;
     private bool isShooting;
@@ -39,7 +41,12 @@ public class PlayerWeaponController : MonoBehaviour
 
     #region Slot Managment - Pickup/Equip/Drop Weapon
 
-    private void EquipStartingWeapon() => EquipWeapon(0);
+    private void EquipStartingWeapon()
+    {
+        weaponSlots[0] = new Weapon(defaultWeaponData);
+
+        EquipWeapon(0);
+    }
 
     // ×°±¸ÎäÆ÷
     private void EquipWeapon(int i)
