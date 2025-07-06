@@ -76,9 +76,24 @@ public class PlayerWeaponController : MonoBehaviour
     // Ê°È¡ÎäÆ÷
     public void PickupWeapon(Weapon_Data newWeaponData)
     {
-        if (weaponSlots.Count >= maxSlots) return;
-        
         Weapon newWeapon = new Weapon(newWeaponData);
+
+        if(WeaponInSlots(newWeapon.weaponType) != null)
+        {
+            WeaponInSlots(newWeapon.weaponType).totalReserveAmmo += newWeapon.bulletInMagzine;
+            return;
+        }
+
+        if (weaponSlots.Count >= maxSlots && newWeapon.weaponType != currentWeapon.weaponType)
+        {
+            int weaponIndex = weaponSlots.IndexOf(currentWeapon);
+
+            player.weaponVisuals.SwitchOffWeaponModels();
+            weaponSlots[weaponIndex] = newWeapon;
+            EquipWeapon(weaponIndex);
+
+            return;
+        }
 
         weaponSlots.Add(newWeapon);
         player.weaponVisuals.SwichOnBackupWeaponWeaponModel();
