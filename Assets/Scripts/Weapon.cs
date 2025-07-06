@@ -18,12 +18,13 @@ public enum ShootType
 [System.Serializable]
 public class Weapon
 {
+    public WeaponType weaponType;
     public ShootType shootType;
 
     public int bulletsPerShot {  get; private set; }
 
     private float defaultFireRate;
-    private float fireRate = 1; // 射速：n/s
+    public float fireRate = 1; // 射速：n/s
     private float lastShootTime;
 
     public bool burstActive;
@@ -38,7 +39,6 @@ public class Weapon
     public int magzineCapacity;  // 弹夹数量
     public int totalReserveAmmo; // 总子弹数量
 
-    public WeaponType weaponType;
     public float reloadSpeed    { get; private set; }
     public float equipmentSpeed { get; private set; }
     public float gunDistance    { get; private set; }
@@ -56,6 +56,10 @@ public class Weapon
 
     public Weapon(Weapon_Data weaponData)
     {
+        bulletInMagzine = weaponData.bulletInMagzine;
+        magzineCapacity = weaponData.magzineCapacity;
+        totalReserveAmmo = weaponData.totalReserveAmmo;
+
         fireRate = weaponData.fireRate;
         weaponType = weaponData.weaponType;
 

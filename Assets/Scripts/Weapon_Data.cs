@@ -6,8 +6,12 @@ public class Weapon_Data : ScriptableObject
 {
     public string weaponName;
 
+    [Header("Magzine Details")]
+    public int bulletInMagzine;  // 弹夹子弹数量
+    public int magzineCapacity;  // 弹夹数量
+    public int totalReserveAmmo; // 总子弹数量
+
     [Header("Regular Shot")]
-    public WeaponType weaponType;
     public ShootType shootType;
     public int bulletsPerShot = 1;
     public float fireRate;
@@ -25,6 +29,7 @@ public class Weapon_Data : ScriptableObject
     public float spreadIncreaseRate = 0.15f;
 
     [Header("Weapon Generics")]
+    public WeaponType weaponType;
     [Range(1, 3)]
     public float reloadSpeed;
     [Range(1, 3)]

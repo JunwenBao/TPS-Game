@@ -1,4 +1,5 @@
 using NUnit.Framework;
+using NUnit.Framework.Constraints;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -73,10 +74,12 @@ public class PlayerWeaponController : MonoBehaviour
     }
 
     // Ê°È¡ÎäÆ÷
-    public void PickupWeapon(Weapon newWeapon)
+    public void PickupWeapon(Weapon_Data newWeaponData)
     {
         if (weaponSlots.Count >= maxSlots) return;
         
+        Weapon newWeapon = new Weapon(newWeaponData);
+
         weaponSlots.Add(newWeapon);
         player.weaponVisuals.SwichOnBackupWeaponWeaponModel();
     }
