@@ -1,3 +1,4 @@
+using System.Threading;
 using UnityEngine;
 
 public class EnemyState
@@ -6,6 +7,7 @@ public class EnemyState
     protected EnemyStateMachine stateMachine;
 
     protected string animBoolName;
+    protected float stateTimer;
 
     public EnemyState(Enemy enemyBase, EnemyStateMachine stateMachine, string animBoolName)
     {
@@ -16,16 +18,14 @@ public class EnemyState
 
     public virtual void Enter()
     {
-        Debug.Log("Enter");
     }
 
     public virtual void Update()
     {
-        Debug.Log("Update");
+        stateTimer -= Time.deltaTime;
     }
 
     public virtual void Exit()
     {
-        Debug.Log("Exit");
     }
 }
