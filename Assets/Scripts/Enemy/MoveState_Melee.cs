@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.AI;
 
 public class MoveState_Melee : EnemyState
 {
@@ -27,9 +28,29 @@ public class MoveState_Melee : EnemyState
     {
         base.Update();
 
+        enemy.transform.rotation = enemy.FaceTarget(GetNextPathPoint());
+
         if (enemy.agent.remainingDistance <= enemy.agent.stoppingDistance + .05f)
         {
             stateMachine.ChangeState(enemy.idleState);
         }
+    }
+
+    private Vector3 GetNextPathPoint()
+    {
+        NavMeshAgent agent = enemy.agent;
+        NavMeshPath path = agent.path;
+
+        if (path.corners.Length < 2) return agent.destination;
+
+        for(int i = 0; i < path.corners.Length; i++)
+        {
+            if(Vector3.Distance(agent.transform.position, path.corners[i]) < 1)
+            {
+                return path.corners[i + 1];
+            }
+        }
+
+        return agent.destination;
     }
 }

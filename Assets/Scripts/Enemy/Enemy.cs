@@ -4,6 +4,8 @@ using UnityEngine.AI;
 
 public class Enemy : MonoBehaviour
 {
+    public float turnSpeed;
+
     [Header("Idle Info")]
     public float idleTime;
 
@@ -52,5 +54,16 @@ public class Enemy : MonoBehaviour
         {
             t.parent = null;
         }
+    }
+
+    public Quaternion FaceTarget(Vector3 target)
+    {
+        Quaternion targetRotation = Quaternion.LookRotation(target - transform.position);
+
+        Vector3 currentEulerAngels = transform.rotation.eulerAngles;
+
+        float yRotation = Mathf.LerpAngle(currentEulerAngels.y, targetRotation.eulerAngles.y, turnSpeed * Time.deltaTime);
+
+        return Quaternion.Euler(currentEulerAngels.x, yRotation, currentEulerAngels.z);
     }
 }
