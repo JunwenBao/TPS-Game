@@ -4227,14 +4227,13 @@ MonoBehaviour:
   moveSpeed: 3
   chaseSpeed: 20
   turnSpeed: 5
-  manualMovement: 0
   patrolPoints:
   - {fileID: 481771627}
   - {fileID: 1169829755}
   attackData:
-    attackRange: 3
-    moveSpeed: 4
-    attackIndex: 5
+    attackRange: 3.5
+    moveSpeed: 1
+    attackIndex: 1
     animationSpeed: 1
   hiddernWeapon: {fileID: 371738237}
   pulledWeapon: {fileID: 371738237}

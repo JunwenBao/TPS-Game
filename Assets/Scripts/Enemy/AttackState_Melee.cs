@@ -33,6 +33,7 @@ public class AttackState_Melee : EnemyState
     public override void Exit()
     {
         base.Exit();
+
         SetupNextAttack();
     }
 
@@ -64,27 +65,31 @@ public class AttackState_Melee : EnemyState
             }
         }
     }
+
+    // 设置下一次攻击
     private void SetupNextAttack()
     {
-        //int recoveryIndex = PlayerClose() ? 1 : 0;
+        int recoveryIndex = PlayerClose() ? 1 : 0;
 
-        enemy.animator.SetFloat("RecoveryIndex", 0);
+        enemy.animator.SetFloat("RecoveryIndex", recoveryIndex);
         if(enemy.PlayerInAttackRange()) enemy.animator.SetFloat("RecoveryIndex", 0);
-        //enemy.attackData = UpdatedAttackData();
+        enemy.attackData = UpdatedAttackData();
     }
 
-    /*
-    private bool PlayerClose() => Vector3.Distance(enemy.transform.position, enemy.player.position) <= 1;
-
+    // 更新攻击数据：从敌人的AttackData List中随机选择
     private AttackData UpdatedAttackData()
     {
         List<AttackData> validAttacks = new List<AttackData>(enemy.attackList);
 
         if (PlayerClose())
+        {
             validAttacks.RemoveAll(parameter => parameter.attackType == AttackType_Melee.Charge);
+        }
 
         int random = Random.Range(0, validAttacks.Count);
+
         return validAttacks[random];
     }
-    */
+
+    private bool PlayerClose() => Vector3.Distance(enemy.transform.position, enemy.player.position) <= 1;
 }
