@@ -5,6 +5,7 @@ using UnityEngine.AI;
 public class Enemy : MonoBehaviour
 {
     public float turnSpeed;
+    public float aggresionRange;
 
     [Header("Idle Info")]
     public float idleTime;
@@ -13,6 +14,8 @@ public class Enemy : MonoBehaviour
     public float moveSpeed;
     [SerializeField] protected Transform[] patrolPoints;
     private int currentPatrolIndex;
+
+    public Transform player {  get; private set; }
 
     public Animator animator {  get; private set; }
     public NavMeshAgent agent { get; private set; }
@@ -24,6 +27,8 @@ public class Enemy : MonoBehaviour
 
         agent = GetComponent<NavMeshAgent>();
         animator = GetComponentInChildren<Animator>();
+
+        player = GameObject.Find("Player").GetComponent<Transform>();
     }
 
     protected virtual void Start()
@@ -35,6 +40,8 @@ public class Enemy : MonoBehaviour
     {
         
     }
+
+    public bool PlayerInAggresionRange() => Vector3.Distance(transform.position, player.position) < aggresionRange;
 
     public Vector3 GetPatrolDestination()
     {
@@ -66,4 +73,11 @@ public class Enemy : MonoBehaviour
 
         return Quaternion.Euler(currentEulerAngels.x, yRotation, currentEulerAngels.z);
     }
+
+    protected virtual void OnDrawGizmos()
+    {
+        Gizmos.DrawWireSphere(transform.position, aggresionRange);
+    }
+
+    public void AnimationTrigger() => stateMachine.currentState.AnimationTrigger();
 }

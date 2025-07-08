@@ -4141,6 +4141,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   turnSpeed: 5
+  aggresionRange: 5
   idleTime: 2
   moveSpeed: 5
   patrolPoints:
@@ -9879,6 +9880,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3256593484308758555}
   - component: {fileID: 3686326479326375121}
+  - component: {fileID: 3686326479326375122}
   m_Layer: 0
   m_Name: HumanBot_Skinned_B
   m_TagString: Untagged
@@ -10288,6 +10290,18 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &3686326479326375122
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2434142106013106930}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b9373e6440356c40ba5e0413f861562, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!23 &3686813811285913445
 MeshRenderer:
   m_ObjectHideFlags: 0

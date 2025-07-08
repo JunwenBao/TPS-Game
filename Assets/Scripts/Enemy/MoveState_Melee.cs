@@ -28,6 +28,13 @@ public class MoveState_Melee : EnemyState
     {
         base.Update();
 
+        // 如果检测到玩家进入攻击范围，则切换到Recovery State
+        if (enemy.PlayerInAggresionRange())
+        {
+            stateMachine.ChangeState(enemy.recoveryState);
+            return;
+        }
+
         enemy.transform.rotation = enemy.FaceTarget(GetNextPathPoint());
 
         if (enemy.agent.remainingDistance <= enemy.agent.stoppingDistance + .05f)
