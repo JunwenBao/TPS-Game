@@ -5,6 +5,8 @@ using UnityEngine.AI;
 
 public class Enemy : MonoBehaviour
 {
+    [SerializeField] protected int healthPoints = 20;
+
     [Header("Idle Data")]
     public float idleTime;
     public float aggresionRange;
@@ -78,9 +80,10 @@ public class Enemy : MonoBehaviour
         return Quaternion.Euler(currentEulerAngels.x, yRotation, currentEulerAngels.z);
     }
 
+    // ±»»÷ÖÐ
     public virtual void GetHit()
     {
-
+        healthPoints--;
     }
 
     public virtual void HitImpact(Vector3 force, Vector3 hitPoint, Rigidbody rb)
