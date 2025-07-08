@@ -24,7 +24,7 @@ public class AttackState_Melee : EnemyState
         attackMoveSpeed = enemy.attackData.moveSpeed;
         enemy.animator.SetFloat("AttackAnimationSpeed", enemy.attackData.animationSpeed);
         enemy.animator.SetFloat("AttackIndex", enemy.attackData.attackIndex);
-        //enemy.anim.SetFloat("SlashAttackIndex", Random.Range(0, 5));
+        enemy.animator.SetFloat("SlashAttackIndex", Random.Range(0, 5));
 
         enemy.agent.isStopped = true;
         enemy.agent.velocity = Vector3.zero;

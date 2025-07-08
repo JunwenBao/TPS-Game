@@ -4231,10 +4231,25 @@ MonoBehaviour:
   - {fileID: 481771627}
   - {fileID: 1169829755}
   attackData:
+    attackName: 
     attackRange: 3.5
     moveSpeed: 1
     attackIndex: 1
     animationSpeed: 1
+    attackType: 0
+  attackList:
+  - attackName: Sword Spin Attack
+    attackRange: 3.5
+    moveSpeed: 0
+    attackIndex: 0
+    animationSpeed: 0
+    attackType: 1
+  - attackName: Sword Slash
+    attackRange: 3.5
+    moveSpeed: 0
+    attackIndex: 1
+    animationSpeed: 1.5
+    attackType: 0
   hiddernWeapon: {fileID: 371738237}
   pulledWeapon: {fileID: 371738237}
 --- !u!195 &1715240991
