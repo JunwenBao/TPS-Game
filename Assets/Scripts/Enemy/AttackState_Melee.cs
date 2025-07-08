@@ -21,34 +21,30 @@ public class AttackState_Melee : EnemyState
 
         enemy.PullWeapon();
 
-        //attackMoveSpeed = enemy.attackData.moveSpeed;
-        //enemy.anim.SetFloat("AttackAnimationSpeed", enemy.attackData.animationSpeed);
-        //enemy.anim.SetFloat("AttackIndex", enemy.attackData.attackIndex);
+        attackMoveSpeed = enemy.attackData.moveSpeed;
+        enemy.animator.SetFloat("AttackAnimationSpeed", enemy.attackData.animationSpeed);
+        enemy.animator.SetFloat("AttackIndex", enemy.attackData.attackIndex);
         //enemy.anim.SetFloat("SlashAttackIndex", Random.Range(0, 5));
 
         enemy.agent.isStopped = true;
         enemy.agent.velocity = Vector3.zero;
-
-        attackDirection = enemy.transform.position + (enemy.transform.forward * MAX_ATTACK_DISTANCE);
     }
 
     public override void Exit()
     {
         base.Exit();
-        //SetupNextAttack();
+        SetupNextAttack();
     }
 
     public override void Update()
     {
         base.Update();
 
-        /*
         if (enemy.ManualRotationActive())
         {
-            enemy.FaceTarget(enemy.player.position);
+            enemy.transform.rotation =  enemy.FaceTarget(enemy.player.position);
             attackDirection = enemy.transform.position + (enemy.transform.forward * MAX_ATTACK_DISTANCE);
         }
-        */
 
         if (enemy.ManualMovementActive())
         {
@@ -68,15 +64,16 @@ public class AttackState_Melee : EnemyState
             }
         }
     }
-    /*
     private void SetupNextAttack()
     {
-        int recoveryIndex = PlayerClose() ? 1 : 0;
+        //int recoveryIndex = PlayerClose() ? 1 : 0;
 
-        enemy.anim.SetFloat("RecoveryIndex", recoveryIndex);
-        enemy.attackData = UpdatedAttackData();
+        enemy.animator.SetFloat("RecoveryIndex", 0);
+        if(enemy.PlayerInAttackRange()) enemy.animator.SetFloat("RecoveryIndex", 0);
+        //enemy.attackData = UpdatedAttackData();
     }
 
+    /*
     private bool PlayerClose() => Vector3.Distance(enemy.transform.position, enemy.player.position) <= 1;
 
     private AttackData UpdatedAttackData()

@@ -1,5 +1,15 @@
 using UnityEngine;
 
+[System.Serializable]
+public struct AttackData
+{
+    public float attackRange;
+    public float moveSpeed;
+    public float attackIndex;
+    [Range(1, 2)]
+    public float animationSpeed;
+}
+
 public class Enemy_Melee : Enemy
 {
     public IdleState_Melee     idleState {  get; private set; }
@@ -7,6 +17,9 @@ public class Enemy_Melee : Enemy
     public RecoveryState_Melee recoveryState {  get; private set; }
     public ChaseState_Melee    chaseState {  get; private set; }
     public AttackState_Melee   attackState {  get; private set; }
+
+    [Header("Attack Data")]
+    public AttackData attackData;
 
     // ÎäÆ÷
     [SerializeField] private Transform hiddernWeapon;
@@ -41,5 +54,15 @@ public class Enemy_Melee : Enemy
     {
         hiddernWeapon.gameObject.SetActive(false);
         pulledWeapon.gameObject.SetActive(true);
+    }
+
+    public bool PlayerInAttackRange() => Vector3.Distance(transform.position, player.position) < attackData.attackRange;
+
+    protected override void OnDrawGizmos()
+    {
+        base.OnDrawGizmos();
+
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawSphere(transform.position, attackData.attackRange);
     }
 }
