@@ -119,6 +119,83 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1001 &9975408
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 2975750771420907670}
+    m_Modifications:
+    - target: {fileID: 1319978954992906, guid: ee1eade66f4b044459a253547b68aa67, type: 3}
+      propertyPath: m_Name
+      value: SM_Wep_Sword_01a
+      objectReference: {fileID: 0}
+    - target: {fileID: 1319978954992906, guid: ee1eade66f4b044459a253547b68aa67, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4787457826059920, guid: ee1eade66f4b044459a253547b68aa67, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4787457826059920, guid: ee1eade66f4b044459a253547b68aa67, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4787457826059920, guid: ee1eade66f4b044459a253547b68aa67, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4787457826059920, guid: ee1eade66f4b044459a253547b68aa67, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.14
+      objectReference: {fileID: 0}
+    - target: {fileID: 4787457826059920, guid: ee1eade66f4b044459a253547b68aa67, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.079
+      objectReference: {fileID: 0}
+    - target: {fileID: 4787457826059920, guid: ee1eade66f4b044459a253547b68aa67, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.003
+      objectReference: {fileID: 0}
+    - target: {fileID: 4787457826059920, guid: ee1eade66f4b044459a253547b68aa67, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: -0.47183838
+      objectReference: {fileID: 0}
+    - target: {fileID: 4787457826059920, guid: ee1eade66f4b044459a253547b68aa67, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0.54707426
+      objectReference: {fileID: 0}
+    - target: {fileID: 4787457826059920, guid: ee1eade66f4b044459a253547b68aa67, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.44800642
+      objectReference: {fileID: 0}
+    - target: {fileID: 4787457826059920, guid: ee1eade66f4b044459a253547b68aa67, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0.5266579
+      objectReference: {fileID: 0}
+    - target: {fileID: 4787457826059920, guid: ee1eade66f4b044459a253547b68aa67, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 182.543
+      objectReference: {fileID: 0}
+    - target: {fileID: 4787457826059920, guid: ee1eade66f4b044459a253547b68aa67, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 90
+      objectReference: {fileID: 0}
+    - target: {fileID: 4787457826059920, guid: ee1eade66f4b044459a253547b68aa67, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: -81.172
+      objectReference: {fileID: 0}
+    - target: {fileID: 4787457826059920, guid: ee1eade66f4b044459a253547b68aa67, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: ee1eade66f4b044459a253547b68aa67, type: 3}
 --- !u!1 &78064084
 GameObject:
   m_ObjectHideFlags: 0
@@ -1066,6 +1143,11 @@ MonoBehaviour:
       m_PostInfinity: 2
       m_RotationOrder: 4
   CustomBlends: {fileID: 0}
+--- !u!4 &371738237 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4787457826059920, guid: ee1eade66f4b044459a253547b68aa67, type: 3}
+  m_PrefabInstance: {fileID: 9975408}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &388193930
 GameObject:
   m_ObjectHideFlags: 0
@@ -4141,12 +4223,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   turnSpeed: 5
-  aggresionRange: 5
+  aggresionRange: 10
+  attackRange: 2
+  attackMoveSpeed: 5
   idleTime: 2
-  moveSpeed: 5
+  moveSpeed: 3
+  chaseSpeed: 20
+  manualMovement: 0
   patrolPoints:
   - {fileID: 481771627}
   - {fileID: 1169829755}
+  hiddernWeapon: {fileID: 371738237}
+  pulledWeapon: {fileID: 371738237}
 --- !u!195 &1715240991
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -10056,6 +10144,7 @@ Transform:
   - {fileID: 3262057659191389513}
   - {fileID: 6649073036957943752}
   - {fileID: 80404274764733647}
+  - {fileID: 371738237}
   m_Father: {fileID: 8087625946078048683}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3057675360000638738
