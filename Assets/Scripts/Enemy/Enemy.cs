@@ -108,4 +108,8 @@ public class Enemy : MonoBehaviour
     public bool ManualMovementActive() => manualMovement;
     public bool ManualRotationActive() => manualRotation;
     public void AnimationTrigger() => stateMachine.currentState.AnimationTrigger();
+    public virtual void AbilityTrigger()
+    {
+        stateMachine.currentState.AbilityTrigger();
+    }
 }

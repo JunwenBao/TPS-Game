@@ -15,7 +15,7 @@ public struct AttackData
 }
 
 public enum AttackType_Melee { Close, Charge }
-public enum EnemyMelee_Type  { Regular, Shield, Dodge}
+public enum EnemyMelee_Type  { Regular, Shield, Dodge, AxeThrow }
 
 public class Enemy_Melee : Enemy
 {
@@ -25,12 +25,21 @@ public class Enemy_Melee : Enemy
     public ChaseState_Melee    chaseState {  get; private set; }
     public AttackState_Melee   attackState {  get; private set; }
     public DeadState_Melee     deadState {  get; private set; }
+    public AbilityState_Melee  abilityState {  get; private set; }
 
     [Header("Enemy Settings")]
     public EnemyMelee_Type meleeType;
     public Transform shieldTransform;
     public float dodgeCooldown;
     private float lastTimeDodge;
+
+    [Header("Axe Throw Ability")]
+    public GameObject axePrefab;
+    public float axeFlySpeed;
+    public float axeAimTimer;
+    public float axeThrowCooldown;
+    public float lastTimerAxeTrown;
+    public Transform axeStartPoint;
 
     [Header("Attack Data")]
     public AttackData attackData;
@@ -50,6 +59,7 @@ public class Enemy_Melee : Enemy
         chaseState    = new ChaseState_Melee(this, stateMachine, "Chase");
         attackState   = new AttackState_Melee(this, stateMachine, "Attack");
         deadState     = new DeadState_Melee(this, stateMachine, "Idle");
+        abilityState  = new AbilityState_Melee(this, stateMachine, "AxeThrow");
     }
 
     protected override void Start()
@@ -66,6 +76,14 @@ public class Enemy_Melee : Enemy
         base.Update();
 
         stateMachine.currentState.Update();
+    }
+
+    public override void AbilityTrigger()
+    {
+        base.AbilityTrigger();
+
+        moveSpeed = moveSpeed * 0.6f;
+        pulledWeapon.gameObject.SetActive(false);
     }
 
     // 初始化敌人的类型：正常 / 持盾
@@ -106,6 +124,19 @@ public class Enemy_Melee : Enemy
             lastTimeDodge = Time.time;
             animator.SetTrigger("Dodge");
         }
+    }
+
+    public bool CanThrowAxe()
+    {
+        if (meleeType != EnemyMelee_Type.AxeThrow) return false;
+
+        if(Time.time > lastTimeDodge + axeThrowCooldown)
+        {
+            lastTimerAxeTrown = Time.time;
+            return true;
+        }
+
+        return false;
     }
 
     protected override void OnDrawGizmos()
