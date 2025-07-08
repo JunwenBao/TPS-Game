@@ -1,3 +1,4 @@
+using System.Collections;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
@@ -75,6 +76,23 @@ public class Enemy : MonoBehaviour
         float yRotation = Mathf.LerpAngle(currentEulerAngels.y, targetRotation.eulerAngles.y, turnSpeed * Time.deltaTime);
 
         return Quaternion.Euler(currentEulerAngels.x, yRotation, currentEulerAngels.z);
+    }
+
+    public virtual void GetHit()
+    {
+
+    }
+
+    public virtual void HitImpact(Vector3 force, Vector3 hitPoint, Rigidbody rb)
+    {
+        StartCoroutine(HitImpactCourutine(force, hitPoint, rb));
+    }
+
+    private IEnumerator HitImpactCourutine(Vector3 force, Vector3 hitPoint, Rigidbody rb)
+    {
+        yield return new WaitForSeconds(0.1f);
+
+        rb.AddForceAtPosition(force, hitPoint, ForceMode.Impulse);
     }
 
     protected virtual void OnDrawGizmos()

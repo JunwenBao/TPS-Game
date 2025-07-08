@@ -71,8 +71,6 @@ public class ObjectPool : MonoBehaviour
 
     private void InitializeNewPool(GameObject prefab)
     {
-        Debug.Log(prefab.ToString());
-
         poolDictionary[prefab] = new Queue<GameObject>();
 
         for(int i = 0; i < poolSize; i++)
