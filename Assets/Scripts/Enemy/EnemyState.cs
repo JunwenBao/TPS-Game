@@ -18,6 +18,7 @@ public class EnemyState
 
     public virtual void Enter()
     {
+        enemyBase.animator.SetBool(animBoolName, true);
     }
 
     public virtual void Update()
@@ -27,5 +28,6 @@ public class EnemyState
 
     public virtual void Exit()
     {
+        enemyBase.animator.SetBool(animBoolName, false);
     }
 }

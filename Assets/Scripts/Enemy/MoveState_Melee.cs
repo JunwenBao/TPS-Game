@@ -15,6 +15,7 @@ public class MoveState_Melee : EnemyState
         base.Enter();
 
         destination = enemy.GetPatrolDestination();
+        enemy.agent.SetDestination(destination);
     }
 
     public override void Exit()
@@ -25,8 +26,6 @@ public class MoveState_Melee : EnemyState
     public override void Update()
     {
         base.Update();
-
-        enemy.agent.SetDestination(destination);
 
         if (enemy.agent.remainingDistance <= enemy.agent.stoppingDistance + .05f)
         {

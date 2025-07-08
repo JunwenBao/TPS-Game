@@ -12,8 +12,8 @@ public class Enemy : MonoBehaviour
     [SerializeField] protected Transform[] patrolPoints;
     private int currentPatrolIndex;
 
+    public Animator animator {  get; private set; }
     public NavMeshAgent agent { get; private set; }
-
     public EnemyStateMachine stateMachine {  get; private set; }
 
     protected virtual void Awake()
@@ -21,6 +21,7 @@ public class Enemy : MonoBehaviour
         stateMachine = new EnemyStateMachine();
 
         agent = GetComponent<NavMeshAgent>();
+        animator = GetComponentInChildren<Animator>();
     }
 
     protected virtual void Start()
