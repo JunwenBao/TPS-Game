@@ -19,7 +19,10 @@ public class Enemy : MonoBehaviour
     private bool manualRotation;
 
     [SerializeField] protected Transform[] patrolPoints;
+    private Vector3[] patrolPointsPosition;
     private int currentPatrolIndex;
+
+    public bool inBattleMode {  get; private set; }
 
     public Transform player {  get; private set; }
 
@@ -39,7 +42,7 @@ public class Enemy : MonoBehaviour
 
     protected virtual void Start()
     {
-        
+        InitializePatrolPoints();
     }
 
     protected virtual void Update()
@@ -47,29 +50,52 @@ public class Enemy : MonoBehaviour
         
     }
 
+    protected bool ShouldEnterBattleMode()
+    {
+        bool inAggressionRange = Vector3.Distance(transform.position, player.position) < aggresionRange;
+
+        if (inAggressionRange && !inBattleMode)
+        {
+            EnterBattleMode();
+            return true;
+        }
+
+        return false;
+    }
+
+    public virtual void EnterBattleMode()
+    {
+        inBattleMode = true;
+    }
+
     public bool PlayerInAggresionRange() => Vector3.Distance(transform.position, player.position) < aggresionRange;
 
     public Vector3 GetPatrolDestination()
     {
-        Vector3 destination = patrolPoints[currentPatrolIndex].position;
+        Vector3 destination = patrolPointsPosition[currentPatrolIndex];
 
         currentPatrolIndex++;
 
         if (currentPatrolIndex >= patrolPoints.Length)
+        {
             currentPatrolIndex = 0;
+        }
 
         return destination;
     }
 
     private void InitializePatrolPoints()
     {
-        foreach(Transform t in patrolPoints)
+        patrolPointsPosition = new Vector3[patrolPoints.Length];
+
+        for(int i = 0; i < patrolPoints.Length; i++)
         {
-            t.parent = null;
+            patrolPointsPosition[i] = patrolPoints[i].position;
+            patrolPoints[i].gameObject.SetActive(false);
         }
     }
 
-    public Quaternion FaceTarget(Vector3 target)
+    public void FaceTarget(Vector3 target)
     {
         Quaternion targetRotation = Quaternion.LookRotation(target - transform.position);
 
@@ -77,21 +103,23 @@ public class Enemy : MonoBehaviour
 
         float yRotation = Mathf.LerpAngle(currentEulerAngels.y, targetRotation.eulerAngles.y, turnSpeed * Time.deltaTime);
 
-        return Quaternion.Euler(currentEulerAngels.x, yRotation, currentEulerAngels.z);
+        transform.rotation = Quaternion.Euler(currentEulerAngels.x, yRotation, currentEulerAngels.z);
     }
 
     // ±»»÷ÖÐ
     public virtual void GetHit()
     {
+        EnterBattleMode();
+
         healthPoints--;
     }
 
-    public virtual void HitImpact(Vector3 force, Vector3 hitPoint, Rigidbody rb)
+    public virtual void DeathImpact(Vector3 force, Vector3 hitPoint, Rigidbody rb)
     {
-        StartCoroutine(HitImpactCourutine(force, hitPoint, rb));
+        StartCoroutine(DeathImpactCourutine(force, hitPoint, rb));
     }
 
-    private IEnumerator HitImpactCourutine(Vector3 force, Vector3 hitPoint, Rigidbody rb)
+    private IEnumerator DeathImpactCourutine(Vector3 force, Vector3 hitPoint, Rigidbody rb)
     {
         yield return new WaitForSeconds(0.1f);
 
