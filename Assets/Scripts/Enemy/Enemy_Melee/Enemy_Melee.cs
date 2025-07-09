@@ -19,6 +19,8 @@ public enum EnemyMelee_Type  { Regular, Shield, Dodge, AxeThrow }
 
 public class Enemy_Melee : Enemy
 {
+    private Enemy_Visuals visuals;
+
     public IdleState_Melee     idleState {  get; private set; }
     public MoveState_Melee     moveState {  get; private set; }
     public RecoveryState_Melee recoveryState {  get; private set; }
@@ -53,6 +55,8 @@ public class Enemy_Melee : Enemy
     {
         base.Awake();
 
+        visuals = GetComponent<Enemy_Visuals>();
+
         idleState     = new IdleState_Melee(this, stateMachine, "Idle");
         moveState     = new MoveState_Melee(this, stateMachine, "Move");
         recoveryState = new RecoveryState_Melee(this, stateMachine, "Recovery");
@@ -69,6 +73,8 @@ public class Enemy_Melee : Enemy
         stateMachine.Initialize(idleState);
 
         InitializeSpeciality();
+
+        visuals.SetupLook();
     }
 
     protected override void Update()

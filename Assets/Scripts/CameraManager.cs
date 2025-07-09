@@ -27,6 +27,7 @@ public class CameraManager : MonoBehaviour
         UpdateCameraDistance();
     }
 
+    // ĞŞ¸ÄÏà»ú¾àÀë
     private void UpdateCameraDistance()
     {
         if (!canChangeCameraDistance) return;
