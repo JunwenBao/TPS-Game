@@ -19,7 +19,7 @@ public class AttackState_Melee : EnemyState
     {
         base.Enter();
 
-        enemy.PullWeapon();
+        enemy.EnableWeaponModel(true);
 
         attackMoveSpeed = enemy.attackData.moveSpeed;
         enemy.animator.SetFloat("AttackAnimationSpeed", enemy.attackData.animationSpeed);

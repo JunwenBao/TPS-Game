@@ -47,10 +47,6 @@ public class Enemy_Melee : Enemy
     public AttackData attackData;
     public List<AttackData> attackList;
 
-    // 武器
-    [SerializeField] private Transform hiddernWeapon;
-    [SerializeField] private Transform pulledWeapon;
-
     protected override void Awake()
     {
         base.Awake();
@@ -99,16 +95,22 @@ public class Enemy_Melee : Enemy
         base.AbilityTrigger();
 
         moveSpeed = moveSpeed * 0.6f;
-        pulledWeapon.gameObject.SetActive(false);
+        EnableWeaponModel(false);
     }
 
-    // 初始化敌人的类型：正常 / 持盾
+    // 初始化敌人的类型 + 外观
     private void InitializeSpeciality()
     {
+        if(meleeType == EnemyMelee_Type.AxeThrow)
+        {
+            visuals.SetupWeaponType(Enemy_MeleeWeaponType.Throw);
+        }
+
         if(meleeType == EnemyMelee_Type.Shield)
         {
             animator.SetFloat("ChaseIndex", 1);
             shieldTransform.gameObject.SetActive(true);
+            visuals.SetupWeaponType(Enemy_MeleeWeaponType.OneHand);
         }
     }
 
@@ -119,10 +121,9 @@ public class Enemy_Melee : Enemy
         if(healthPoints <= 0) stateMachine.ChangeState(deadState);
     }
 
-    public void PullWeapon()
+    public void EnableWeaponModel(bool active)
     {
-        hiddernWeapon.gameObject.SetActive(false);
-        pulledWeapon.gameObject.SetActive(true);
+        visuals.currentWeaponModel.gameObject.SetActive(active);
     }
 
     public bool PlayerInAttackRange() => Vector3.Distance(transform.position, player.position) < attackData.attackRange;
