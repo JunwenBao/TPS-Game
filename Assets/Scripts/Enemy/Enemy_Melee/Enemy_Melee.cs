@@ -3,7 +3,7 @@ using System.Threading;
 using UnityEngine;
 
 [System.Serializable]
-public struct AttackData
+public struct AttackData_EnemyMelee
 {
     public string attackName;
     public float attackRange;
@@ -44,8 +44,8 @@ public class Enemy_Melee : Enemy
     public Transform axeStartPoint;
 
     [Header("Attack Data")]
-    public AttackData attackData;
-    public List<AttackData> attackList;
+    public AttackData_EnemyMelee attackData;
+    public List<AttackData_EnemyMelee> attackList;
 
     protected override void Awake()
     {
@@ -68,9 +68,10 @@ public class Enemy_Melee : Enemy
 
         stateMachine.Initialize(idleState);
 
-        InitializeSpeciality();
+        InitializePerk();
 
         visuals.SetupLook();
+        UpdateAttackData();
     }
 
     protected override void Update()
@@ -98,8 +99,19 @@ public class Enemy_Melee : Enemy
         EnableWeaponModel(false);
     }
 
+    public void UpdateAttackData()
+    {
+        Enemy_WeaponModel currentWeapon = visuals.currentWeaponModel.GetComponent<Enemy_WeaponModel>();
+
+        if(currentWeapon.weaponData != null)
+        {
+            attackList = new List<AttackData_EnemyMelee>(currentWeapon.weaponData.attackData);
+            turnSpeed = currentWeapon.weaponData.turnSpeed;
+        }
+    }
+
     // 初始化敌人的类型 + 外观
-    private void InitializeSpeciality()
+    private void InitializePerk()
     {
         if(meleeType == EnemyMelee_Type.AxeThrow)
         {
@@ -157,6 +169,12 @@ public class Enemy_Melee : Enemy
         }
 
         return false;
+    }
+
+    private void ResetCoolDown()
+    {
+        lastTimeDodge -= dodgeCooldown;
+        lastTimerAxeTrown -= axeThrowCooldown;
     }
 
     private float GetAnimationClipDuration(string clipName)

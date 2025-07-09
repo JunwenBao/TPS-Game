@@ -19,6 +19,7 @@ public class AttackState_Melee : EnemyState
     {
         base.Enter();
 
+        enemy.UpdateAttackData();
         enemy.EnableWeaponModel(true);
         enemy.visuals.EnableWeaponTrail(true);
 
@@ -82,9 +83,9 @@ public class AttackState_Melee : EnemyState
     }
 
     // 更新攻击数据：从敌人的AttackData List中随机选择
-    private AttackData UpdatedAttackData()
+    private AttackData_EnemyMelee UpdatedAttackData()
     {
-        List<AttackData> validAttacks = new List<AttackData>(enemy.attackList);
+        List<AttackData_EnemyMelee> validAttacks = new List<AttackData_EnemyMelee>(enemy.attackList);
 
         if (PlayerClose())
         {
