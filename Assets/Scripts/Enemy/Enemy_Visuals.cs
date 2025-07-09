@@ -27,6 +27,12 @@ public class Enemy_Visuals : MonoBehaviour
         CollectCorruptionCrystals();
     }
 
+    public void EnableWeaponTrail(bool enable)
+    {
+        Enemy_WeaponModel currentWeaponScript = currentWeaponModel.GetComponent<Enemy_WeaponModel>();
+        currentWeaponScript.EnableTrailEffect(enable);
+    }
+
     // 设置角色随机外观
     public void SetupLook()
     {
