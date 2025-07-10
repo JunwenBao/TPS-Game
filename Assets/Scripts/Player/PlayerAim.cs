@@ -99,7 +99,6 @@ public class PlayerAim : MonoBehaviour
         aimLaser.SetPosition(2, endPoint + laserDirection * laserTipLength);
     }
 
-
     // 更新物体Aim的位置
     private void UpdateAimPosition()
     {
@@ -141,7 +140,6 @@ public class PlayerAim : MonoBehaviour
         RaycastHit hit = GetMouseHitInfo();
         if (hit.collider != null && hit.transform.GetComponent<Target>() != null)
         {
-            Debug.Log("脚本Target()检测到可被射击目标");
             target = hit.transform;
         }
 
