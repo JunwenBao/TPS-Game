@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: Default Pistol Data
   m_EditorClassIdentifier: 
   weaponName: Default Pistol
-  bulletInMagzine: 20
-  magzineCapacity: 20
+  bulletInMagzine: 100
+  magzineCapacity: 100
   totalReserveAmmo: 100
   shootType: 0
   bulletsPerShot: 1
@@ -24,11 +24,11 @@ MonoBehaviour:
   burstBulletsPerShot: 0
   burstFireRate: 0
   burstFireDelay: 0.1
-  baseSpread: 0.25
-  maxSpread: 2
-  spreadIncreaseRate: 0.15
+  baseSpread: 0
+  maxSpread: 0
+  spreadIncreaseRate: 0
   weaponType: 0
   reloadSpeed: 1
   equipmentSpeed: 1
-  gunDistance: 15
+  gunDistance: 50
   cameraDistance: 15

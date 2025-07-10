@@ -36,6 +36,12 @@ public class PlayerAim : MonoBehaviour
     {
         player = GetComponent<Player>();
         AssignInputEvents();
+
+        aimLaser.positionCount = 3;
+        aimLaser.startWidth = 0.05f;
+        aimLaser.endWidth = 0.05f;
+        aimLaser.material = new Material(Shader.Find("Sprites/Default")); // 或 Unlit/Color
+        aimLaser.useWorldSpace = true;
     }
 
     private void Update()
@@ -55,37 +61,49 @@ public class PlayerAim : MonoBehaviour
         UpdateCameraPosition();
     }
 
+    // 更新射击辅助线
     private void UpdateAimVisuals()
     {
         aimLaser.enabled = player.weapon.WeaponReady();
-
-        if (aimLaser.enabled == false) return;
+        if (!aimLaser.enabled) return;
 
         WeaponModel weaponModel = player.weaponVisuals.CurrentWeaponModle();
         weaponModel.transform.LookAt(aim);
-        weaponModel.gunPoint.LookAt(aim);
+        Transform gunPoint = weaponModel.gunPoint;
+        gunPoint.LookAt(aim);
 
-        Transform gunPoint = player.weapon.GunPoint();
-        Vector3 laserDirection = player.weapon.BulletDirection(); // 计算子弹方向
-
+        Vector3 laserDirection = player.weapon.BulletDirection();
+        float gunDistance = Mathf.Max(player.weapon.CurrentWeapon().gunDistance, 5f); // 最小距离容错
         float laserTipLength = 0.5f;
-        float gunDistance = player.weapon.CurrentWeapon().gunDistance;
 
         Vector3 endPoint = gunPoint.position + laserDirection * gunDistance;
 
-        if(Physics.Raycast(gunPoint.position, laserDirection, out RaycastHit hit, gunDistance))
+        // 如果命中目标，则使用命中点作为终点
+        if (Physics.Raycast(gunPoint.position, laserDirection, out RaycastHit hit, gunDistance))
         {
             endPoint = hit.point;
-            laserTipLength = 0;
+
+            // 防止 laserDirection 太短导致消失
+            if (Vector3.Distance(gunPoint.position, endPoint) < 0.1f)
+            {
+                endPoint = gunPoint.position + laserDirection * 0.5f;
+            }
+
+            laserTipLength = 0.2f;
         }
 
-        aimLaser.SetPosition(0, gunPoint.position); // 第一段激光
-        aimLaser.SetPosition(1, endPoint);          // 第二段激光
-        aimLaser.SetPosition(2, endPoint + laserDirection * laserTipLength); // 第三段激光（透明）
+        // 设置 LineRenderer
+        aimLaser.positionCount = 3;
+        aimLaser.SetPosition(0, gunPoint.position);
+        aimLaser.SetPosition(1, endPoint);
+        aimLaser.SetPosition(2, endPoint + laserDirection * laserTipLength);
     }
 
+
+    // 更新物体Aim的位置
     private void UpdateAimPosition()
     {
+        /* 辅助瞄准：自动锁定Target中心 */
         Transform target = Target();
 
         if (target != null && isLockingToTarget)
@@ -93,6 +111,11 @@ public class PlayerAim : MonoBehaviour
             if(target.GetComponent<Renderer>() != null)
             {
                 aim.position = target.GetComponent<Renderer>().bounds.center;
+            }
+            else if(target.GetComponent<BoxCollider>() != null)
+            {
+                Debug.Log("瞄准Collider中心");
+                aim.position = target.GetComponent<BoxCollider>().bounds.center;
             }
             else
             {
@@ -103,12 +126,14 @@ public class PlayerAim : MonoBehaviour
 
         aim.position = GetMouseHitInfo().point;
 
+        /* 未开启精准射击：射击位置Y轴的高度将被锁定 */
         if (!isAimingPrecisely)
         {
             aim.position = new Vector3(aim.position.x, transform.position.y + 3f, aim.position.z);
         }
     }
 
+    // 获取被击中对象的Target脚本，用于辅助瞄准
     public Transform Target()
     {
         Transform target = null;
@@ -116,35 +141,24 @@ public class PlayerAim : MonoBehaviour
         RaycastHit hit = GetMouseHitInfo();
         if (hit.collider != null && hit.transform.GetComponent<Target>() != null)
         {
+            Debug.Log("脚本Target()检测到可被射击目标");
             target = hit.transform;
         }
 
         return target;
     }
 
-    public Transform Aim() => aim;
-    public bool CanAimPrecisly() => isAimingPrecisely;
-
-    public RaycastHit GetMouseHitInfo()
-    {
-        Ray ray = Camera.main.ScreenPointToRay(mouseInput);
-
-        if(Physics.Raycast(ray, out var hitInfo, Mathf.Infinity, aimLayerMask))
-        {
-            lastKnownMouseHit = hitInfo;
-            return hitInfo;
-        }
-
-        return lastKnownMouseHit;
-    }
-
+    // 更新镜头位置
     private void UpdateCameraPosition()
     {
+        /* 添加一个平滑插值，以缓慢平滑地移动相机位置 */
         cameraTarget.position = Vector3.Lerp(cameraTarget.position, DesieredCameraPosition(), cameraSensetivity * Time.deltaTime);
     }
 
+    // 计算相机位置
     private Vector3 DesieredCameraPosition()
     {
+        /* 当玩家向后移动，相机拉近；反之亦然 */
         float actualMaxCameraDistance = player.movement.moveInput.y < -.5f ? minCameraDistance : maxCameraDistance;
 
         Vector3 desiredCameraPosition = GetMouseHitInfo().point;
@@ -159,10 +173,29 @@ public class PlayerAim : MonoBehaviour
         return desiredCameraPosition;
     }
 
+    // 绑定Input System的按键
     private void AssignInputEvents()
     {
         controls = player.controls;
+
+        /* 鼠标控制瞄准 */
         controls.Character.Aim.performed += context => mouseInput = context.ReadValue<Vector2>();
         controls.Character.Aim.canceled += context => mouseInput = Vector2.zero;
+    }
+
+    public Transform Aim() => aim;
+    public bool CanAimPrecisly() => isAimingPrecisely;
+
+    public RaycastHit GetMouseHitInfo()
+    {
+        Ray ray = Camera.main.ScreenPointToRay(mouseInput);
+
+        if (Physics.Raycast(ray, out var hitInfo, Mathf.Infinity, aimLayerMask))
+        {
+            lastKnownMouseHit = hitInfo;
+            return hitInfo;
+        }
+
+        return lastKnownMouseHit;
     }
 }

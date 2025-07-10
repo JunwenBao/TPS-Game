@@ -131,13 +131,16 @@ public class PlayerWeaponController : MonoBehaviour
         }
     }
 
+    // 射击
     private void Shoot()
     {
+        /* 检查当前武器是否可以射击 */
         if (WeaponReady() == false) return;
 
         /* 检查当前武器子弹数量 */
         if (currentWeapon.CanShoot() == false) return;
 
+        /* 触发射击动画 */
         player.weaponVisuals.PlayerFireAnimation();
 
         if (currentWeapon.shootType == ShootType.Single) isShooting = false;
@@ -158,18 +161,19 @@ public class PlayerWeaponController : MonoBehaviour
         currentWeapon.bulletInMagzine--;
 
         /* 从对象池中获取子弹GameObject */
-        //GameObject newBullet = Instantiate(bulletPrefab, gunPoint.position, Quaternion.LookRotation(gunPoint.forward));
         GameObject newBullet = ObjectPool.Instance.GetObject(bulletPrefab);
         newBullet.transform.position = GunPoint().position;
-        newBullet.transform.rotation = Quaternion.LookRotation(GunPoint().forward);
 
-        Rigidbody rbNewBullet = newBullet.GetComponent<Rigidbody>();
-
-        Bullet bulletScript = newBullet.GetComponent<Bullet>();
-        bulletScript.BuletSetup(currentWeapon.gunDistance, bulletImpactForce);
-
+        /* 子弹方向设置 */
         Vector3 bulletDirection = currentWeapon.ApplySpread(BulletDirection());
+        newBullet.transform.rotation = Quaternion.LookRotation(bulletDirection);
 
+        /* 子弹数据设置 */
+        Bullet bulletScript = newBullet.GetComponent<Bullet>();
+        bulletScript.BulletSetup(currentWeapon.gunDistance, bulletImpactForce);
+
+        /* 子弹刚体运动设置 */
+        Rigidbody rbNewBullet = newBullet.GetComponent<Rigidbody>();
         rbNewBullet.mass = REFERENCE_BULLET_SPEED / bulletSpeed;
         rbNewBullet.linearVelocity = bulletDirection * bulletSpeed;
     }
@@ -181,16 +185,18 @@ public class PlayerWeaponController : MonoBehaviour
         player.weaponVisuals.PlayReloadAnimation();
     }
 
+    // 计算子弹的飞行方向
     public Vector3 BulletDirection()
     {
+        /* 使用物体aim的位置 - 枪口的位置，即可得出飞行方向vec3 */
         Transform aim = player.aim.Aim();
         Vector3 direction = (aim.position - GunPoint().position).normalized;
 
-        if(player.aim.CanAimPrecisly() == false && player.aim.Target() == null) direction.y = 0;
-
-        /* 控制子弹飞行方向 */
-        //weaponHolder.LookAt(aim);
-        //gunPoint.LookAt(aim);
+        /* 如果未启用精确瞄准 */
+        if (player.aim.CanAimPrecisly() == false && player.aim.Target() == null)
+        {
+            direction.y = 0;
+        }
 
         return direction;
     }
@@ -208,6 +214,7 @@ public class PlayerWeaponController : MonoBehaviour
     public Weapon CurrentWeapon() => currentWeapon;
     public Transform GunPoint() => player.weaponVisuals.CurrentWeaponModle().gunPoint;
 
+    // 触发敌人闪避
     private void TriggerEnemyDodge()
     {
         Vector3 rayOrigin = GunPoint().position;
@@ -230,17 +237,21 @@ public class PlayerWeaponController : MonoBehaviour
     {
         PlayerControls controls = player.controls;
 
+        /* 绑定射击控制 */
         controls.Character.Fire.performed += context => isShooting = true;
         controls.Character.Fire.canceled += context => isShooting = false;
 
+        /* 绑定武器切换控制 */
         controls.Character.EquipSlot1.performed += context => EquipWeapon(0);
         controls.Character.EquipSlot2.performed += context => EquipWeapon(1);
         controls.Character.EquipSlot3.performed += context => EquipWeapon(2);
         controls.Character.EquipSlot4.performed += context => EquipWeapon(3);
         controls.Character.EquipSlot5.performed += context => EquipWeapon(4);
 
+        /* 绑定武器丢弃控制 */
         controls.Character.DropCurrentWeapon.performed += context => DropWeapon();
 
+        /* 绑定武器装弹控制 */
         controls.Character.Reload.performed += context =>
         {
             if (currentWeapon.CanReload() && WeaponReady())
@@ -249,6 +260,7 @@ public class PlayerWeaponController : MonoBehaviour
             }
         };
 
+        /* 绑定武器连发模式控制 */
         controls.Character.ToggleWeaponMode.performed += context => currentWeapon.ToggleBurst();
     }
     #endregion

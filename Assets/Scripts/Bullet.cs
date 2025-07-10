@@ -23,7 +23,7 @@ public class Bullet : MonoBehaviour
         trailRenderer = GetComponent<TrailRenderer>();
     }
 
-    public void BuletSetup(float flyDistance, float impactForce)
+    public void BulletSetup(float flyDistance, float impactForce)
     {
         this.impactForce = impactForce;
 
@@ -68,6 +68,9 @@ public class Bullet : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
+        CreateImpactFX(collision);
+        ReturnBulletToPool();
+
         Enemy enemy = collision.gameObject.GetComponentInParent<Enemy>();
         EnemyShield shield = collision.gameObject.GetComponent<EnemyShield>();
 
@@ -85,9 +88,6 @@ public class Bullet : MonoBehaviour
             enemy.GetHit();
             enemy.DeathImpact(force, collision.contacts[0].point, hitRigidbody);
         }
-
-        CreateImpactFX(collision);
-        ReturnBulletToPool();
     }
 
     private void ReturnBulletToPool() => ObjectPool.Instance.ReturnObject(gameObject);

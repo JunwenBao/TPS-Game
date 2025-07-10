@@ -52,6 +52,7 @@ public class PlayerWeaponVisuals : MonoBehaviour
         return weaponModel;
     }
 
+    // 播放射击动画
     public void PlayerFireAnimation() => animator.SetTrigger("Fire");
 
     // 播放装弹动画
