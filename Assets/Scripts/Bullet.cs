@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
-    public float impactForce;
+    private float impactForce;
 
     private BoxCollider cd;
     private Rigidbody rb;
@@ -15,7 +15,7 @@ public class Bullet : MonoBehaviour
     private float flyDistance;
     private bool bulletDisabled;
 
-    private void Awake()
+    protected virtual void Awake()
     {
         cd = GetComponent<BoxCollider>();
         rb = GetComponent<Rigidbody>();
@@ -23,7 +23,15 @@ public class Bullet : MonoBehaviour
         trailRenderer = GetComponent<TrailRenderer>();
     }
 
-    public void BulletSetup(float flyDistance, float impactForce)
+    protected virtual void Update()
+    {
+        FadeTrailIfNeeded();
+        DisabledBulletIfNeeded();
+        ReturnToPoolIfNeeded();
+    }
+
+    // 设置子弹属性
+    public void BulletSetup(float flyDistance = 100, float impactForce = 100)
     {
         this.impactForce = impactForce;
 
@@ -36,19 +44,14 @@ public class Bullet : MonoBehaviour
         this.flyDistance = flyDistance + 0.5f;
     }
 
-    private void Update()
-    {
-        FadeTrailIfNeeded();
-        DisabledBulletIfNeeded();
-        ReturnToPoolIfNeeded();
-    }
-
-    private void ReturnToPoolIfNeeded()
+    // 将子弹返回到对象池
+    protected void ReturnToPoolIfNeeded()
     {
         if (trailRenderer.time < 0) ReturnBulletToPool();
     }
 
-    private void DisabledBulletIfNeeded()
+    // 子弹消失
+    protected void DisabledBulletIfNeeded()
     {
         if (Vector3.Distance(startPosition, transform.position) > flyDistance && !bulletDisabled)
         {
@@ -58,7 +61,8 @@ public class Bullet : MonoBehaviour
         }
     }
 
-    private void FadeTrailIfNeeded()
+    // 子弹轨迹
+    protected void FadeTrailIfNeeded()
     {
         if (Vector3.Distance(startPosition, transform.position) > flyDistance - 1.5f)
         {
@@ -66,7 +70,8 @@ public class Bullet : MonoBehaviour
         }
     }
 
-    private void OnCollisionEnter(Collision collision)
+    // 子弹撞击
+    protected virtual void OnCollisionEnter(Collision collision)
     {
         CreateImpactFX(collision);
         ReturnBulletToPool();
@@ -90,10 +95,10 @@ public class Bullet : MonoBehaviour
         }
     }
 
-    private void ReturnBulletToPool() => ObjectPool.Instance.ReturnObject(gameObject);
+    protected void ReturnBulletToPool() => ObjectPool.Instance.ReturnObject(gameObject);
 
     // 制造子弹碰撞特效
-    private void CreateImpactFX(Collision collision)
+    protected void CreateImpactFX(Collision collision)
     {
         if (collision.contacts.Length > 0)
         {

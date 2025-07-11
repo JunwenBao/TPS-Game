@@ -4,6 +4,8 @@ public class BattleState_Range : EnemyState
 {
     private Enemy_Range enemy;
 
+    private float lastTimeShot = -10;
+
     public BattleState_Range(Enemy enemyBase, EnemyStateMachine stateMachine, string animBoolName) : base(enemyBase, stateMachine, animBoolName)
     {
         enemy = enemyBase as Enemy_Range;
@@ -19,6 +21,12 @@ public class BattleState_Range : EnemyState
         base.Update();
 
         enemy.FaceTarget(enemy.player.position);
+
+        if(Time.time > lastTimeShot + 1 / enemy.fireRate)
+        {
+            enemy.FireSingleBullet();
+            lastTimeShot = Time.time;
+        }
     }
 
     public override void Exit()
