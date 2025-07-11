@@ -20,13 +20,14 @@ public class IdleState_Range : EnemyState
         if (enemy.weaponType == Enemy_RangeWeaponType.Pistol)
             enemy.visuals.EnableIK(false, false);
         */
-        stateTimer = enemy.idleTime;
+        stateTimer = enemy.idleTime; //计时器：用于切换到Move State
     }
 
     public override void Update()
     {
         base.Update();
 
+        /* 根据计时器，判断是否要进入Move State */
         if (stateTimer < 0)
         {
             stateMachine.ChangeState(enemy.moveState);

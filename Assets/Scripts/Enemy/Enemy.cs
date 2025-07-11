@@ -47,11 +47,14 @@ public class Enemy : MonoBehaviour
 
     protected virtual void Update()
     {
-        
+        /* Battle State */
+        if (ShouldEnterBattleMode()) EnterBattleMode();
     }
 
+    // 判断是否要进入Battle State
     protected bool ShouldEnterBattleMode()
     {
+        /* 根据玩家距离判断 */
         bool inAggressionRange = Vector3.Distance(transform.position, player.position) < aggresionRange;
 
         if (inAggressionRange && !inBattleMode)

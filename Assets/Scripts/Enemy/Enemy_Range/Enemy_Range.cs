@@ -4,6 +4,7 @@ public class Enemy_Range : Enemy
 {
     public IdleState_Range idleState { get; private set; }
     public MoveState_Range moveState { get; private set; }
+    public BattleState_Range battleState { get; private set; }
 
     protected override void Awake()
     {
@@ -11,6 +12,7 @@ public class Enemy_Range : Enemy
 
         idleState = new IdleState_Range(this, stateMachine, "Idle");
         moveState = new MoveState_Range(this, stateMachine, "Move");
+        battleState = new BattleState_Range(this, stateMachine, "Battle");
     }
 
     protected override void Start()
@@ -25,5 +27,24 @@ public class Enemy_Range : Enemy
         base.Update();
 
         stateMachine.currentState.Update();
+    }
+
+    // 进入战斗模式
+    public override void EnterBattleMode()
+    {
+        if (inBattleMode) return;
+
+        base.EnterBattleMode();
+
+        /*
+        if (CanGetCover())
+        {
+            stateMachine.ChangeState(runToCoverState);
+        }
+        else
+        {
+        }
+        */
+        stateMachine.ChangeState(battleState);
     }
 }
