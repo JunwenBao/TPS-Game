@@ -3,6 +3,7 @@ using UnityEngine;
 public class Enemy_Range : Enemy
 {
     public Transform weaponHolder;
+    public Enemy_RangeWeaponType weaponType;
 
     public float fireRate = 1;
     public GameObject bulletPrefab;
@@ -30,6 +31,7 @@ public class Enemy_Range : Enemy
         base.Start();
 
         stateMachine.Initialize(idleState);
+        visuals.SetupLook();
     }
 
     protected override void Update()
