@@ -113,7 +113,6 @@ public class PlayerAim : MonoBehaviour
             }
             else if(target.GetComponent<BoxCollider>() != null)
             {
-                Debug.Log("瞄准Collider中心");
                 aim.position = target.GetComponent<BoxCollider>().bounds.center;
             }
             else
@@ -150,7 +149,7 @@ public class PlayerAim : MonoBehaviour
     private void UpdateCameraPosition()
     {
         /* 添加一个平滑插值，以缓慢平滑地移动相机位置 */
-        cameraTarget.position = Vector3.Lerp(cameraTarget.position, DesieredCameraPosition(), cameraSensetivity * Time.deltaTime);
+        //cameraTarget.position = Vector3.Lerp(cameraTarget.position, DesieredCameraPosition(), cameraSensetivity * Time.deltaTime);
     }
 
     // 计算相机位置
