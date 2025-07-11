@@ -9,6 +9,8 @@ public class Enemy_Range : Enemy
     public Transform gunPoint;
 
     public float bulletSpeed = 20;
+    public int bulletsToShoot = 5;
+    public float weaponCooldown = 1;
 
     public IdleState_Range idleState { get; private set; }
     public MoveState_Range moveState { get; private set; }

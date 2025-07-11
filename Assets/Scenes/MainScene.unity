@@ -6375,10 +6375,12 @@ MonoBehaviour:
   - {fileID: 880380076}
   - {fileID: 1407152711}
   weaponHolder: {fileID: 1304444357}
-  fireRate: 1
+  fireRate: 10
   bulletPrefab: {fileID: 516076149687506628, guid: 75f280c50a830fd4bbd440732a6db28e, type: 3}
   gunPoint: {fileID: 1751520266}
   bulletSpeed: 20
+  bulletsToShoot: 5
+  weaponCooldown: 3
 --- !u!114 &897756479
 MonoBehaviour:
   m_ObjectHideFlags: 0
