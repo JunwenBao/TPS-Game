@@ -7,4 +7,6 @@ public class Enemy_Range_WeaponModel : MonoBehaviour
     public Enemy_RangeWeaponType weaponType;
     public Enemy_Range_WeaponHoldType weaponHoldType;
 
+    public Transform leftHandTarget;
+    public Transform leftElbowTarget;
 }

@@ -1704,6 +1704,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 6101919557572812207, guid: ea770f2ad0cd629498d9b5dd452ab417, type: 3}
   m_PrefabInstance: {fileID: 556056748}
   m_PrefabAsset: {fileID: 0}
+--- !u!4 &562642571 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4762669294781941071, guid: 1ce328c82b8a246479b6bb387b455864, type: 3}
+  m_PrefabInstance: {fileID: 8358348560202198610}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &569884405 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 938418830293020027, guid: 0ad5ebb3ff059324881071114340473d, type: 3}
@@ -7269,10 +7274,6 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 347788621558740452, guid: 2acfafe9dbcd2564c9bb781ce054da78, type: 3}
-      propertyPath: weaponType
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 347788621558740452, guid: 2acfafe9dbcd2564c9bb781ce054da78, type: 3}
       propertyPath: 'patrolPoints.Array.data[0]'
       value: 
       objectReference: {fileID: 880380076}
@@ -7280,10 +7281,10 @@ PrefabInstance:
       propertyPath: 'patrolPoints.Array.data[1]'
       value: 
       objectReference: {fileID: 1407152711}
-    - target: {fileID: 2479612220730445246, guid: 2acfafe9dbcd2564c9bb781ce054da78, type: 3}
-      propertyPath: weaponHoldType
-      value: 2
-      objectReference: {fileID: 0}
+    - target: {fileID: 2661886263159508110, guid: 2acfafe9dbcd2564c9bb781ce054da78, type: 3}
+      propertyPath: m_Data.m_SourceObjects.m_Item0.transform
+      value: 
+      objectReference: {fileID: 562642571}
     - target: {fileID: 2919167913120878611, guid: 2acfafe9dbcd2564c9bb781ce054da78, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.81
@@ -7324,17 +7325,9 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6744183292370042500, guid: 2acfafe9dbcd2564c9bb781ce054da78, type: 3}
-      propertyPath: weaponHoldType
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 7155308331458696630, guid: 2acfafe9dbcd2564c9bb781ce054da78, type: 3}
       propertyPath: m_Name
       value: Enemy_Range
-      objectReference: {fileID: 0}
-    - target: {fileID: 7603062263721382146, guid: 2acfafe9dbcd2564c9bb781ce054da78, type: 3}
-      propertyPath: weaponHoldType
-      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
