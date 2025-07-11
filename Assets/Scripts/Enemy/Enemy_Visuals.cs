@@ -8,7 +8,7 @@ public enum Enemy_MeleeWeaponType { OneHand, Throw }
 
 public class Enemy_Visuals : MonoBehaviour
 {
-    [Header("Weapon Model")]
+    [Header("Weapon Visuals")]
     [SerializeField] private Enemy_WeaponModel[] weaponModels;
     [SerializeField] private Enemy_MeleeWeaponType weaponType;
     public GameObject currentWeaponModel {  get; private set; }
@@ -17,7 +17,7 @@ public class Enemy_Visuals : MonoBehaviour
     [SerializeField] private GameObject[] corruptionCrystals;
     [SerializeField] private int corruptionAmount;
 
-    [Header("Color")]
+    [Header("Color Visuals")]
     [SerializeField] private Texture[] colorTextures;
     [SerializeField] private SkinnedMeshRenderer skinnedMeshRenderer;
 
