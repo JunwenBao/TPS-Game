@@ -1142,6 +1142,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e3cd915ea4499a4d8cff507aa511f55, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gunPoint: {fileID: 7045748252988832599}
   weaponType: 2
   weaponHoldType: 1
   leftHandTarget: {fileID: 4959354680914891092}
@@ -2087,7 +2088,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &8801518559882799791
 Transform:
   m_ObjectHideFlags: 0
@@ -2119,6 +2120,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e3cd915ea4499a4d8cff507aa511f55, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gunPoint: {fileID: 1939483771258128934}
   weaponType: 3
   weaponHoldType: 2
   leftHandTarget: {fileID: 7296895574161320504}
@@ -2264,6 +2266,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e3cd915ea4499a4d8cff507aa511f55, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gunPoint: {fileID: 3162275438813597415}
   weaponType: 0
   weaponHoldType: 0
   leftHandTarget: {fileID: 3475054630979860111}
@@ -2846,6 +2849,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e3cd915ea4499a4d8cff507aa511f55, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gunPoint: {fileID: 1895584375173407477}
   weaponType: 1
   weaponHoldType: 2
   leftHandTarget: {fileID: 6564022193611686480}
@@ -3173,7 +3177,8 @@ MonoBehaviour:
   skinnedMeshRenderer: {fileID: 3561307525448211342}
   leftHandIK: {fileID: 5474446402686032654}
   leftElowIK: {fileID: 5547651639442639167}
-  rig: {fileID: 3578725096020707410}
+  leftHandIKConstraint: {fileID: 3580694935890448952}
+  weaponAimConstraint: {fileID: 2661886263159508110}
 --- !u!114 &347788621558740452
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3190,19 +3195,23 @@ MonoBehaviour:
   idleTime: 1.5
   aggresionRange: 0
   walkSpeed: 3
-  chaseSpeed: 4
+  runSpeed: 0
   turnSpeed: 5
   patrolPoints:
   - {fileID: 0}
   - {fileID: 0}
-  weaponHolder: {fileID: 8647321752345726830}
+  minCoverTime: 0
+  safeDistance: 0
   weaponType: 1
-  fireRate: 10
-  bulletPrefab: {fileID: 516076149687506628, guid: 75f280c50a830fd4bbd440732a6db28e, type: 3}
+  weaponData: {fileID: 11400000, guid: e2ccf3cb0234e7748a87dfce9b5f0685, type: 2}
   gunPoint: {fileID: 1895584375173407477}
-  bulletSpeed: 20
-  bulletsToShoot: 5
-  weaponCooldown: 3
+  weaponHolder: {fileID: 8647321752345726830}
+  bulletPrefab: {fileID: 516076149687506628, guid: 75f280c50a830fd4bbd440732a6db28e, type: 3}
+  availableWeaponData:
+  - {fileID: 11400000, guid: e2ccf3cb0234e7748a87dfce9b5f0685, type: 2}
+  - {fileID: 11400000, guid: f1ac12395af7a9f43bef56a2942ad494, type: 2}
+  - {fileID: 11400000, guid: c03aad50a3a248b4fb558c01912f9796, type: 2}
+  - {fileID: 11400000, guid: 906631b87be5cc342959be68bd68f980, type: 2}
 --- !u!1 &7227159570978019460
 GameObject:
   m_ObjectHideFlags: 0

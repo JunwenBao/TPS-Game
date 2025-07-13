@@ -13,7 +13,7 @@ public class Enemy : MonoBehaviour
 
     [Header("Move Data")]
     public float walkSpeed;
-    public float chaseSpeed;
+    public float runSpeed;
     public float turnSpeed;
     private bool manualMovement;
     private bool manualRotation;
