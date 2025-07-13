@@ -34,11 +34,13 @@ public class BattleState_Range : EnemyState
     {
         base.Update();
 
+        if (enemy.IsSeeingPlayer()) enemy.FaceTarget(enemy.aim.position);
+
         if (MustAdvancePlayer())
         {
-            Debug.Log("×´Ì¬ÇÐ»»£ºbattle -> advanced");
             stateMachine.ChangeState(enemy.advancePlayerState);
         }
+
         /* ÅÐ¶Ï£ºÊÇ·ñÒªÇÐ»»Cover */
         ChangeCoverIfShould();
 
@@ -50,7 +52,7 @@ public class BattleState_Range : EnemyState
             return;
         }
 
-        if (CanShoot()) Shoot();
+        if (CanShoot() && enemy.IsAimOnPlayer()) Shoot();
     }
 
     public override void Exit()

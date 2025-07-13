@@ -33,6 +33,13 @@ public class Enemy_Range : Enemy
     public Transform weaponHolder;
     public GameObject bulletPrefab;
 
+    [Header("Aim Details")]
+    public float slowAim = 4f;
+    public float fastAim = 20f;
+    public Transform aim;
+    public Transform playerBody;
+    public LayerMask whatToIgnore;
+
     [SerializeField] private List<Enemy_Range_WeaponData> availableWeaponData;
 
     public IdleState_Range idleState { get; private set; }
@@ -55,6 +62,9 @@ public class Enemy_Range : Enemy
     protected override void Start()
     {
         base.Start();
+
+        playerBody = player.GetComponent<Player>().playerBody;
+        aim.parent = null;
 
         stateMachine.Initialize(idleState);
         visuals.SetupLook();
@@ -94,11 +104,46 @@ public class Enemy_Range : Enemy
         gunPoint = visuals.currentWeaponModel.GetComponent<Enemy_Range_WeaponModel>().gunPoint;
     }
 
+    #region Enemy Aim
+    public void UpdateAimPosition()
+    {
+        float aimSpeed = IsAimOnPlayer() ? fastAim : slowAim;
+        aim.position = Vector3.MoveTowards(aim.position, playerBody.position + Vector3.up * 2.5f, aimSpeed * Time.deltaTime);
+    }
+
+    public bool IsAimOnPlayer()
+    {
+        float distanceAimToPlayer = Vector3.Distance(aim.position, player.position);
+
+        return distanceAimToPlayer < 5f;
+    }
+
+    public bool IsSeeingPlayer()
+    {
+        Vector3 myPosition = transform.position + Vector3.up * 2.5f;
+        Vector3 directionToPlayer = playerBody.position - myPosition;
+
+        if (Physics.Raycast(myPosition, directionToPlayer, out RaycastHit hit, Mathf.Infinity, ~whatToIgnore))
+        {
+            if (hit.transform == playerBody)
+            {
+                Debug.Log("YES");
+                UpdateAimPosition();
+                return true;
+            }
+            else Debug.Log("FALSE");
+        }
+
+        return false;
+    }
+
+    #endregion
+
     public void FireSingleBullet()
     {
         animator.SetTrigger("Shoot");
 
-        Vector3 bulletDirection = ((player.position + Vector3.up) - gunPoint.position).normalized;
+        Vector3 bulletDirection = (aim.position - gunPoint.position).normalized;
 
         GameObject newBullet = ObjectPool.Instance.GetObject(bulletPrefab);
         newBullet.transform.position = gunPoint.position;
@@ -122,12 +167,10 @@ public class Enemy_Range : Enemy
 
         if (CanGetCover())
         {
-            Debug.Log("切换掩体状态");
             stateMachine.ChangeState(runToCoverState);
         }
         else
         {
-            Debug.Log("切换战斗状态");
             stateMachine.ChangeState(battleState);
         }
     }

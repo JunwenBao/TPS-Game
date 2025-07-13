@@ -39,7 +39,7 @@ public class AdvancePlayerState_Range : EnemyState
         base.Update();
         
         playerPos = enemy.player.transform.position;
-        //enemy.UpdateAimPosition();
+        enemy.UpdateAimPosition();
 
         enemy.agent.SetDestination(playerPos);
         enemy.FaceTarget(GetNextPathPoint());
@@ -56,6 +56,6 @@ public class AdvancePlayerState_Range : EnemyState
             return closeEnoughToPlayer || stateTimer < 0;
         else
         */
-            return closeEnoughToPlayer;
+        return closeEnoughToPlayer;
     }
 }
