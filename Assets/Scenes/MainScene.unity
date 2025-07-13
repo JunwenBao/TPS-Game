@@ -7535,11 +7535,23 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 347788621558740452, guid: 2acfafe9dbcd2564c9bb781ce054da78, type: 3}
       propertyPath: coverPerk
-      value: 1
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 347788621558740452, guid: 2acfafe9dbcd2564c9bb781ce054da78, type: 3}
+      propertyPath: advanceSpeed
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 347788621558740452, guid: 2acfafe9dbcd2564c9bb781ce054da78, type: 3}
       propertyPath: safeDistance
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 347788621558740452, guid: 2acfafe9dbcd2564c9bb781ce054da78, type: 3}
+      propertyPath: aggresionRange
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 347788621558740452, guid: 2acfafe9dbcd2564c9bb781ce054da78, type: 3}
+      propertyPath: advanceStoppingDistance
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 347788621558740452, guid: 2acfafe9dbcd2564c9bb781ce054da78, type: 3}
       propertyPath: 'patrolPoints.Array.data[0]'

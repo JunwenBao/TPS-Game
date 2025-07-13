@@ -13,6 +13,11 @@ public class Enemy_Range : Enemy
     public UnstoppablePerk unstoppablePerk;
     public GrenadePerk grenadePerk;
 
+    [Header("Advance perk")]
+    public float advanceSpeed;
+    public float advanceStoppingDistance;
+    public float advanceDuration = 2.5f;
+
     [Header("Cover system")]
     public float minCoverTime;
     public float safeDistance;
@@ -34,6 +39,7 @@ public class Enemy_Range : Enemy
     public MoveState_Range moveState { get; private set; }
     public BattleState_Range battleState { get; private set; }
     public RunToCoverState_Range runToCoverState { get; private set; }
+    public AdvancePlayerState_Range advancePlayerState { get; private set; }
 
     protected override void Awake()
     {
@@ -43,6 +49,7 @@ public class Enemy_Range : Enemy
         moveState = new MoveState_Range(this, stateMachine, "Move");
         battleState = new BattleState_Range(this, stateMachine, "Battle");
         runToCoverState = new RunToCoverState_Range(this, stateMachine, "Run");
+        advancePlayerState = new AdvancePlayerState_Range(this, stateMachine, "Advance");
     }
 
     protected override void Start()

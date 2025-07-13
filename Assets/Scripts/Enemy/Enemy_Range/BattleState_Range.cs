@@ -24,6 +24,9 @@ public class BattleState_Range : EnemyState
         bulletsPerAttack = enemy.weaponData.GetBulletsPerAttack();
         weaponCooldown = enemy.weaponData.GetWeaponCooldown();
 
+        enemy.agent.isStopped = true;
+        enemy.agent.velocity = Vector3.zero;
+
         enemy.visuals.EnableIK(true, true);
     }
 
@@ -31,7 +34,12 @@ public class BattleState_Range : EnemyState
     {
         base.Update();
 
-        /* 判断：玩家是否出现在敌人视野范围内，如果不是，则切换Cover */
+        if (MustAdvancePlayer())
+        {
+            Debug.Log("状态切换：battle -> advanced");
+            stateMachine.ChangeState(enemy.advancePlayerState);
+        }
+        /* 判断：是否要切换Cover */
         ChangeCoverIfShould();
 
         enemy.FaceTarget(enemy.player.position);
@@ -111,6 +119,14 @@ public class BattleState_Range : EnemyState
                 if (enemy.CanGetCover()) stateMachine.ChangeState(enemy.runToCoverState);
             }
         }
+    }
+
+    // 根据Aggrresion Range，判断是否应该追击玩家
+    private bool MustAdvancePlayer()
+    {
+        //if (enemy.IsUnstopppable()) return false;
+
+        return enemy.IsPlayerInAgrresionRange() == false;
     }
 
     #endregion
