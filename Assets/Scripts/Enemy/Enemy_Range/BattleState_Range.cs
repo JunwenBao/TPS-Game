@@ -36,7 +36,7 @@ public class BattleState_Range : EnemyState
 
         if (enemy.IsSeeingPlayer()) enemy.FaceTarget(enemy.aim.position);
 
-        if (MustAdvancePlayer())
+        if (MustAdvancePlayer() && ReadyToLeaveCover())
         {
             stateMachine.ChangeState(enemy.advancePlayerState);
         }
@@ -86,6 +86,12 @@ public class BattleState_Range : EnemyState
 
     #region Cover System
 
+    // 离开Cover
+    private bool ReadyToLeaveCover()
+    {
+        return Time.time > enemy.minCoverTime + enemy.runToCoverState.lastTimeTookCover;
+    }
+
     // 判断玩家是否距离敌人过近
     private bool IsPlayerClose()
     {
@@ -116,7 +122,7 @@ public class BattleState_Range : EnemyState
         {
             coverCheckTimer = 0.5f;
 
-            if (IsPlayerInClearSight() || IsPlayerClose())
+            if (ReadyToChangeCover())
             {
                 if (enemy.CanGetCover()) stateMachine.ChangeState(enemy.runToCoverState);
             }
@@ -129,6 +135,14 @@ public class BattleState_Range : EnemyState
         //if (enemy.IsUnstopppable()) return false;
 
         return enemy.IsPlayerInAgrresionRange() == false;
+    }
+
+    private bool ReadyToChangeCover()
+    {
+        bool inDanger = IsPlayerInClearSight() || IsPlayerClose();
+        bool advanceTimeIsOver = Time.time > enemy.advancePlayerState.lastTimeAdvanced + enemy.advanceDuration;
+
+        return inDanger && advanceTimeIsOver;
     }
 
     #endregion

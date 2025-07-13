@@ -6,6 +6,7 @@ public class AdvancePlayerState_Range : EnemyState
     private Vector3 playerPos;
 
     public float lastTimeAdvanced { get; private set; }
+
     public AdvancePlayerState_Range(Enemy enemyBase, EnemyStateMachine stateMachine, string animBoolName) : base(enemyBase, stateMachine, animBoolName)
     {
         enemy = enemyBase as Enemy_Range;
