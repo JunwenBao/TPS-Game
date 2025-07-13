@@ -2,8 +2,17 @@ using NUnit.Framework;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum CoverPerk { Unavalible, CanTakeCover, CanTakeAndChangeCover }
+public enum UnstoppablePerk { Unavalible, Unstoppable }
+public enum GrenadePerk { Unavalible, CanThrowGrenade }
+
 public class Enemy_Range : Enemy
 {
+    [Header("Enemy perks")]
+    public CoverPerk coverPerk;
+    public UnstoppablePerk unstoppablePerk;
+    public GrenadePerk grenadePerk;
+
     [Header("Cover system")]
     public float minCoverTime;
     public float safeDistance;
@@ -121,13 +130,14 @@ public class Enemy_Range : Enemy
     // 判断：敌人是否有可用的掩体
     public bool CanGetCover()
     {
-        //if (coverPerk == CoverPerk.Unavalible) return false;
+        if (coverPerk == CoverPerk.Unavalible) return false;
 
         currentCover = AttemptToFindCover()?.GetComponent<CoverPoint>();
 
         if (lastCover != currentCover && currentCover != null) return true;
 
         Debug.LogWarning("No cover found!");
+
         return false;
     }
 

@@ -1,3 +1,4 @@
+using System.Threading;
 using UnityEngine;
 
 public class BattleState_Range : EnemyState
@@ -9,6 +10,7 @@ public class BattleState_Range : EnemyState
 
     private int bulletsPerAttack;
     private float weaponCooldown;
+    private float coverCheckTimer;
 
     public BattleState_Range(Enemy enemyBase, EnemyStateMachine stateMachine, string animBoolName) : base(enemyBase, stateMachine, animBoolName)
     {
@@ -29,6 +31,9 @@ public class BattleState_Range : EnemyState
     {
         base.Update();
 
+        /* 判断：玩家是否出现在敌人视野范围内，如果不是，则切换Cover */
+        ChangeCoverIfShould();
+
         enemy.FaceTarget(enemy.player.position);
 
         if (WeaponOutOfBullets())
@@ -39,13 +44,15 @@ public class BattleState_Range : EnemyState
 
         if (CanShoot()) Shoot();
     }
-    
+
     public override void Exit()
     {
         base.Exit();
 
         enemy.visuals.EnableIK(false, false);
     }
+
+    #region Weapon
 
     private void AttempToResetWeapon()
     {
@@ -64,4 +71,47 @@ public class BattleState_Range : EnemyState
         lastTimeShot = Time.time;
         bulletShot++;
     }
+
+    #endregion
+
+    #region Cover System
+
+    // 判断玩家是否距离敌人过近
+    private bool IsPlayerClose()
+    {
+        return Vector3.Distance(enemy.transform.position, enemy.player.transform.position) < enemy.safeDistance;
+    }
+
+    // 根据玩家是否出现在视野范围，判断是否要切换Cover
+    private bool IsPlayerInClearSight()
+    {
+        Vector3 directionToPlayer = enemy.player.transform.position - enemy.transform.position;
+
+        if(Physics.Raycast(enemy.transform.position, directionToPlayer, out RaycastHit hit))
+        {
+            return hit.collider.gameObject.GetComponentInParent<Player>();
+        }
+
+        return false;
+    }
+
+    // 判断敌人是否要切换Cover
+    private void ChangeCoverIfShould()
+    {
+        if (enemy.coverPerk != CoverPerk.CanTakeAndChangeCover) return;
+
+        coverCheckTimer -= Time.deltaTime;
+
+        if (coverCheckTimer < 0)
+        {
+            coverCheckTimer = 0.5f;
+
+            if (IsPlayerInClearSight() || IsPlayerClose())
+            {
+                if (enemy.CanGetCover()) stateMachine.ChangeState(enemy.runToCoverState);
+            }
+        }
+    }
+
+    #endregion
 }
