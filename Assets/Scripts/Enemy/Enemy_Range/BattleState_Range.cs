@@ -11,6 +11,7 @@ public class BattleState_Range : EnemyState
     private int bulletsPerAttack;
     private float weaponCooldown;
     private float coverCheckTimer;
+    private bool firstTimeAttack = true;
 
     public BattleState_Range(Enemy enemyBase, EnemyStateMachine stateMachine, string animBoolName) : base(enemyBase, stateMachine, animBoolName)
     {
@@ -20,23 +21,28 @@ public class BattleState_Range : EnemyState
     public override void Enter()
     {
         base.Enter();
-
-        bulletsPerAttack = enemy.weaponData.GetBulletsPerAttack();
-        weaponCooldown = enemy.weaponData.GetWeaponCooldown();
+        SetupValuesForFirstAttack();
 
         enemy.agent.isStopped = true;
         enemy.agent.velocity = Vector3.zero;
 
         enemy.visuals.EnableIK(true, true);
+
+        stateTimer = enemy.attackDelay;
     }
 
     public override void Update()
     {
         base.Update();
 
-        if (enemy.IsSeeingPlayer()) enemy.FaceTarget(enemy.aim.position);
+        /* 看到玩家时：转向玩家 */
+        if (enemy.IsSeeingPlayer())
+        {
+            enemy.FaceTarget(enemy.aim.position);
+        }
 
-        if (MustAdvancePlayer() && ReadyToLeaveCover())
+        /* 判断：是否要追击玩家*/
+        if (MustAdvancePlayer())
         {
             stateMachine.ChangeState(enemy.advancePlayerState);
         }
@@ -44,11 +50,19 @@ public class BattleState_Range : EnemyState
         /* 判断：是否要切换Cover */
         ChangeCoverIfShould();
 
-        enemy.FaceTarget(enemy.player.position);
+        /* 控制延迟射击：防止敌人见面就开火 */
+        if (stateTimer > 0) return;
 
         if (WeaponOutOfBullets())
         {
+            if(enemy.IsUnstoppable() && UnstoppableWalkReady())
+            {
+                enemy.advanceDuration = weaponCooldown;
+                stateMachine.ChangeState(enemy.advancePlayerState);
+            }
+
             if (WeaponOnCoolDown()) AttempToResetWeapon();
+
             return;
         }
 
@@ -60,6 +74,15 @@ public class BattleState_Range : EnemyState
         base.Exit();
 
         enemy.visuals.EnableIK(false, false);
+    }
+
+    private bool UnstoppableWalkReady()
+    {
+        float distanceToPlayer = Vector3.Distance(enemy.transform.position, enemy.player.position);
+        bool outOfStoppingDistance = distanceToPlayer > enemy.advanceStoppingDistance;
+        bool unstoppableWalkOnCooldown = Time.time < enemy.weaponData.minWeaponCooldown + enemy.advancePlayerState.lastTimeAdvanced;
+
+        return outOfStoppingDistance && unstoppableWalkOnCooldown == false;
     }
 
     #region Weapon
@@ -80,6 +103,16 @@ public class BattleState_Range : EnemyState
         enemy.FireSingleBullet();
         lastTimeShot = Time.time;
         bulletShot++;
+    }
+
+    private void SetupValuesForFirstAttack()
+    {
+        if (firstTimeAttack)
+        {
+            firstTimeAttack = false;
+            bulletsPerAttack = enemy.weaponData.GetBulletsPerAttack();
+            weaponCooldown = enemy.weaponData.GetWeaponCooldown();
+        }
     }
 
     #endregion
@@ -132,9 +165,9 @@ public class BattleState_Range : EnemyState
     // 根据Aggrresion Range，判断是否应该追击玩家
     private bool MustAdvancePlayer()
     {
-        //if (enemy.IsUnstopppable()) return false;
+        if (enemy.IsUnstoppable()) return false;
 
-        return enemy.IsPlayerInAgrresionRange() == false;
+        return enemy.IsPlayerInAgrresionRange() == false && ReadyToLeaveCover();
     }
 
     private bool ReadyToChangeCover()

@@ -108,7 +108,7 @@ public class Enemy_Melee : Enemy
     }
 
     // 初始化敌人的类型 + 外观
-    private void InitializePerk()
+    protected override void InitializePerk()
     {
         if(meleeType == EnemyMelee_Type.AxeThrow)
         {

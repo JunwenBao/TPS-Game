@@ -4,14 +4,14 @@ using UnityEngine;
 
 public enum CoverPerk { Unavalible, CanTakeCover, CanTakeAndChangeCover }
 public enum UnstoppablePerk { Unavalible, Unstoppable }
-public enum GrenadePerk { Unavalible, CanThrowGrenade }
+//public enum GrenadePerk { Unavalible, CanThrowGrenade }
 
 public class Enemy_Range : Enemy
 {
     [Header("Enemy perks")]
     public CoverPerk coverPerk;
     public UnstoppablePerk unstoppablePerk;
-    public GrenadePerk grenadePerk;
+    //public GrenadePerk grenadePerk;
 
     [Header("Advance perk")]
     public float advanceSpeed;
@@ -26,6 +26,7 @@ public class Enemy_Range : Enemy
     public CoverPoint lastCover;
 
     [Header("Weapon Details")]
+    public float attackDelay;
     public Enemy_RangeWeaponType weaponType;
     public Enemy_Range_WeaponData weaponData;
 
@@ -66,6 +67,8 @@ public class Enemy_Range : Enemy
         playerBody = player.GetComponent<Player>().playerBody;
         aim.parent = null;
 
+        InitializePerk();
+
         stateMachine.Initialize(idleState);
         visuals.SetupLook();
         SetupWeapon();
@@ -76,6 +79,14 @@ public class Enemy_Range : Enemy
         base.Update();
 
         stateMachine.currentState.Update();
+    }
+
+    protected override void InitializePerk()
+    {
+        if(IsUnstoppable())
+        {
+            animator.SetFloat("AdvanceAnimIndex", 1);
+        }
     }
 
     // 设置武器参数
@@ -249,4 +260,6 @@ public class Enemy_Range : Enemy
     }
 
     #endregion
+
+    public bool IsUnstoppable() => unstoppablePerk == UnstoppablePerk.Unstoppable;
 }

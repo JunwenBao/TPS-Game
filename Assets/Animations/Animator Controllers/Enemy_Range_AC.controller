@@ -375,14 +375,14 @@ AnimatorController:
     m_DefaultInt: 0
     m_DefaultBool: 0
     m_Controller: {fileID: 9100000}
-  - m_Name: Blend
-    m_Type: 1
+  - m_Name: Advance
+    m_Type: 4
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
     m_Controller: {fileID: 9100000}
-  - m_Name: Advance
-    m_Type: 4
+  - m_Name: AdvanceAnimIndex
+    m_Type: 1
     m_DefaultFloat: 0
     m_DefaultInt: 0
     m_DefaultBool: 0
@@ -485,7 +485,15 @@ BlendTree:
     m_CycleOffset: 0
     m_DirectBlendParameter: Blend
     m_Mirror: 0
-  m_BlendParameter: Blend
+  - serializedVersion: 2
+    m_Motion: {fileID: -203655887218126122, guid: 1e24f8a93163f1d45b1e2d49d97648ec, type: 3}
+    m_Threshold: 1
+    m_Position: {x: 0, y: 0}
+    m_TimeScale: 1
+    m_CycleOffset: 0
+    m_DirectBlendParameter: AdvanceAnimIndex
+    m_Mirror: 0
+  m_BlendParameter: AdvanceAnimIndex
   m_BlendParameterY: Blend
   m_MinThreshold: 0
   m_MaxThreshold: 1

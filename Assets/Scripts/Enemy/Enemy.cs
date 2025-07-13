@@ -53,6 +53,11 @@ public class Enemy : MonoBehaviour
         if (ShouldEnterBattleMode()) EnterBattleMode();
     }
 
+    protected virtual void InitializePerk()
+    {
+
+    }
+
     // 判断是否要进入Battle State
     protected bool ShouldEnterBattleMode()
     {
