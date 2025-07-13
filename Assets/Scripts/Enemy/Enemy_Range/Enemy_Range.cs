@@ -7,8 +7,9 @@ public class Enemy_Range : Enemy
     [Header("Cover system")]
     public float minCoverTime;
     public float safeDistance;
-    public CoverPoint currentCover { get; private set; }
-    public CoverPoint lastCover { get; private set; }
+    //TODO: {ps}
+    public CoverPoint currentCover;
+    public CoverPoint lastCover;
 
     [Header("Weapon Details")]
     public Enemy_RangeWeaponType weaponType;
@@ -51,6 +52,32 @@ public class Enemy_Range : Enemy
         stateMachine.currentState.Update();
     }
 
+    // 设置武器参数
+    private void SetupWeapon()
+    {
+        List<Enemy_Range_WeaponData> filteredData = new List<Enemy_Range_WeaponData>();
+
+        foreach (var weaponData in availableWeaponData)
+        {
+            if (weaponData.weaponType == weaponType)
+            {
+                filteredData.Add(weaponData);
+            }
+        }
+
+        if (filteredData.Count > 0)
+        {
+            int random = Random.Range(0, filteredData.Count);
+            weaponData = filteredData[random];
+        }
+        else
+        {
+            Debug.LogWarning("No avalible weapon data was found!");
+        }
+
+        gunPoint = visuals.currentWeaponModel.GetComponent<Enemy_Range_WeaponModel>().gunPoint;
+    }
+
     public void FireSingleBullet()
     {
         animator.SetTrigger("Shoot");
@@ -79,55 +106,32 @@ public class Enemy_Range : Enemy
 
         if (CanGetCover())
         {
+            Debug.Log("切换掩体状态");
             stateMachine.ChangeState(runToCoverState);
         }
         else
         {
+            Debug.Log("切换战斗状态");
             stateMachine.ChangeState(battleState);
         }
     }
 
-    // 设置武器参数
-    private void SetupWeapon()
-    {
-        List<Enemy_Range_WeaponData> filteredData = new List<Enemy_Range_WeaponData>();
-
-        foreach (var weaponData in availableWeaponData)
-        {
-            if (weaponData.weaponType == weaponType)
-            {
-                filteredData.Add(weaponData);
-            }
-        }
-
-        if (filteredData.Count > 0)
-        {
-            int random = Random.Range(0, filteredData.Count);
-            weaponData = filteredData[random];
-        }
-        else
-        {
-            Debug.LogWarning("No avalible weapon data was found!");
-        }
-
-        gunPoint = visuals.currentWeaponModel.GetComponent<Enemy_Range_WeaponModel>().gunPoint;
-    }
-
     #region Cover System
 
+    // 判断：敌人是否有可用的掩体
     public bool CanGetCover()
     {
         //if (coverPerk == CoverPerk.Unavalible) return false;
 
         currentCover = AttemptToFindCover()?.GetComponent<CoverPoint>();
 
-        if (lastCover != currentCover && currentCover != null)
-            return true;
+        if (lastCover != currentCover && currentCover != null) return true;
 
         Debug.LogWarning("No cover found!");
         return false;
     }
 
+    // 尝试寻找掩体
     private Transform AttemptToFindCover()
     {
         List<CoverPoint> collectedCoverPoints = new List<CoverPoint>();
@@ -164,10 +168,10 @@ public class Enemy_Range : Enemy
         return null;
     }
 
-    // 收集敌人范围内的所有Cover Point
+    // 获取敌人一定范围内的所有Cover
     private List<Cover> CollectNearByCovers()
     {
-        float coverRadiusCheck = 30;
+        float coverRadiusCheck = 100;
         Collider[] hitColliders = Physics.OverlapSphere(transform.position, coverRadiusCheck);
         List<Cover> collectedCovers = new List<Cover>();
 
@@ -180,7 +184,7 @@ public class Enemy_Range : Enemy
                 collectedCovers.Add(cover);
             }
         }
-
+        Debug.Log("获取到的掩体数量：" + collectedCovers.Count);
         return collectedCovers;
     }
 

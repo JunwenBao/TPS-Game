@@ -8,9 +8,9 @@ public class Enemy_Bullet : Bullet
         CreateImpactFX(collision);
         ReturnBulletToPool();
 
-        Player payer = collision.gameObject.GetComponentInParent<Player>();
+        Player player = collision.gameObject.GetComponentInParent<Player>();
 
-        if(payer != null)
+        if (player != null)
         {
             Debug.Log("»÷ÖÐÍæ¼Ò");
         }

@@ -40,6 +40,7 @@ public class Cover : MonoBehaviour
         }
     }
 
+    // 获取对于一个敌人而言，可用的Cover Points
     public List<CoverPoint> GetValidCoverPoints(Transform enemy)
     {
         List<CoverPoint> validCoverPoints = new List<CoverPoint>();
@@ -47,12 +48,15 @@ public class Cover : MonoBehaviour
         foreach (CoverPoint coverPoint in coverPoints)
         {
             if (IsValidCoverPoint(coverPoint, enemy))
+            {
                 validCoverPoints.Add(coverPoint);
+            }
         }
 
         return validCoverPoints;
     }
 
+    // 检测对于一个敌人而言，某个Cover Points是否有效
     private bool IsValidCoverPoint(CoverPoint coverPoint, Transform enemy)
     {
         if (coverPoint.occupied)
@@ -73,6 +77,7 @@ public class Cover : MonoBehaviour
         return true;
     }
 
+    // 挑选一个距离玩家最远的Cover Pint
     private bool IsFutherestFromPlayer(CoverPoint coverPoint)
     {
         CoverPoint futherestPoint = null;

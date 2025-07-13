@@ -15,6 +15,7 @@ public class RunToCoverState_Range : EnemyState
 
     public override void Enter()
     {
+        Debug.Log("进入Cover State");
         base.Enter();
         destination = enemy.currentCover.transform.position;
 
@@ -38,8 +39,10 @@ public class RunToCoverState_Range : EnemyState
 
         enemy.FaceTarget(GetNextPathPoint());
 
-        if (Vector3.Distance(enemy.transform.position, destination) < .5f)
+        //TODO:这个距离控制不合理，可能会有潜在的问题
+        if (Vector3.Distance(enemy.transform.position, destination) < 3f)
         {
+            Debug.Log("切换状态：Cover -> Battle");
             stateMachine.ChangeState(enemy.battleState);
         }
     }
