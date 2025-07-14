@@ -182,6 +182,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1219154358047956097}
+  - component: {fileID: 1542164156210578507}
   m_Layer: 8
   m_Name: ROOT
   m_TagString: Untagged
@@ -205,6 +206,29 @@ Transform:
   - {fileID: 6120827011291934967}
   m_Father: {fileID: 5975290269397053977}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!136 &1542164156210578507
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 277398962955456093}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.55561435
+  m_Height: 2.202054
+  m_Direction: 1
+  m_Center: {x: 0, y: 0.84531736, z: 0.055614352}
 --- !u!1 &465845310935830314
 GameObject:
   m_ObjectHideFlags: 0
@@ -2165,6 +2189,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 834e9e6a8f631e643b03cda3c0bf4ced, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerBody: {fileID: 1219154358047956097}
 --- !u!114 &8302259306130025820
 MonoBehaviour:
   m_ObjectHideFlags: 0

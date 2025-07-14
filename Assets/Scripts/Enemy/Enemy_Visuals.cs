@@ -26,6 +26,40 @@ public class Enemy_Visuals : MonoBehaviour
     [SerializeField] private TwoBoneIKConstraint leftHandIKConstraint;
     [SerializeField] private MultiAimConstraint weaponAimConstraint;
 
+    private float leftHandTargetWeight;
+    private float weaponAimTargetWeight;
+    private float rigChangeRate;
+
+    private void Update()
+    {
+        leftHandIKConstraint.weight = AdjustIKWeight(leftHandIKConstraint.weight, leftHandTargetWeight);
+        weaponAimConstraint.weight = AdjustIKWeight(weaponAimConstraint.weight, weaponAimTargetWeight);
+    }
+
+    public void EnableWeaponModel(bool active)
+    {
+        currentWeaponModel?.gameObject.SetActive(active);
+    }
+
+    // 寻找所有的第二武器
+    private GameObject FindSeconderyWeaponModel()
+    {
+        Enemy_SecondRangeWeaponModel[] weaponModels = GetComponentsInChildren<Enemy_SecondRangeWeaponModel>(true);
+        Enemy_RangeWeaponType weaponType = GetComponentInParent<Enemy_Range>().weaponType;
+
+        foreach (var weaponModel in weaponModels)
+        {
+            if (weaponModel.weaponType == weaponType) return weaponModel.gameObject;
+        }
+
+        return null;
+    }
+
+    public void EnableSeconderyWeaponModel(bool active)
+    {
+        FindSeconderyWeaponModel()?.SetActive(active);
+    }
+
     // 设置角色随机外观
     public void SetupLook()
     {
@@ -168,10 +202,12 @@ public class Enemy_Visuals : MonoBehaviour
         animator.SetLayerWeight(layerIndex, 1);
     }
 
-    public void EnableIK(bool enableLeftHand, bool enableAim)
+    // 启用IK
+    public void EnableIK(bool enableLeftHand, bool enableAim, float cahngeRate = 10)
     {
-        leftHandIKConstraint.weight = enableLeftHand ? 1 : 0;
-        weaponAimConstraint.weight = enableAim ? 1 : 0;
+        rigChangeRate = cahngeRate;
+        leftHandTargetWeight = enableLeftHand ? 1 : 0;
+        weaponAimTargetWeight = enableAim ? 1 : 0;
     }
 
     private void SetupLeftHandIK(Transform leftHandTarget, Transform LeftElowTarget)
@@ -181,5 +217,17 @@ public class Enemy_Visuals : MonoBehaviour
 
         leftElowIK.localPosition = LeftElowTarget.localPosition;
         leftElowIK.localRotation = LeftElowTarget.localRotation;
+    }
+
+    private float AdjustIKWeight(float currentWeight, float targetWeight)
+    {
+        if(Mathf.Abs(currentWeight - targetWeight) > 0.05f)
+        {
+            return Mathf.Lerp(currentWeight, targetWeight, rigChangeRate * Time.deltaTime);
+        }
+        else
+        {
+            return targetWeight;
+        }
     }
 }

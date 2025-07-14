@@ -3111,7 +3111,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 3906536169706938245}
-  - {fileID: 6728122931654218079}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!195 &2312707662203753037
@@ -3193,23 +3192,24 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   healthPoints: 20
   idleTime: 1.5
-  aggresionRange: 10
+  aggresionRange: 20
   walkSpeed: 3
   runSpeed: 5
   turnSpeed: 5
   patrolPoints:
   - {fileID: 0}
   - {fileID: 0}
-  coverPerk: 2
+  coverPerk: 0
   unstoppablePerk: 0
   advanceSpeed: 5
-  advanceStoppingDistance: 20
+  advanceStoppingDistance: 15
   advanceDuration: 2.5
   minCoverTime: 4
   safeDistance: 2
   currentCover: {fileID: 0}
   lastCover: {fileID: 0}
-  weaponType: 2
+  attackDelay: 1
+  weaponType: 0
   weaponData: {fileID: 11400000, guid: e2ccf3cb0234e7748a87dfce9b5f0685, type: 2}
   gunPoint: {fileID: 1895584375173407477}
   weaponHolder: {fileID: 8647321752345726830}
@@ -3550,37 +3550,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetType: 2
---- !u!1 &7629719416234397521
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 6728122931654218079}
-  m_Layer: 11
-  m_Name: AxeStartPoint
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &6728122931654218079
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7629719416234397521}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 2.5, z: 0.88}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 2919167913120878611}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &7652202318489109279
 GameObject:
   m_ObjectHideFlags: 0

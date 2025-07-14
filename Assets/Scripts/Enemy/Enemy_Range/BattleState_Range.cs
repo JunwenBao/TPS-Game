@@ -41,6 +41,12 @@ public class BattleState_Range : EnemyState
             enemy.FaceTarget(enemy.aim.position);
         }
 
+        /* 判断：是否要投掷手雷 */
+        if (enemy.CanThrowGrenade())
+        {
+            stateMachine.ChangeState(enemy.throwGrenadeState);
+        }
+
         /* 判断：是否要追击玩家*/
         if (MustAdvancePlayer())
         {

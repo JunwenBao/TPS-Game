@@ -4,14 +4,18 @@ using UnityEngine;
 
 public enum CoverPerk { Unavalible, CanTakeCover, CanTakeAndChangeCover }
 public enum UnstoppablePerk { Unavalible, Unstoppable }
-//public enum GrenadePerk { Unavalible, CanThrowGrenade }
+public enum GrenadePerk { Unavalible, CanThrowGrenade }
 
 public class Enemy_Range : Enemy
 {
     [Header("Enemy perks")]
     public CoverPerk coverPerk;
     public UnstoppablePerk unstoppablePerk;
-    //public GrenadePerk grenadePerk;
+    public GrenadePerk grenadePerk;
+
+    [Header("Grenade perk")]
+    public float grenadeCooldown;
+    public float lastTimeGrenadeThrown;
 
     [Header("Advance perk")]
     public float advanceSpeed;
@@ -48,6 +52,7 @@ public class Enemy_Range : Enemy
     public BattleState_Range battleState { get; private set; }
     public RunToCoverState_Range runToCoverState { get; private set; }
     public AdvancePlayerState_Range advancePlayerState { get; private set; }
+    public ThrowGrenadeState_Range throwGrenadeState { get; private set; }
 
     protected override void Awake()
     {
@@ -58,6 +63,7 @@ public class Enemy_Range : Enemy
         battleState = new BattleState_Range(this, stateMachine, "Battle");
         runToCoverState = new RunToCoverState_Range(this, stateMachine, "Run");
         advancePlayerState = new AdvancePlayerState_Range(this, stateMachine, "Advance");
+        throwGrenadeState = new ThrowGrenadeState_Range(this, stateMachine, "ThrowGrenade");
     }
 
     protected override void Start()
@@ -88,6 +94,28 @@ public class Enemy_Range : Enemy
             animator.SetFloat("AdvanceAnimIndex", 1);
         }
     }
+
+    #region Grenade
+
+    // 判断是否可以投掷手榴弹
+    public bool CanThrowGrenade()
+    {
+        if (grenadePerk == GrenadePerk.Unavalible) return false;
+
+        if(Vector3.Distance(player.transform.position, transform.position) < safeDistance) return false;
+
+        if(Time.time > grenadeCooldown + lastTimeGrenadeThrown) return true;
+
+        return false;
+    }
+
+    // 投掷手雷
+    public void ThrowGrenade()
+    {
+        lastTimeGrenadeThrown = Time.time;
+    }
+
+    #endregion
 
     // 设置武器参数
     private void SetupWeapon()

@@ -93,7 +93,7 @@ public class Enemy_Melee : Enemy
         base.AbilityTrigger();
 
         walkSpeed = walkSpeed * 0.6f;
-        EnableWeaponModel(false);
+        visuals.EnableWeaponModel(false);
     }
 
     public void UpdateAttackData()
@@ -133,11 +133,6 @@ public class Enemy_Melee : Enemy
         base.GetHit();
 
         if(healthPoints <= 0) stateMachine.ChangeState(deadState);
-    }
-
-    public void EnableWeaponModel(bool active)
-    {
-        visuals.currentWeaponModel.gameObject.SetActive(active);
     }
 
     public bool PlayerInAttackRange() => Vector3.Distance(transform.position, player.position) < attackData.attackRange;
