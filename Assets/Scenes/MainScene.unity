@@ -7691,12 +7691,24 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 250960724}
     - target: {fileID: 347788621558740452, guid: 2acfafe9dbcd2564c9bb781ce054da78, type: 3}
+      propertyPath: idleTime
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 347788621558740452, guid: 2acfafe9dbcd2564c9bb781ce054da78, type: 3}
+      propertyPath: weaponType
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 347788621558740452, guid: 2acfafe9dbcd2564c9bb781ce054da78, type: 3}
+      propertyPath: grenadePerk
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 347788621558740452, guid: 2acfafe9dbcd2564c9bb781ce054da78, type: 3}
       propertyPath: impactPower
       value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 347788621558740452, guid: 2acfafe9dbcd2564c9bb781ce054da78, type: 3}
       propertyPath: healthPoints
-      value: 2
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 347788621558740452, guid: 2acfafe9dbcd2564c9bb781ce054da78, type: 3}
       propertyPath: timeToTarget
@@ -7706,6 +7718,10 @@ PrefabInstance:
       propertyPath: grenadePrefab
       value: 
       objectReference: {fileID: 6827235887656682032, guid: 458e22f46e00bf54cb86613b9402f9f4, type: 3}
+    - target: {fileID: 347788621558740452, guid: 2acfafe9dbcd2564c9bb781ce054da78, type: 3}
+      propertyPath: aggresionRange
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 347788621558740452, guid: 2acfafe9dbcd2564c9bb781ce054da78, type: 3}
       propertyPath: explosionTimer
       value: 2
@@ -7718,6 +7734,10 @@ PrefabInstance:
       propertyPath: grenadeStartPoint
       value: 
       objectReference: {fileID: 1264503994}
+    - target: {fileID: 347788621558740452, guid: 2acfafe9dbcd2564c9bb781ce054da78, type: 3}
+      propertyPath: advanceStoppingDistance
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 347788621558740452, guid: 2acfafe9dbcd2564c9bb781ce054da78, type: 3}
       propertyPath: 'patrolPoints.Array.data[0]'
       value: 
@@ -8216,7 +8236,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &4190455332896216604 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2580257200886382879, guid: ce6d1a9adeb4ae845b6632fa386b4351, type: 3}

@@ -12,14 +12,14 @@ public class IdleState_Range : EnemyState
     public override void Enter()
     {
         base.Enter();
-        /*
-        enemy.anim.SetFloat("IdleAnimIndex", Random.Range(0, 2));
-
         enemy.visuals.EnableIK(true, false);
+        enemy.animator.SetFloat("IdleAnimIndex", Random.Range(0, 2));
 
         if (enemy.weaponType == Enemy_RangeWeaponType.Pistol)
+        {
             enemy.visuals.EnableIK(false, false);
-        */
+        }
+
         stateTimer = enemy.idleTime; //计时器：用于切换到Move State
     }
 
