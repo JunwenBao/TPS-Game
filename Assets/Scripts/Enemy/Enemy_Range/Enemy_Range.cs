@@ -14,9 +14,14 @@ public class Enemy_Range : Enemy
     public GrenadePerk grenadePerk;
 
     [Header("Grenade perk")]
+    public GameObject grenadePrefab;
+    public float impactPower;
+    public float explosionTimer = 0.75f;
+    public float timeToTarget = 1.2f;
     public float grenadeCooldown;
     public float lastTimeGrenadeThrown;
-
+    [SerializeField] private Transform grenadeStartPoint;
+ 
     [Header("Advance perk")]
     public float advanceSpeed;
     public float advanceStoppingDistance;
@@ -53,6 +58,7 @@ public class Enemy_Range : Enemy
     public RunToCoverState_Range runToCoverState { get; private set; }
     public AdvancePlayerState_Range advancePlayerState { get; private set; }
     public ThrowGrenadeState_Range throwGrenadeState { get; private set; }
+    public DeadState_Range deadState { get; private set; }
 
     protected override void Awake()
     {
@@ -64,6 +70,7 @@ public class Enemy_Range : Enemy
         runToCoverState = new RunToCoverState_Range(this, stateMachine, "Run");
         advancePlayerState = new AdvancePlayerState_Range(this, stateMachine, "Advance");
         throwGrenadeState = new ThrowGrenadeState_Range(this, stateMachine, "ThrowGrenade");
+        deadState = new DeadState_Range(this, stateMachine, "Idle");
     }
 
     protected override void Start()
@@ -95,6 +102,16 @@ public class Enemy_Range : Enemy
         }
     }
 
+    public override void GetHit()
+    {
+        base.GetHit();
+
+        if (healthPoints <= 0 && stateMachine.currentState != deadState)
+        {
+            stateMachine.ChangeState(deadState);
+        }
+    }
+
     #region Grenade
 
     // 判断是否可以投掷手榴弹
@@ -113,6 +130,26 @@ public class Enemy_Range : Enemy
     public void ThrowGrenade()
     {
         lastTimeGrenadeThrown = Time.time;
+        visuals.EnableGrenadeModel(false);
+
+        GameObject newGrenade = ObjectPool.Instance.GetObject(grenadePrefab);
+        newGrenade.transform.position = grenadeStartPoint.position;
+
+        Rigidbody rb = newGrenade.GetComponent<Rigidbody>();
+        rb.linearVelocity = Vector3.zero;
+        rb.angularVelocity = Vector3.zero;
+        rb.position = transform.position;
+
+        Enemy_Grenade newGrenadeScript = newGrenade.GetComponent<Enemy_Grenade>();
+        
+        /* 如果角色死亡，且正在投掷手雷，则让手雷滚到自己旁边 */
+        if(stateMachine.currentState == deadState)
+        {
+            newGrenadeScript.SetupGrenade(transform.position, 1, explosionTimer, impactPower);
+            return;
+        }
+
+        newGrenadeScript.SetupGrenade(player.transform.position, timeToTarget, explosionTimer, impactPower);
     }
 
     #endregion
@@ -166,11 +203,9 @@ public class Enemy_Range : Enemy
         {
             if (hit.transform == playerBody)
             {
-                Debug.Log("YES");
                 UpdateAimPosition();
                 return true;
             }
-            else Debug.Log("FALSE");
         }
 
         return false;

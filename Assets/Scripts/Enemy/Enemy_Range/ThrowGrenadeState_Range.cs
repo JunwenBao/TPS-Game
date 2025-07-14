@@ -1,3 +1,4 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class ThrowGrenadeState_Range : EnemyState
@@ -14,13 +15,12 @@ public class ThrowGrenadeState_Range : EnemyState
     {
         base.Enter();
 
+        finishedThrowingGrenade = false;
+
         enemy.visuals.EnableWeaponModel(false);
         enemy.visuals.EnableIK(false, false);
         enemy.visuals.EnableSeconderyWeaponModel(true);
-        /*
-        finishedThrowingGrenade = false;
         enemy.visuals.EnableGrenadeModel(true);
-        */
     }
 
     public override void Update()
@@ -40,7 +40,9 @@ public class ThrowGrenadeState_Range : EnemyState
     public override void AbilityTrigger()
     {
         base.AbilityTrigger();
-        //finishedThrowingGrenade = true;
+
+        finishedThrowingGrenade = true;
+
         enemy.ThrowGrenade();
         enemy.visuals.EnableIK(true, true, 1.5f);
     }

@@ -132,7 +132,10 @@ public class Enemy_Melee : Enemy
     {
         base.GetHit();
 
-        if(healthPoints <= 0) stateMachine.ChangeState(deadState);
+        if (healthPoints <= 0 && stateMachine.currentState != deadState)
+        {
+            stateMachine.ChangeState(deadState);
+        }
     }
 
     public bool PlayerInAttackRange() => Vector3.Distance(transform.position, player.position) < attackData.attackRange;

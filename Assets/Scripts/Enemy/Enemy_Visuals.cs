@@ -11,6 +11,7 @@ public enum Enemy_RangeWeaponType { Pistol, Rifle, Shugun, Sniper }
 public class Enemy_Visuals : MonoBehaviour
 {
     public GameObject currentWeaponModel {  get; private set; }
+    public GameObject grenadeModel { get; private set; }
 
     [Header("Corruption Visuals")]
     [SerializeField] private GameObject[] corruptions;
@@ -35,6 +36,8 @@ public class Enemy_Visuals : MonoBehaviour
         leftHandIKConstraint.weight = AdjustIKWeight(leftHandIKConstraint.weight, leftHandTargetWeight);
         weaponAimConstraint.weight = AdjustIKWeight(weaponAimConstraint.weight, weaponAimTargetWeight);
     }
+
+    public void EnableGrenadeModel(bool active) => grenadeModel?.SetActive(active);
 
     public void EnableWeaponModel(bool active)
     {
