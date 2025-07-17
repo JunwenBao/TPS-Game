@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class Enemy_HitBox : HitBox
 {
-    public Enemy enemy;
+    [SerializeField] private Enemy enemy;
 
     protected override void Awake()
     {
