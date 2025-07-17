@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using UnityEngine;
 
 public class Enemy_Grenade : MonoBehaviour
@@ -34,12 +35,19 @@ public class Enemy_Grenade : MonoBehaviour
 
         foreach (Collider hit in colliders)
         {
-            if (IsTargetValid(hit) == false) continue;
+            IDamagable damagable = hit.GetComponent<IDamagable>();
 
-            /* 添加根Gameobject，防止爆炸伤害，对多个部位的Collider造成重复伤害 */
-            GameObject rootEntity = hit.transform.root.gameObject;
-            if (uniqueEntities.Add(rootEntity) == false) continue;
-            ApplyDamageTo(hit);
+            if(damagable != null)
+            {
+                if (IsTargetValid(hit) == false) continue;
+
+                /* 添加根Gameobject，防止爆炸伤害，对多个部位的Collider造成重复伤害 */
+                GameObject rootEntity = hit.transform.root.gameObject;
+                if (uniqueEntities.Add(rootEntity) == false) continue;
+
+                damagable.TakeDamage();
+            }
+
             ApplyPhysicalForceTo(hit);
         }
     }
@@ -53,13 +61,6 @@ public class Enemy_Grenade : MonoBehaviour
         {
             rb.AddExplosionForce(impactPower, transform.position, impactRadius, upwardsMultiplier, ForceMode.Impulse);
         }
-    }
-
-    // 对目标造成伤害
-    private static void ApplyDamageTo(Collider hit)
-    {
-        IDamagable damagable = hit.GetComponent<IDamagable>();
-        damagable?.TakeDamage();
     }
 
     // 播放爆炸特效

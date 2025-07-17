@@ -8604,7 +8604,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &207028133523124490
 Transform:
   m_ObjectHideFlags: 0
@@ -21801,13 +21801,14 @@ GameObject:
   - component: {fileID: 6551494402141142723}
   - component: {fileID: 2887353646008104774}
   - component: {fileID: 8331927138433357053}
+  - component: {fileID: 8331927138433357054}
   m_Layer: 11
   m_Name: Shield_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!33 &3889790221096385852
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -36461,7 +36462,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &7625015837872638963
 Transform:
   m_ObjectHideFlags: 0
@@ -38921,6 +38922,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetType: 0
+--- !u!114 &8331927138433357054
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3882551497491771643}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dcf4d1339e3fe9342aa5be05aad69626, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  durability: 0
 --- !u!33 &8332595779559366356
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -40077,8 +40091,9 @@ MonoBehaviour:
   patrolPoints:
   - {fileID: 1332407372}
   - {fileID: 883928905}
-  meleeType: 0
+  meleeType: 1
   weaponType: 0
+  shieldDurability: 2
   shieldTransform: {fileID: 3825751717373969936}
   dodgeCooldown: 0
   axePrefab: {fileID: 173351162112863051, guid: 59de4ca62f8856c49811560dc4b686df, type: 3}
