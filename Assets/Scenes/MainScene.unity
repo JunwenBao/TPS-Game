@@ -1136,6 +1136,24 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &404771717 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7155308331458696630, guid: 2acfafe9dbcd2564c9bb781ce054da78, type: 3}
+  m_PrefabInstance: {fileID: 787861987133738167}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &404771724
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 404771717}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fca28b3b06604844ca99a9c2820f60b3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ragdollParent: {fileID: 1666686248}
 --- !u!1 &410087039
 GameObject:
   m_ObjectHideFlags: 0
@@ -6010,6 +6028,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 2479168858134885911, guid: 1105524936149e543a18b3500e0dd308, type: 3}
   m_PrefabInstance: {fileID: 1637550692}
   m_PrefabAsset: {fileID: 0}
+--- !u!4 &1666686248 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3906536169706938245, guid: 2acfafe9dbcd2564c9bb781ce054da78, type: 3}
+  m_PrefabInstance: {fileID: 787861987133738167}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1669078115
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6264,9 +6287,9 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1698045121}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -7.5, y: 0, z: 4.5135784}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 5496627465161220244}
@@ -7779,6 +7802,7 @@ GameObject:
   - component: {fileID: 7625358402191301319}
   - component: {fileID: 7625358402191301318}
   - component: {fileID: 7625358402191301317}
+  - component: {fileID: 7625358402191301320}
   m_Layer: 8
   m_Name: B_Torso_Geom
   m_TagString: Untagged
@@ -7797,7 +7821,7 @@ GameObject:
   - component: {fileID: 7326802867002695377}
   - component: {fileID: 1363253427378719253}
   - component: {fileID: 7670794683725353115}
-  m_Layer: 8
+  m_Layer: 14
   m_Name: SM_Wep_Sniper_02_Mag_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -7880,7 +7904,7 @@ GameObject:
   m_Component:
   - component: {fileID: 915111249356498392}
   - component: {fileID: 2186718653593064499}
-  m_Layer: 8
+  m_Layer: 14
   m_Name: Weapon_Sniper
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8005,7 +8029,7 @@ GameObject:
   - component: {fileID: 7048787894598436547}
   - component: {fileID: 224544394104948081}
   - component: {fileID: 3991454806171140355}
-  m_Layer: 8
+  m_Layer: 14
   m_Name: SM_Wep_Shotgun_02
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8198,7 +8222,7 @@ GameObject:
   - component: {fileID: 4241937879100743518}
   - component: {fileID: 3758010825815942759}
   - component: {fileID: 3301572977964012839}
-  m_Layer: 8
+  m_Layer: 14
   m_Name: SM_Wep_Sniper_02
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8269,6 +8293,7 @@ GameObject:
   - component: {fileID: 9157185491630007808}
   - component: {fileID: 9157185491630007810}
   - component: {fileID: 9157185491630007809}
+  - component: {fileID: 9157185491630007811}
   m_Layer: 8
   m_Name: Pelvis
   m_TagString: Untagged
@@ -9053,7 +9078,7 @@ MeshCollider:
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 5
   m_Convex: 1
   m_CookingOptions: 30
@@ -9072,6 +9097,7 @@ GameObject:
   - component: {fileID: 6957153752309619780}
   - component: {fileID: 6957153752309619779}
   - component: {fileID: 6957153752309619778}
+  - component: {fileID: 6957153752309619781}
   m_Layer: 8
   m_Name: B_LeftForeArm_Geom
   m_TagString: Untagged
@@ -9351,6 +9377,14 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 250960724}
     - target: {fileID: 347788621558740452, guid: 2acfafe9dbcd2564c9bb781ce054da78, type: 3}
+      propertyPath: playerBody
+      value: 
+      objectReference: {fileID: 8531482628254385960}
+    - target: {fileID: 347788621558740452, guid: 2acfafe9dbcd2564c9bb781ce054da78, type: 3}
+      propertyPath: advanceStoppingDistance
+      value: 19
+      objectReference: {fileID: 0}
+    - target: {fileID: 347788621558740452, guid: 2acfafe9dbcd2564c9bb781ce054da78, type: 3}
       propertyPath: 'patrolPoints.Array.data[0]'
       value: 
       objectReference: {fileID: 880380076}
@@ -9406,10 +9440,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Enemy_Range
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 3276732827363430353, guid: 2acfafe9dbcd2564c9bb781ce054da78, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 7155308331458696630, guid: 2acfafe9dbcd2564c9bb781ce054da78, type: 3}
+      insertIndex: 4
+      addedObject: {fileID: 404771724}
   m_SourcePrefab: {fileID: 100100000, guid: 2acfafe9dbcd2564c9bb781ce054da78, type: 3}
 --- !u!1 &802916190253817895
 GameObject:
@@ -10215,6 +10253,7 @@ GameObject:
   - component: {fileID: 4089355442390560208}
   - component: {fileID: 4089355442390560206}
   - component: {fileID: 4089355442390560207}
+  - component: {fileID: 4089355442390560209}
   m_Layer: 8
   m_Name: B_LeftArm_Geom
   m_TagString: Untagged
@@ -10279,7 +10318,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 396840444889669035}
-  m_Layer: 8
+  m_Layer: 14
   m_Name: LeftHandTargetTransform
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10604,7 +10643,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4995950247141194446}
   - component: {fileID: 1652233396514325802}
-  m_Layer: 8
+  m_Layer: 14
   m_Name: Weapon _Auto-Rifle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10636,7 +10675,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4879264255321469728}
-  m_Layer: 8
+  m_Layer: 14
   m_Name: GunPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10888,7 +10927,7 @@ GameObject:
   - component: {fileID: 2084899369035410061}
   - component: {fileID: 3873384631237102972}
   - component: {fileID: 2415735674415132281}
-  m_Layer: 8
+  m_Layer: 14
   m_Name: SM_Wep_Assault_03
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -11208,7 +11247,7 @@ GameObject:
   - component: {fileID: 1618386329788625900}
   - component: {fileID: 6046155510799400066}
   - component: {fileID: 343947861237683243}
-  m_Layer: 8
+  m_Layer: 14
   m_Name: SM_Wep_Assault_02_ForeBarrel_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -11744,7 +11783,7 @@ GameObject:
   - component: {fileID: 947023096989805552}
   - component: {fileID: 2600092336880722324}
   - component: {fileID: 8773345295185457790}
-  m_Layer: 8
+  m_Layer: 14
   m_Name: SM_Wep_Assault_02_Trigger_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -11941,7 +11980,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5034412274846923101}
   - component: {fileID: 6501927497048395943}
-  m_Layer: 8
+  m_Layer: 14
   m_Name: Weapon_Shotgun
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -12603,7 +12642,7 @@ GameObject:
   - component: {fileID: 4554838147329326760}
   - component: {fileID: 7451763166843277698}
   - component: {fileID: 8920059547421820103}
-  m_Layer: 8
+  m_Layer: 14
   m_Name: SM_Wep_Pistol_02_Trigger_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -12935,6 +12974,7 @@ GameObject:
   - component: {fileID: 6678172356751848309}
   - component: {fileID: 6678172356751848308}
   - component: {fileID: 6678172356751848307}
+  - component: {fileID: 6678172356751848310}
   m_Layer: 8
   m_Name: Head
   m_TagString: Untagged
@@ -13406,7 +13446,7 @@ GameObject:
   - component: {fileID: 7252033976294423716}
   - component: {fileID: 2028280375557869219}
   - component: {fileID: 1722396927161454312}
-  m_Layer: 8
+  m_Layer: 14
   m_Name: SM_Wep_Assault_03_Trigger_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -13565,7 +13605,7 @@ GameObject:
   - component: {fileID: 3563665574728525852}
   - component: {fileID: 4592206900489938303}
   - component: {fileID: 8100048954345424591}
-  m_Layer: 8
+  m_Layer: 14
   m_Name: SM_Wep_Sniper_03_Trigger_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14529,7 +14569,7 @@ GameObject:
   - component: {fileID: 446609084039011439}
   - component: {fileID: 2343281660752450456}
   - component: {fileID: 5521880542586122442}
-  m_Layer: 8
+  m_Layer: 14
   m_Name: SM_Wep_Pistol_01_Trigger_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -14997,6 +15037,18 @@ CapsuleCollider:
   m_Height: 0.35906917
   m_Direction: 0
   m_Center: {x: -0.09545839, y: 0.023019847, z: 0.009245848}
+--- !u!114 &4089355442390560209
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1301515311037609842}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7f6a63b4c5a5a3d48ba2577dac01ffd1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &4099716993177759383
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15020,7 +15072,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6919439322460626568}
-  m_Layer: 8
+  m_Layer: 14
   m_Name: LeftHandTargetTransform
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -15089,7 +15141,7 @@ GameObject:
   - component: {fileID: 1885748862339000223}
   - component: {fileID: 621050883630455717}
   - component: {fileID: 3915844671550518972}
-  m_Layer: 8
+  m_Layer: 14
   m_Name: SM_Wep_Pistol_02_Hammer_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -15933,7 +15985,7 @@ GameObject:
   - component: {fileID: 8459710934098800432}
   - component: {fileID: 2609728044719185220}
   - component: {fileID: 2393812953981776903}
-  m_Layer: 8
+  m_Layer: 14
   m_Name: SM_Wep_Sniper_03
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -16287,7 +16339,7 @@ GameObject:
   - component: {fileID: 5252932864389371991}
   - component: {fileID: 1023636040704829491}
   - component: {fileID: 5333992294116586881}
-  m_Layer: 8
+  m_Layer: 14
   m_Name: SM_Wep_Pistol_01_Scope_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -16828,7 +16880,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 923941611186111748}
-  m_Layer: 8
+  m_Layer: 14
   m_Name: LeftHandTargetTransform
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -16951,7 +17003,7 @@ GameObject:
   - component: {fileID: 7187714243059449573}
   - component: {fileID: 9078094999307668112}
   - component: {fileID: 4632595743723646655}
-  m_Layer: 8
+  m_Layer: 14
   m_Name: SM_Wep_Shotgun_02_Forestock_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -17114,7 +17166,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8467226324586918711}
-  m_Layer: 8
+  m_Layer: 14
   m_Name: GunPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -17561,7 +17613,7 @@ GameObject:
   - component: {fileID: 9056209366736939416}
   - component: {fileID: 8193127822708615161}
   - component: {fileID: 8649261779653690622}
-  m_Layer: 8
+  m_Layer: 14
   m_Name: SM_Wep_Sniper_03_Scope_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -17719,7 +17771,7 @@ GameObject:
   - component: {fileID: 3370307300207461534}
   - component: {fileID: 365043365328547384}
   - component: {fileID: 4545326336584659197}
-  m_Layer: 8
+  m_Layer: 14
   m_Name: SM_Wep_Assault_02
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -17965,7 +18017,7 @@ GameObject:
   - component: {fileID: 1041453287333087983}
   - component: {fileID: 2594167145992371586}
   - component: {fileID: 4858375111374581137}
-  m_Layer: 8
+  m_Layer: 14
   m_Name: SM_Wep_Sniper_02_Scope_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -18066,7 +18118,7 @@ GameObject:
   - component: {fileID: 3111842406952425037}
   - component: {fileID: 3264746753038571646}
   - component: {fileID: 4239378861837598329}
-  m_Layer: 8
+  m_Layer: 14
   m_Name: SM_Wep_Sniper_03_Mag_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -18200,7 +18252,7 @@ GameObject:
   - component: {fileID: 6733111761206547205}
   - component: {fileID: 2732128047642829284}
   - component: {fileID: 3545411932808205323}
-  m_Layer: 8
+  m_Layer: 14
   m_Name: SM_Wep_Assault_03_Mag_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -19559,7 +19611,7 @@ GameObject:
   - component: {fileID: 395213644132220124}
   - component: {fileID: 6161830560747436291}
   - component: {fileID: 7237732898542816954}
-  m_Layer: 8
+  m_Layer: 14
   m_Name: SM_Wep_Assault_02_RedDot_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -19968,7 +20020,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1455380822754181210}
   - component: {fileID: 1504038547040906620}
-  m_Layer: 8
+  m_Layer: 14
   m_Name: Weapon_Psitol
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -19986,7 +20038,7 @@ GameObject:
   - component: {fileID: 4143480697239137262}
   - component: {fileID: 2575097911401564059}
   - component: {fileID: 1851599879193517897}
-  m_Layer: 8
+  m_Layer: 14
   m_Name: SM_Wep_Shotgun_05_Cell_02
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -21109,7 +21161,7 @@ GameObject:
   - component: {fileID: 4325200262508617554}
   - component: {fileID: 5345806147290531587}
   - component: {fileID: 1762780358916673019}
-  m_Layer: 8
+  m_Layer: 14
   m_Name: SM_Wep_Shotgun_05_Cell_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -21201,7 +21253,7 @@ GameObject:
   - component: {fileID: 5042238006318948651}
   - component: {fileID: 1554233723361235226}
   - component: {fileID: 3505070343669331235}
-  m_Layer: 8
+  m_Layer: 14
   m_Name: SM_Wep_Pistol_02_Cylander_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -21510,6 +21562,18 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 0.13187872
   m_Center: {x: -0.00000025121037, y: 0.06020489, z: 0.03737168}
+--- !u!114 &6678172356751848310
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2629789756723837555}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7f6a63b4c5a5a3d48ba2577dac01ffd1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6681323427114776046
 GameObject:
   m_ObjectHideFlags: 0
@@ -21697,7 +21761,7 @@ GameObject:
   - component: {fileID: 6110048013359860847}
   - component: {fileID: 8407941784409401468}
   - component: {fileID: 8293375543756836329}
-  m_Layer: 8
+  m_Layer: 14
   m_Name: SM_Wep_Shotgun_03
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -22097,9 +22161,21 @@ CapsuleCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 0.0717383
-  m_Height: 0.31181976
+  m_Height: 0.2456411
   m_Direction: 0
-  m_Center: {x: -0.12341359, y: 0.00021989309, z: -0.014294178}
+  m_Center: {x: -0.09032414, y: 0.00022021223, z: -0.014293761}
+--- !u!114 &6957153752309619781
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 589925630040595978}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7f6a63b4c5a5a3d48ba2577dac01ffd1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6990150200602912746
 GameObject:
   m_ObjectHideFlags: 0
@@ -22248,7 +22324,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3457139680491448183}
-  m_Layer: 8
+  m_Layer: 14
   m_Name: LeftHandTargetTransform
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -22332,7 +22408,7 @@ GameObject:
   - component: {fileID: 7191374250018246990}
   - component: {fileID: 71484160122568858}
   - component: {fileID: 968480809498538214}
-  m_Layer: 8
+  m_Layer: 14
   m_Name: SM_Wep_Shotgun_03_Trigger_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -22455,7 +22531,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5283525717296537116}
-  m_Layer: 8
+  m_Layer: 14
   m_Name: GunPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -22707,7 +22783,7 @@ GameObject:
   - component: {fileID: 8265126088925869009}
   - component: {fileID: 6165469345490258811}
   - component: {fileID: 5074445304796336436}
-  m_Layer: 8
+  m_Layer: 14
   m_Name: SM_Wep_Shotgun_02_Trigger_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -22956,7 +23032,7 @@ Transform:
   m_GameObject: {fileID: 8774049402218822023}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.003, y: 0.107, z: 0.6031}
+  m_LocalPosition: {x: 0.003, y: 0.107, z: 0.629}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -22973,6 +23049,7 @@ GameObject:
   - component: {fileID: 1032826526822357974}
   - component: {fileID: 3618821439614736930}
   - component: {fileID: 2575118124474916173}
+  - component: {fileID: 7425112603728300397}
   m_Layer: 8
   m_Name: B_Chest_Geom
   m_TagString: Untagged
@@ -22980,6 +23057,18 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &7425112603728300397
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7425112603728300396}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7f6a63b4c5a5a3d48ba2577dac01ffd1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7433931286511365529
 GameObject:
   m_ObjectHideFlags: 0
@@ -22991,7 +23080,7 @@ GameObject:
   - component: {fileID: 8863603124503381517}
   - component: {fileID: 3076994071190143273}
   - component: {fileID: 7116796970940645077}
-  m_Layer: 8
+  m_Layer: 14
   m_Name: SM_Wep_Sniper_02_Trigger_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -23540,6 +23629,18 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.37771738, y: 0.48355585, z: 0.26268014}
   m_Center: {x: -0.00025795872, y: 0.24177815, z: 0.034311578}
+--- !u!114 &7625358402191301320
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 32955106113885917}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7f6a63b4c5a5a3d48ba2577dac01ffd1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &7629710244401982425
 Transform:
   m_ObjectHideFlags: 0
@@ -23647,7 +23748,7 @@ GameObject:
   - component: {fileID: 2613597900758907706}
   - component: {fileID: 3471447174083081519}
   - component: {fileID: 8598456069301717515}
-  m_Layer: 8
+  m_Layer: 14
   m_Name: SM_Wep_Pistol_02
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -23943,7 +24044,7 @@ GameObject:
   - component: {fileID: 5605471264212669554}
   - component: {fileID: 7919021131869355084}
   - component: {fileID: 3427690832191711791}
-  m_Layer: 8
+  m_Layer: 14
   m_Name: SM_Wep_Shotgun_03_Forestock_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -24284,7 +24385,7 @@ GameObject:
   - component: {fileID: 6763988032109312662}
   - component: {fileID: 711350090067846682}
   - component: {fileID: 8516334955123526610}
-  m_Layer: 8
+  m_Layer: 14
   m_Name: SM_Wep_Assault_02_Mag_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -24308,7 +24409,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 961467408800923732}
-  m_Layer: 8
+  m_Layer: 14
   m_Name: Weapon_Holder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -25165,7 +25266,7 @@ GameObject:
   - component: {fileID: 996362251724700372}
   - component: {fileID: 3574326641490343107}
   - component: {fileID: 584381978401361232}
-  m_Layer: 8
+  m_Layer: 14
   m_Name: SM_Wep_Pistol_01
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -25702,7 +25803,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7420863950174619224}
-  m_Layer: 8
+  m_Layer: 14
   m_Name: GunPoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -26243,9 +26344,9 @@ CapsuleCollider:
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 0.06502691
-  m_Height: 0.44892702
+  m_Height: 0.25917915
   m_Direction: 0
-  m_Center: {x: 0.21372077, y: 0.0039798184, z: 0.014000618}
+  m_Center: {x: 0.11885048, y: 0.00397899, z: 0.013998585}
 --- !u!4 &8966489182399641685
 Transform:
   m_ObjectHideFlags: 0
@@ -26895,6 +26996,18 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.3774929, y: 0.17792168, z: 0.23712942}
   m_Center: {x: -0.0046788296, y: 0.041587204, z: -0.029517027}
+--- !u!114 &9157185491630007811
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 341635961843744726}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7f6a63b4c5a5a3d48ba2577dac01ffd1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!143 &9162576073667156883
 CharacterController:
   m_ObjectHideFlags: 0

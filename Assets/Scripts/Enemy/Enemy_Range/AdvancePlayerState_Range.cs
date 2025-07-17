@@ -14,6 +14,7 @@ public class AdvancePlayerState_Range : EnemyState
 
     public override void Enter()
     {
+        Debug.Log("½øÈë×´Ì¬£ºAdvance");
         base.Enter();
 
         enemy.visuals.EnableIK(true, true);
@@ -30,6 +31,7 @@ public class AdvancePlayerState_Range : EnemyState
 
     public override void Exit()
     {
+        Debug.Log("ÍË³ö×´Ì¬£ºAdvance");
         base.Exit();
         lastTimeAdvanced = Time.time;
     }
@@ -44,7 +46,7 @@ public class AdvancePlayerState_Range : EnemyState
         enemy.agent.SetDestination(playerPos);
         enemy.FaceTarget(GetNextPathPoint());
 
-        if (CanEnterBattleState() && enemy.IsSeeingPlayer())
+        if (CanEnterBattleState() || enemy.IsSeeingPlayer())
         {
             stateMachine.ChangeState(enemy.battleState);
         }
@@ -52,8 +54,9 @@ public class AdvancePlayerState_Range : EnemyState
     
     private bool CanEnterBattleState()
     {
-        bool closeEnoughToPlayer = Vector3.Distance(enemy.transform.position, playerPos) < enemy.advanceStoppingDistance;
-
+        float distanceToPlayer = Vector3.Distance(enemy.transform.position, playerPos);
+        bool closeEnoughToPlayer = distanceToPlayer < enemy.advanceStoppingDistance;
+        //Debug.Log($"¾àÀëPlayer:{distanceToPlayer} ÊÇ·ñ×·¸Ï£º{!closeEnoughToPlayer}");
         if (enemy.IsUnstoppable()) return closeEnoughToPlayer || stateTimer < 0;
         else return closeEnoughToPlayer;
     }

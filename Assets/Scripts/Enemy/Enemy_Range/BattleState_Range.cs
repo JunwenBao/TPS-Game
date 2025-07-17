@@ -20,6 +20,7 @@ public class BattleState_Range : EnemyState
 
     public override void Enter()
     {
+        Debug.Log("½øÈë×´Ì¬£ºBattle");
         base.Enter();
         SetupValuesForFirstAttack();
 
@@ -77,6 +78,7 @@ public class BattleState_Range : EnemyState
 
     public override void Exit()
     {
+        Debug.Log("ÍË³ö×´Ì¬£ºBattle");
         base.Exit();
 
         enemy.visuals.EnableIK(false, false);
