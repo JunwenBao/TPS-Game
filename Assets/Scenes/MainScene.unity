@@ -6520,7 +6520,7 @@ Transform:
   m_GameObject: {fileID: 1751109881}
   serializedVersion: 2
   m_LocalRotation: {x: 0.15212339, y: 7.2613656e-23, z: -4.894349e-24, w: 0.98836154}
-  m_LocalPosition: {x: 0.78278065, y: -3.3475456, z: 8.392185}
+  m_LocalPosition: {x: 0.8708763, y: -3.268248, z: 8.516775}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -9025,7 +9025,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3118644093672054919}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.0030037332, y: -0.011691226, z: 0.052777782, w: 0.99853337}
+  m_LocalRotation: {x: -0.009991365, y: 0.0067827874, z: -0.021228118, w: 0.9997018}
   m_LocalPosition: {x: 0.13222207, y: -0.047373593, z: -0.0026729056}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -9593,7 +9593,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2617086559962023134}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.046567436, y: -0.002259876, z: 0.02975673, w: 0.9984693}
+  m_LocalRotation: {x: 0.032098666, y: -0.058299046, z: 0.058402397, w: 0.99607235}
   m_LocalPosition: {x: -1.5853849e-18, y: -0.44882706, z: -0.06509322}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -11868,6 +11868,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 116791df85104ec4aa85191cac2af0fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  whatIsPlayer:
+    serializedVersion: 2
+    m_Bits: 256
   whatIsAlly:
     serializedVersion: 2
     m_Bits: 2048
@@ -14137,7 +14140,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1677222787318794643}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.00017882712, y: 3.2482036e-22, z: -0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0.00000008940697, y: -0.09063298, z: 0.13151972}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -15692,6 +15695,9 @@ MonoBehaviour:
   weaponData: {fileID: 0}
   trailEffects:
   - {fileID: 4622894737441862411}
+  damagePoints:
+  - {fileID: 3348204260695618048}
+  attackRadius: 0.4
 --- !u!1 &2145135323900861365
 GameObject:
   m_ObjectHideFlags: 0
@@ -17142,6 +17148,9 @@ MonoBehaviour:
   weaponData: {fileID: 0}
   trailEffects:
   - {fileID: 2165207592788869585}
+  damagePoints:
+  - {fileID: 8096549197913800922}
+  attackRadius: 0.4
 --- !u!4 &2503737032318778254
 Transform:
   m_ObjectHideFlags: 0
@@ -20673,7 +20682,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2801722578921726556}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.07908816, y: -0.2240798, z: -0.1816583, w: 0.95421886}
+  m_LocalRotation: {x: -0.11506273, y: -0.028780518, z: -0.09037014, w: 0.9888203}
   m_LocalPosition: {x: -0.13222207, y: -0.047373593, z: -0.0026729056}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -21007,7 +21016,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3290266880864006965}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.20534492, y: -0.18592392, z: 0.030666096, w: 0.96037775}
+  m_LocalRotation: {x: 0.12953368, y: -0.06493759, z: -0.015155856, w: 0.98933035}
   m_LocalPosition: {x: -1.3256771e-18, y: -0.37530303, z: -0.015410135}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -23725,7 +23734,7 @@ Transform:
   m_GameObject: {fileID: 7332700671039165317}
   serializedVersion: 2
   m_LocalRotation: {x: 0.15212339, y: 7.3604e-23, z: -1.1328741e-23, w: 0.98836154}
-  m_LocalPosition: {x: 14.911128, y: 5.1285, z: -18.729082}
+  m_LocalPosition: {x: 14.999224, y: 5.2077975, z: -18.604492}
   m_LocalScale: {x: 2, y: 2, z: 2}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -28764,8 +28773,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8618462804757222070}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.11141178, y: 0.34024438, z: 0.026539063, w: 0.9333365}
-  m_LocalPosition: {x: -0.021477023, y: 0.9384427, z: -0.049893856}
+  m_LocalRotation: {x: -0.031373594, y: 0.046522137, z: 0.027627513, w: 0.99804217}
+  m_LocalPosition: {x: 0.008050442, y: 0.97341484, z: -0.0014939308}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -30139,7 +30148,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3537380402468450929}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.14059032, y: 0.06777314, z: -0.08686581, w: 0.9839185}
+  m_LocalRotation: {x: 0.000732027, y: 0.084689714, z: -0.016509049, w: 0.99627036}
   m_LocalPosition: {x: -1.6304929e-18, y: -0.44882706, z: -0.06509322}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -32725,7 +32734,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6327595976310573918}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.000026121867, y: -4.613493e-23, z: -0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -0.00000008940697, y: -0.09063298, z: 0.13151972}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -33534,6 +33543,9 @@ MonoBehaviour:
   weaponData: {fileID: 0}
   trailEffects:
   - {fileID: 236891614754075558}
+  damagePoints:
+  - {fileID: 7861455256723911341}
+  attackRadius: 0.4
 --- !u!4 &6849606560344044993
 Transform:
   m_ObjectHideFlags: 0
@@ -37592,7 +37604,7 @@ Transform:
   m_GameObject: {fileID: 236891614754075558}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.172, y: -0.107, z: 0.624}
+  m_LocalPosition: {x: 0.008, y: 0.003, z: 0.54}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -40050,6 +40062,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c6e2700dd0b8447488afbd680c719415, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  whatIsPlayer:
+    serializedVersion: 2
+    m_Bits: 256
   whatIsAlly:
     serializedVersion: 2
     m_Bits: 2048
@@ -40057,12 +40072,12 @@ MonoBehaviour:
   idleTime: 2
   aggresionRange: 10
   walkSpeed: 3
-  runSpeed: 0
+  runSpeed: 6
   turnSpeed: 5
   patrolPoints:
   - {fileID: 1332407372}
   - {fileID: 883928905}
-  meleeType: 1
+  meleeType: 0
   weaponType: 0
   shieldTransform: {fileID: 3825751717373969936}
   dodgeCooldown: 0
@@ -40081,17 +40096,18 @@ MonoBehaviour:
     attackType: 0
   attackList:
   - attackName: Sword Spin Attack
-    attackRange: 3.5
+    attackRange: 2
     moveSpeed: 0
     attackIndex: 0
     animationSpeed: 1
     attackType: 1
   - attackName: Sword Slash
-    attackRange: 3.5
+    attackRange: 2
     moveSpeed: 0
     attackIndex: 1
     animationSpeed: 1.5
     attackType: 0
+  meleeAttackFX: {fileID: 8859841351191377815, guid: c53f75df6028e6c4a84a8d15099f22ad, type: 3}
 --- !u!114 &8637851015644635883
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -42150,7 +42166,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8955055820259562636}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.266275, y: 0.041758344, z: 0.033981018, w: 0.96239245}
+  m_LocalRotation: {x: 0.045282558, y: 0.095630825, z: 0.016055275, w: 0.9942568}
   m_LocalPosition: {x: -1.3633958e-18, y: -0.37530303, z: -0.015410135}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0

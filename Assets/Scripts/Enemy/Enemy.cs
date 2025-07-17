@@ -5,6 +5,7 @@ using UnityEngine.AI;
 
 public class Enemy : MonoBehaviour
 {
+    public LayerMask whatIsPlayer;
     public LayerMask whatIsAlly;
     public int healthPoints = 20;
 

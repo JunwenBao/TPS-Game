@@ -47,6 +47,9 @@ public class Enemy_Melee : Enemy
     [Header("Attack Data")]
     public AttackData_EnemyMelee attackData;
     public List<AttackData_EnemyMelee> attackList;
+    private Enemy_WeaponModel currentWeapon;
+    private bool isAttackReady;
+    [SerializeField] private GameObject meleeAttackFX;
 
     protected override void Awake()
     {
@@ -78,7 +81,37 @@ public class Enemy_Melee : Enemy
         base.Update();
 
         stateMachine.currentState.Update();
+
+        AttackCheck();
     }
+
+    // ¼ì²â¹¥»÷ÊÇ·ñ¹¥»÷µ½ÁËÍæ¼Ò
+    public void AttackCheck()
+    {
+        if (isAttackReady == false) return;
+
+        foreach(Transform attackPoint in currentWeapon.damagePoints)
+        {
+            Collider[] detectedHits = Physics.OverlapSphere(attackPoint.position, currentWeapon.attackRadius, whatIsPlayer);
+
+            for(int i = 0; i < detectedHits.Length; i++)
+            {
+                IDamagable damagable = detectedHits[i].GetComponent<IDamagable>();
+                if (damagable != null)
+                {
+                    damagable.TakeDamage();
+                    isAttackReady = false;
+
+                    GameObject newAttackFX = ObjectPool.Instance.GetObject(meleeAttackFX, attackPoint);
+                    ObjectPool.Instance.ReturnObject(newAttackFX, 1);
+
+                    return;
+                }
+            }
+        }
+    }
+
+    public void EnableAttackCheck(bool enable) => isAttackReady = enable;
 
     public override void EnterBattleMode()
     {
@@ -98,7 +131,7 @@ public class Enemy_Melee : Enemy
 
     public void UpdateAttackData()
     {
-        Enemy_WeaponModel currentWeapon = visuals.currentWeaponModel.GetComponent<Enemy_WeaponModel>();
+        currentWeapon = visuals.currentWeaponModel.GetComponent<Enemy_WeaponModel>();
 
         if(currentWeapon.weaponData != null)
         {
