@@ -10,6 +10,8 @@ public class Player : MonoBehaviour
     public PlayerWeaponVisuals weaponVisuals { get; private set; }
     public PlayerInteraction interaction { get; private set; }
 
+    public bool isAiming;
+
     private void Awake()
     {
         controls = new PlayerControls();

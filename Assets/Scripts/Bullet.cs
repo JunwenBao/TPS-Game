@@ -15,6 +15,8 @@ public class Bullet : MonoBehaviour
     private float flyDistance;
     private bool bulletDisabled;
 
+    private LayerMask allyLayerMask;
+
     protected virtual void Awake()
     {
         cd = GetComponent<BoxCollider>();
@@ -31,14 +33,16 @@ public class Bullet : MonoBehaviour
     }
 
     // 设置子弹属性
-    public void BulletSetup(float flyDistance = 100, float impactForce = 100)
+    public void BulletSetup(LayerMask allyLayerMask,float flyDistance = 100, float impactForce = 100)
     {
         this.impactForce = impactForce;
+        this.allyLayerMask = allyLayerMask;
 
         bulletDisabled = false;
         cd.enabled = true;
         meshRenderer.enabled = true;
 
+        trailRenderer.Clear();
         trailRenderer.time = 0.25f;
         startPosition = transform.position;
         this.flyDistance = flyDistance + 0.5f;
@@ -73,41 +77,54 @@ public class Bullet : MonoBehaviour
     // 子弹撞击
     protected virtual void OnCollisionEnter(Collision collision)
     {
-        CreateImpactFX(collision);
+        /* 检测友伤 */
+        if(FriendlyFire() == false)
+        {
+            if((allyLayerMask.value & (1 << collision.gameObject.layer)) > 0)
+            {
+                ReturnBulletToPool(10);
+                return;
+            }
+        }
+
+        CreateImpactFX();
         ReturnBulletToPool();
 
-        Enemy enemy = collision.gameObject.GetComponentInParent<Enemy>();
+        /* 如果子弹碰撞的对象有接口IDamagable，则造成伤害 */
+        IDamagable damagable = collision.gameObject.GetComponent<IDamagable>();
+        damagable?.TakeDamage();
+
         EnemyShield shield = collision.gameObject.GetComponent<EnemyShield>();
 
-        if(shield != null)
+        if (shield != null)
         {
             shield.ReduceDurability();
             return;
         }
 
+        ApplyBulletImpactToEnemy(collision);
+    }
+
+    private void ApplyBulletImpactToEnemy(Collision collision)
+    {
+        Enemy enemy = collision.gameObject.GetComponentInParent<Enemy>();
         if (enemy != null)
         {
             Vector3 force = rb.linearVelocity.normalized * impactForce;
             Rigidbody hitRigidbody = collision.collider.attachedRigidbody;
 
-            enemy.GetHit();
-            enemy.DeathImpact(force, collision.contacts[0].point, hitRigidbody);
+            enemy.BulletImpact(force, collision.contacts[0].point, hitRigidbody);
         }
     }
 
-    protected void ReturnBulletToPool() => ObjectPool.Instance.ReturnObject(gameObject);
+    protected void ReturnBulletToPool(float delay = 0) => ObjectPool.Instance.ReturnObject(gameObject, delay);
 
     // 制造子弹碰撞特效
-    protected void CreateImpactFX(Collision collision)
+    protected void CreateImpactFX()
     {
-        if (collision.contacts.Length > 0)
-        {
-            ContactPoint contact = collision.contacts[0];
-
-            GameObject newImpactFX = ObjectPool.Instance.GetObject(bulletImpactFX);
-            newImpactFX.transform.position = contact.point;
-
-            ObjectPool.Instance.ReturnObject(newImpactFX, 1f);
-        }
+        GameObject newImpactFX = ObjectPool.Instance.GetObject(bulletImpactFX, transform);
+        ObjectPool.Instance.ReturnObject(newImpactFX, 1f);
     }
+
+    private bool FriendlyFire() => GameManager.Instance.firendlyFire;
 }

@@ -22,6 +22,11 @@ public class CameraManager : MonoBehaviour
         transposer = GetComponentInChildren<CinemachinePositionComposer>();
     }
 
+    void Start()
+    {
+        Cursor.visible = false;
+    }
+
     private void Update()
     {
         //UpdateCameraDistance();

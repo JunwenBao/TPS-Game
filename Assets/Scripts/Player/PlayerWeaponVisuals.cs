@@ -52,20 +52,6 @@ public class PlayerWeaponVisuals : MonoBehaviour
         return weaponModel;
     }
 
-    // 播放射击动画
-    public void PlayerFireAnimation() => animator.SetTrigger("Fire");
-
-    // 播放装弹动画
-    public void PlayReloadAnimation()
-    {
-        float reloadSpeed = player.weapon.CurrentWeapon().reloadSpeed;
-
-        animator.SetFloat("ReloadSpeed", reloadSpeed);
-        animator.SetTrigger("Reload");
-
-        ReduceRigWeight();
-    }
-
     // 切换指定武器
     public void SwitchOnCurrentWeaponModel()
     {
@@ -140,41 +126,7 @@ public class PlayerWeaponVisuals : MonoBehaviour
         }
     }
 
-    // 切换不同武器的动画层
-    private void SwitchAnimationLayer(int layerIndex)
-    {
-        for(int i = 0; i < animator.layerCount; i++)
-        {
-            animator.SetLayerWeight(i, 0);
-        }
-
-        animator.SetLayerWeight(layerIndex, 1);
-    }
-
-    // 控制拿取武器动画
-    public void PlayWeaponEquipAnimation()
-    {
-        EquipType equipType = CurrentWeaponModle().equipAnimationType;
-
-        float equipmentSpeed = player.weapon.CurrentWeapon().equipmentSpeed;
-
-        leftHandIK.weight = 0;
-        ReduceRigWeight();
-        animator.SetTrigger("EquipWeapon");
-        animator.SetFloat("EquipType", (float)equipType);
-        animator.SetFloat("EquipSpeed", equipmentSpeed);
-    }
-
-    #region Animation Rigging Method
-
-    // 切换武器时，绑定左手在不同武器的位置
-    private void AttachLeftHand()
-    {
-        Transform targetTransform = CurrentWeaponModle().holdPoint;
-
-        leftHandIK_Target.localPosition = targetTransform.localPosition;
-        leftHandIK_Target.localRotation = targetTransform.localRotation;
-    }
+    #region Rig Weight Methods
 
     private void UpdateLeftHandIKWeight()
     {
@@ -196,6 +148,62 @@ public class PlayerWeaponVisuals : MonoBehaviour
         }
     }
 
+    #endregion
+
+    #region Animation Methods
+
+    // 播放射击动画
+    public void PlayerFireAnimation() => animator.SetTrigger("Fire");
+
+    // 播放装弹动画
+    public void PlayReloadAnimation()
+    {
+        float reloadSpeed = player.weapon.CurrentWeapon().reloadSpeed;
+
+        animator.SetFloat("ReloadSpeed", reloadSpeed);
+        animator.SetTrigger("Reload");
+
+        ReduceRigWeight();
+    }
+
+    // 切换不同武器的动画层
+    private void SwitchAnimationLayer(int layerIndex)
+    {
+        for (int i = 0; i < animator.layerCount; i++)
+        {
+            animator.SetLayerWeight(i, 0);
+        }
+
+        animator.SetLayerWeight(layerIndex, 1);
+    }
+
+    // 控制拿取武器动画
+    public void PlayWeaponEquipAnimation()
+    {
+        EquipType equipType = CurrentWeaponModle().equipAnimationType;
+
+        float equipmentSpeed = player.weapon.CurrentWeapon().equipmentSpeed;
+
+        leftHandIK.weight = 0;
+        ReduceRigWeight();
+        animator.SetTrigger("EquipWeapon");
+        animator.SetFloat("EquipType", (float)equipType);
+        animator.SetFloat("EquipSpeed", equipmentSpeed);
+    }
+
+    #endregion
+
+    #region Animation Rigging Methods
+
+    // 切换武器时，绑定左手在不同武器的位置
+    private void AttachLeftHand()
+    {
+        Transform targetTransform = CurrentWeaponModle().holdPoint;
+
+        leftHandIK_Target.localPosition = targetTransform.localPosition;
+        leftHandIK_Target.localRotation = targetTransform.localRotation;
+    }
+
     private void ReduceRigWeight()
     {
         rig.weight = 0.15f;
@@ -205,4 +213,5 @@ public class PlayerWeaponVisuals : MonoBehaviour
     public void MaximizeLeftHandWeight() => shouldIncrease_LeftHandIKWeight = true;
 
     #endregion
+
 }

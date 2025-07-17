@@ -28,15 +28,6 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             ""id"": ""40cbb5af-f985-4683-bce4-b64b651174d8"",
             ""actions"": [
                 {
-                    ""name"": ""Fire"",
-                    ""type"": ""Button"",
-                    ""id"": ""d3704bb2-a243-4b88-936e-8b05ae994a10"",
-                    ""expectedControlType"": """",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
                     ""name"": ""Movement"",
                     ""type"": ""Value"",
                     ""id"": ""d2dc5048-84ec-41ef-80df-af775d9db186"",
@@ -46,13 +37,31 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": true
                 },
                 {
-                    ""name"": ""Aim"",
-                    ""type"": ""Value"",
-                    ""id"": ""a7911546-d17b-4237-8e50-63684127da61"",
-                    ""expectedControlType"": ""Vector2"",
+                    ""name"": ""Fire"",
+                    ""type"": ""Button"",
+                    ""id"": ""d3704bb2-a243-4b88-936e-8b05ae994a10"",
+                    ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
-                    ""initialStateCheck"": true
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Aim"",
+                    ""type"": ""Button"",
+                    ""id"": ""a7911546-d17b-4237-8e50-63684127da61"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""SwitchShoulder"",
+                    ""type"": ""Button"",
+                    ""id"": ""c8330161-0b55-4bb4-bead-62e2af4aff71"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 },
                 {
                     ""name"": ""Run"",
@@ -158,8 +167,8 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": false
                 },
                 {
-                    ""name"": ""2D Vector"",
-                    ""id"": ""d7be9580-9234-477b-885a-c2226496aa8d"",
+                    ""name"": ""WASD"",
+                    ""id"": ""4b426d88-336f-43d7-aba9-f2ac3f9bd6d4"",
                     ""path"": ""2DVector"",
                     ""interactions"": """",
                     ""processors"": """",
@@ -170,7 +179,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": ""up"",
-                    ""id"": ""2abbc0cd-f155-479e-9606-30ae80476509"",
+                    ""id"": ""b16327fa-7b20-4019-81e9-2656c8694923"",
                     ""path"": ""<Keyboard>/w"",
                     ""interactions"": """",
                     ""processors"": """",
@@ -181,7 +190,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": ""down"",
-                    ""id"": ""3a00c2ab-96bf-4c8a-b52b-256a7ff0a73a"",
+                    ""id"": ""876917c9-df6b-4887-937e-20c38eaee76c"",
                     ""path"": ""<Keyboard>/s"",
                     ""interactions"": """",
                     ""processors"": """",
@@ -192,7 +201,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": ""left"",
-                    ""id"": ""acb0ec4c-44a0-42e7-91eb-4fe9c2c57659"",
+                    ""id"": ""38109d14-a5b2-43fb-9291-98b68c20ae50"",
                     ""path"": ""<Keyboard>/a"",
                     ""interactions"": """",
                     ""processors"": """",
@@ -203,7 +212,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": ""right"",
-                    ""id"": ""33d54a2a-d4e0-47a7-9749-57f2b48fbd48"",
+                    ""id"": ""764fa34f-64c7-4087-80ae-fe83937f4059"",
                     ""path"": ""<Keyboard>/d"",
                     ""interactions"": """",
                     ""processors"": """",
@@ -211,17 +220,6 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""action"": ""Movement"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""c60fb9ee-c4c1-4dae-9a44-7ed677ffbbc0"",
-                    ""path"": ""<Mouse>/position"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""Aim"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
                 },
                 {
                     ""name"": """",
@@ -332,6 +330,98 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""action"": ""Interaction"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""6fe33cde-7cb9-47d1-97bf-235b5c5cbf43"",
+                    ""path"": ""<Mouse>/rightButton"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Aim"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""042c6a7d-fa6d-4d56-8498-27f11e9a2aca"",
+                    ""path"": ""<Keyboard>/v"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""SwitchShoulder"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
+        },
+        {
+            ""name"": ""CameraControls"",
+            ""id"": ""81a1a4eb-b56c-4413-993a-e5b9783d3c8f"",
+            ""actions"": [
+                {
+                    ""name"": ""Look"",
+                    ""type"": ""Value"",
+                    ""id"": ""b78bb9ac-69bc-4cca-b70c-d8ab827a5d90"",
+                    ""expectedControlType"": ""Vector2"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""Zoom"",
+                    ""type"": ""Value"",
+                    ""id"": ""7f4a8773-1d89-402c-adab-2b3aa2815497"",
+                    ""expectedControlType"": ""Axis"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""3ae6b63d-af91-4214-96aa-522086934f38"",
+                    ""path"": ""<Mouse>/delta"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Look"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""1D Axis"",
+                    ""id"": ""affa5e9a-eca9-4ea1-9110-0f3d85a21c04"",
+                    ""path"": ""1DAxis"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Zoom"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""negative"",
+                    ""id"": ""f2b0211e-29af-4cca-bd96-ed781ea47886"",
+                    ""path"": ""<Mouse>/scroll/down"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Zoom"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""positive"",
+                    ""id"": ""fdf44988-aa9e-49f7-b388-1a136b081315"",
+                    ""path"": ""<Mouse>/scroll/up"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Zoom"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
                 }
             ]
         }
@@ -340,9 +430,10 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
 }");
         // Character
         m_Character = asset.FindActionMap("Character", throwIfNotFound: true);
-        m_Character_Fire = m_Character.FindAction("Fire", throwIfNotFound: true);
         m_Character_Movement = m_Character.FindAction("Movement", throwIfNotFound: true);
+        m_Character_Fire = m_Character.FindAction("Fire", throwIfNotFound: true);
         m_Character_Aim = m_Character.FindAction("Aim", throwIfNotFound: true);
+        m_Character_SwitchShoulder = m_Character.FindAction("SwitchShoulder", throwIfNotFound: true);
         m_Character_Run = m_Character.FindAction("Run", throwIfNotFound: true);
         m_Character_EquipSlot1 = m_Character.FindAction("Equip Slot - 1", throwIfNotFound: true);
         m_Character_EquipSlot2 = m_Character.FindAction("Equip Slot - 2", throwIfNotFound: true);
@@ -353,11 +444,16 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         m_Character_EquipSlot5 = m_Character.FindAction("Equip Slot - 5", throwIfNotFound: true);
         m_Character_ToggleWeaponMode = m_Character.FindAction("Toggle Weapon Mode", throwIfNotFound: true);
         m_Character_Interaction = m_Character.FindAction("Interaction", throwIfNotFound: true);
+        // CameraControls
+        m_CameraControls = asset.FindActionMap("CameraControls", throwIfNotFound: true);
+        m_CameraControls_Look = m_CameraControls.FindAction("Look", throwIfNotFound: true);
+        m_CameraControls_Zoom = m_CameraControls.FindAction("Zoom", throwIfNotFound: true);
     }
 
     ~@PlayerControls()
     {
         UnityEngine.Debug.Assert(!m_Character.enabled, "This will cause a leak and performance issues, PlayerControls.Character.Disable() has not been called.");
+        UnityEngine.Debug.Assert(!m_CameraControls.enabled, "This will cause a leak and performance issues, PlayerControls.CameraControls.Disable() has not been called.");
     }
 
     public void Dispose()
@@ -419,9 +515,10 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
     // Character
     private readonly InputActionMap m_Character;
     private List<ICharacterActions> m_CharacterActionsCallbackInterfaces = new List<ICharacterActions>();
-    private readonly InputAction m_Character_Fire;
     private readonly InputAction m_Character_Movement;
+    private readonly InputAction m_Character_Fire;
     private readonly InputAction m_Character_Aim;
+    private readonly InputAction m_Character_SwitchShoulder;
     private readonly InputAction m_Character_Run;
     private readonly InputAction m_Character_EquipSlot1;
     private readonly InputAction m_Character_EquipSlot2;
@@ -436,9 +533,10 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
     {
         private @PlayerControls m_Wrapper;
         public CharacterActions(@PlayerControls wrapper) { m_Wrapper = wrapper; }
-        public InputAction @Fire => m_Wrapper.m_Character_Fire;
         public InputAction @Movement => m_Wrapper.m_Character_Movement;
+        public InputAction @Fire => m_Wrapper.m_Character_Fire;
         public InputAction @Aim => m_Wrapper.m_Character_Aim;
+        public InputAction @SwitchShoulder => m_Wrapper.m_Character_SwitchShoulder;
         public InputAction @Run => m_Wrapper.m_Character_Run;
         public InputAction @EquipSlot1 => m_Wrapper.m_Character_EquipSlot1;
         public InputAction @EquipSlot2 => m_Wrapper.m_Character_EquipSlot2;
@@ -458,15 +556,18 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         {
             if (instance == null || m_Wrapper.m_CharacterActionsCallbackInterfaces.Contains(instance)) return;
             m_Wrapper.m_CharacterActionsCallbackInterfaces.Add(instance);
-            @Fire.started += instance.OnFire;
-            @Fire.performed += instance.OnFire;
-            @Fire.canceled += instance.OnFire;
             @Movement.started += instance.OnMovement;
             @Movement.performed += instance.OnMovement;
             @Movement.canceled += instance.OnMovement;
+            @Fire.started += instance.OnFire;
+            @Fire.performed += instance.OnFire;
+            @Fire.canceled += instance.OnFire;
             @Aim.started += instance.OnAim;
             @Aim.performed += instance.OnAim;
             @Aim.canceled += instance.OnAim;
+            @SwitchShoulder.started += instance.OnSwitchShoulder;
+            @SwitchShoulder.performed += instance.OnSwitchShoulder;
+            @SwitchShoulder.canceled += instance.OnSwitchShoulder;
             @Run.started += instance.OnRun;
             @Run.performed += instance.OnRun;
             @Run.canceled += instance.OnRun;
@@ -501,15 +602,18 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
 
         private void UnregisterCallbacks(ICharacterActions instance)
         {
-            @Fire.started -= instance.OnFire;
-            @Fire.performed -= instance.OnFire;
-            @Fire.canceled -= instance.OnFire;
             @Movement.started -= instance.OnMovement;
             @Movement.performed -= instance.OnMovement;
             @Movement.canceled -= instance.OnMovement;
+            @Fire.started -= instance.OnFire;
+            @Fire.performed -= instance.OnFire;
+            @Fire.canceled -= instance.OnFire;
             @Aim.started -= instance.OnAim;
             @Aim.performed -= instance.OnAim;
             @Aim.canceled -= instance.OnAim;
+            @SwitchShoulder.started -= instance.OnSwitchShoulder;
+            @SwitchShoulder.performed -= instance.OnSwitchShoulder;
+            @SwitchShoulder.canceled -= instance.OnSwitchShoulder;
             @Run.started -= instance.OnRun;
             @Run.performed -= instance.OnRun;
             @Run.canceled -= instance.OnRun;
@@ -557,11 +661,66 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         }
     }
     public CharacterActions @Character => new CharacterActions(this);
+
+    // CameraControls
+    private readonly InputActionMap m_CameraControls;
+    private List<ICameraControlsActions> m_CameraControlsActionsCallbackInterfaces = new List<ICameraControlsActions>();
+    private readonly InputAction m_CameraControls_Look;
+    private readonly InputAction m_CameraControls_Zoom;
+    public struct CameraControlsActions
+    {
+        private @PlayerControls m_Wrapper;
+        public CameraControlsActions(@PlayerControls wrapper) { m_Wrapper = wrapper; }
+        public InputAction @Look => m_Wrapper.m_CameraControls_Look;
+        public InputAction @Zoom => m_Wrapper.m_CameraControls_Zoom;
+        public InputActionMap Get() { return m_Wrapper.m_CameraControls; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(CameraControlsActions set) { return set.Get(); }
+        public void AddCallbacks(ICameraControlsActions instance)
+        {
+            if (instance == null || m_Wrapper.m_CameraControlsActionsCallbackInterfaces.Contains(instance)) return;
+            m_Wrapper.m_CameraControlsActionsCallbackInterfaces.Add(instance);
+            @Look.started += instance.OnLook;
+            @Look.performed += instance.OnLook;
+            @Look.canceled += instance.OnLook;
+            @Zoom.started += instance.OnZoom;
+            @Zoom.performed += instance.OnZoom;
+            @Zoom.canceled += instance.OnZoom;
+        }
+
+        private void UnregisterCallbacks(ICameraControlsActions instance)
+        {
+            @Look.started -= instance.OnLook;
+            @Look.performed -= instance.OnLook;
+            @Look.canceled -= instance.OnLook;
+            @Zoom.started -= instance.OnZoom;
+            @Zoom.performed -= instance.OnZoom;
+            @Zoom.canceled -= instance.OnZoom;
+        }
+
+        public void RemoveCallbacks(ICameraControlsActions instance)
+        {
+            if (m_Wrapper.m_CameraControlsActionsCallbackInterfaces.Remove(instance))
+                UnregisterCallbacks(instance);
+        }
+
+        public void SetCallbacks(ICameraControlsActions instance)
+        {
+            foreach (var item in m_Wrapper.m_CameraControlsActionsCallbackInterfaces)
+                UnregisterCallbacks(item);
+            m_Wrapper.m_CameraControlsActionsCallbackInterfaces.Clear();
+            AddCallbacks(instance);
+        }
+    }
+    public CameraControlsActions @CameraControls => new CameraControlsActions(this);
     public interface ICharacterActions
     {
-        void OnFire(InputAction.CallbackContext context);
         void OnMovement(InputAction.CallbackContext context);
+        void OnFire(InputAction.CallbackContext context);
         void OnAim(InputAction.CallbackContext context);
+        void OnSwitchShoulder(InputAction.CallbackContext context);
         void OnRun(InputAction.CallbackContext context);
         void OnEquipSlot1(InputAction.CallbackContext context);
         void OnEquipSlot2(InputAction.CallbackContext context);
@@ -572,5 +731,10 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         void OnEquipSlot5(InputAction.CallbackContext context);
         void OnToggleWeaponMode(InputAction.CallbackContext context);
         void OnInteraction(InputAction.CallbackContext context);
+    }
+    public interface ICameraControlsActions
+    {
+        void OnLook(InputAction.CallbackContext context);
+        void OnZoom(InputAction.CallbackContext context);
     }
 }

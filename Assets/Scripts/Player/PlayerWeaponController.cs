@@ -7,6 +7,7 @@ using UnityEngineInternal;
 
 public class PlayerWeaponController : MonoBehaviour
 {
+    [SerializeField] private LayerMask whatIsAlly;
     private const float REFERENCE_BULLET_SPEED = 20;
 
     private Player player;
@@ -63,8 +64,6 @@ public class PlayerWeaponController : MonoBehaviour
         currentWeapon.bulletInMagzine = weaponSlots[i].bulletInMagzine; //TODO:本来是没有的
 
         player.weaponVisuals.PlayWeaponEquipAnimation();
-
-        CameraManager.Instance.ChangeCameraDistance(currentWeapon.cameraDistance);
     }
 
     // 丢弃武器
@@ -81,7 +80,7 @@ public class PlayerWeaponController : MonoBehaviour
     // 在角色当前位置生成一个被丢弃武器的Gameobjct
     private void CreateWeaponOnTheGround()
     {
-        GameObject droppedWeapon = ObjectPool.Instance.GetObject(weaponPickupPrefab);
+        GameObject droppedWeapon = ObjectPool.Instance.GetObject(weaponPickupPrefab, transform);
         droppedWeapon.GetComponent<Pickup_Weapon>()?.SetupPickupWeapon(currentWeapon, transform);
     }
 
@@ -161,8 +160,7 @@ public class PlayerWeaponController : MonoBehaviour
         currentWeapon.bulletInMagzine--;
 
         /* 从对象池中获取子弹GameObject */
-        GameObject newBullet = ObjectPool.Instance.GetObject(bulletPrefab);
-        newBullet.transform.position = GunPoint().position;
+        GameObject newBullet = ObjectPool.Instance.GetObject(bulletPrefab, GunPoint());
 
         /* 子弹方向设置 */
         Vector3 bulletDirection = currentWeapon.ApplySpread(BulletDirection());
@@ -170,7 +168,7 @@ public class PlayerWeaponController : MonoBehaviour
 
         /* 子弹数据设置 */
         Bullet bulletScript = newBullet.GetComponent<Bullet>();
-        bulletScript.BulletSetup(currentWeapon.gunDistance, bulletImpactForce);
+        bulletScript.BulletSetup(whatIsAlly, currentWeapon.gunDistance, bulletImpactForce);
 
         /* 子弹刚体运动设置 */
         Rigidbody rbNewBullet = newBullet.GetComponent<Rigidbody>();
@@ -190,14 +188,16 @@ public class PlayerWeaponController : MonoBehaviour
     {
         /* 使用物体aim的位置 - 枪口的位置，即可得出飞行方向vec3 */
         Transform aim = player.aim.Aim();
-        Vector3 direction = (aim.position - GunPoint().position).normalized;
 
-        /* 如果未启用精确瞄准 */
+        Vector3 targetPoint = player.aim.GetHitPosition();
+        Vector3 direction = (targetPoint - GunPoint().position).normalized;
+        /*
+        /* 如果未启用精确瞄准 
         if (player.aim.CanAimPrecisly() == false && player.aim.Target() == null)
         {
             direction.y = 0;
         }
-
+        */
         return direction;
     }
 

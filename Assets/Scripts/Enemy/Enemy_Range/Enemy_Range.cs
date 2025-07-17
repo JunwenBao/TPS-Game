@@ -102,14 +102,12 @@ public class Enemy_Range : Enemy
         }
     }
 
-    public override void GetHit()
+    // 敌人死亡
+    public override void Die()
     {
-        base.GetHit();
+        base.Die();
 
-        if (healthPoints <= 0 && stateMachine.currentState != deadState)
-        {
-            stateMachine.ChangeState(deadState);
-        }
+        if(stateMachine.currentState != deadState) stateMachine.ChangeState(deadState);
     }
 
     #region Grenade
@@ -132,13 +130,7 @@ public class Enemy_Range : Enemy
         lastTimeGrenadeThrown = Time.time;
         visuals.EnableGrenadeModel(false);
 
-        GameObject newGrenade = ObjectPool.Instance.GetObject(grenadePrefab);
-        newGrenade.transform.position = grenadeStartPoint.position;
-
-        Rigidbody rb = newGrenade.GetComponent<Rigidbody>();
-        rb.linearVelocity = Vector3.zero;
-        rb.angularVelocity = Vector3.zero;
-        rb.position = transform.position;
+        GameObject newGrenade = ObjectPool.Instance.GetObject(grenadePrefab, grenadeStartPoint);
 
         Enemy_Grenade newGrenadeScript = newGrenade.GetComponent<Enemy_Grenade>();
         
@@ -219,11 +211,10 @@ public class Enemy_Range : Enemy
 
         Vector3 bulletDirection = (aim.position - gunPoint.position).normalized;
 
-        GameObject newBullet = ObjectPool.Instance.GetObject(bulletPrefab);
-        newBullet.transform.position = gunPoint.position;
+        GameObject newBullet = ObjectPool.Instance.GetObject(bulletPrefab, gunPoint);
         newBullet.transform.rotation = Quaternion.LookRotation(gunPoint.forward);
 
-        newBullet.GetComponent<Enemy_Bullet>().BulletSetup();
+        newBullet.GetComponent<Bullet>().BulletSetup(whatIsAlly);
 
         Rigidbody rbNewBullet = newBullet.GetComponent<Rigidbody>();
         Vector3 bulletDirectionWithSpread = weaponData.ApplyWeaponSpread(bulletDirection);

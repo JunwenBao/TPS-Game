@@ -5,7 +5,8 @@ using UnityEngine.AI;
 
 public class Enemy : MonoBehaviour
 {
-    [SerializeField] protected int healthPoints = 20;
+    public LayerMask whatIsAlly;
+    public int healthPoints = 20;
 
     [Header("Idle Data")]
     public float idleTime;
@@ -30,6 +31,7 @@ public class Enemy : MonoBehaviour
     public NavMeshAgent agent { get; private set; }
     public EnemyStateMachine stateMachine {  get; private set; }
     public Enemy_Visuals visuals { get; private set; }
+    public Enemy_Health health { get; private set; }
     public Enemy_Ragdoll ragdoll { get; private set; }
 
     protected virtual void Awake()
@@ -40,6 +42,7 @@ public class Enemy : MonoBehaviour
         visuals = GetComponent<Enemy_Visuals>();
         agent = GetComponent<NavMeshAgent>();
         animator = GetComponentInChildren<Animator>();
+        health = GetComponent<Enemy_Health>();
 
         player = GameObject.Find("Player").GetComponent<Transform>();
     }
@@ -115,17 +118,27 @@ public class Enemy : MonoBehaviour
         transform.rotation = Quaternion.Euler(currentEulerAngels.x, yRotation, currentEulerAngels.z);
     }
 
+    #region Hit and Die
     // 被击中
     public virtual void GetHit()
     {
-        EnterBattleMode();
+        health.ReduceHealth();
+        if (health.ShouldDie()) Die();
 
-        healthPoints--;
+        EnterBattleMode(); // 进入战斗模式
     }
 
-    public virtual void DeathImpact(Vector3 force, Vector3 hitPoint, Rigidbody rb)
+    public virtual void Die()
     {
-        StartCoroutine(DeathImpactCourutine(force, hitPoint, rb));
+
+    }
+
+    public virtual void BulletImpact(Vector3 force, Vector3 hitPoint, Rigidbody rb)
+    {
+        if(health.ShouldDie())
+        {
+            StartCoroutine(DeathImpactCourutine(force, hitPoint, rb));
+        }
     }
 
     private IEnumerator DeathImpactCourutine(Vector3 force, Vector3 hitPoint, Rigidbody rb)
@@ -134,6 +147,8 @@ public class Enemy : MonoBehaviour
 
         rb.AddForceAtPosition(force, hitPoint, ForceMode.Impulse);
     }
+
+    #endregion
 
     public bool IsPlayerInAgrresionRange() => Vector3.Distance(transform.position, player.position) < aggresionRange;
 
