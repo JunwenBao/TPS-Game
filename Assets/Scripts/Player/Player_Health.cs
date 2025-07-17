@@ -1,6 +1,3 @@
-using Unity.Cinemachine.Editor;
-using UnityEngine;
-
 public class Player_Health : HealthController
 {
     private Player player;

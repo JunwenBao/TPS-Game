@@ -1,7 +1,4 @@
 using System;
-using TMPro;
-using UnityEditor.Search;
-using UnityEditor.ShaderGraph;
 using UnityEngine;
 
 public class PlayerAim : MonoBehaviour

@@ -16,7 +16,7 @@ MonoBehaviour:
   bulletInMagzine: 40
   magzineCapacity: 40
   totalReserveAmmo: 120
-  shootType: 1
+  shootType: 0
   bulletsPerShot: 1
   fireRate: 10
   burstAvailble: 1
