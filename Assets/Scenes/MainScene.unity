@@ -9381,6 +9381,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 8531482628254385960}
     - target: {fileID: 347788621558740452, guid: 2acfafe9dbcd2564c9bb781ce054da78, type: 3}
+      propertyPath: grenadePerk
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 347788621558740452, guid: 2acfafe9dbcd2564c9bb781ce054da78, type: 3}
       propertyPath: advanceStoppingDistance
       value: 19
       objectReference: {fileID: 0}

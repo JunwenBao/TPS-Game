@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class Enemy_Grenade : MonoBehaviour
@@ -9,33 +10,64 @@ public class Enemy_Grenade : MonoBehaviour
     private float timer;
     private float impactPower;
 
+    private LayerMask allyLayerMask;
+    private bool canExplode = true;
+
     private void Awake() => rb = GetComponent<Rigidbody>();
 
     private void Update()
     {
         timer -= Time.deltaTime;
 
-        if (timer < 0) Explode();
+        if (timer < 0 && canExplode) Explode();
     }
 
     private void Explode()
     {
-        GameObject newFx = ObjectPool.Instance.GetObject(explosionFx, transform);
+        canExplode = false;
 
-        ObjectPool.Instance.ReturnObject(newFx, 1);
-        ObjectPool.Instance.ReturnObject(gameObject);
+        PlayExplosionFX();
+
+        HashSet<GameObject> uniqueEntities = new HashSet<GameObject>();
 
         Collider[] colliders = Physics.OverlapSphere(transform.position, impactRadius);
 
         foreach (Collider hit in colliders)
         {
-            Rigidbody rb = hit.GetComponent<Rigidbody>();
+            if (IsTargetValid(hit) == false) continue;
 
-            if (rb != null)
-            {
-                rb.AddExplosionForce(impactPower, transform.position, impactRadius, upwardsMultiplier, ForceMode.Impulse);
-            }
+            /* 添加根Gameobject，防止爆炸伤害，对多个部位的Collider造成重复伤害 */
+            GameObject rootEntity = hit.transform.root.gameObject;
+            if (uniqueEntities.Add(rootEntity) == false) continue;
+            ApplyDamageTo(hit);
+            ApplyPhysicalForceTo(hit);
         }
+    }
+
+    // 对目标造成物理力
+    private void ApplyPhysicalForceTo(Collider hit)
+    {
+        Rigidbody rb = hit.GetComponent<Rigidbody>();
+
+        if (rb != null)
+        {
+            rb.AddExplosionForce(impactPower, transform.position, impactRadius, upwardsMultiplier, ForceMode.Impulse);
+        }
+    }
+
+    // 对目标造成伤害
+    private static void ApplyDamageTo(Collider hit)
+    {
+        IDamagable damagable = hit.GetComponent<IDamagable>();
+        damagable?.TakeDamage();
+    }
+
+    // 播放爆炸特效
+    private void PlayExplosionFX()
+    {
+        GameObject newFx = ObjectPool.Instance.GetObject(explosionFx, transform);
+        ObjectPool.Instance.ReturnObject(newFx, 1);
+        ObjectPool.Instance.ReturnObject(gameObject);
     }
 
     private void OnDrawGizmos()
@@ -45,11 +77,23 @@ public class Enemy_Grenade : MonoBehaviour
     }
 
     // 设置手雷
-    public void SetupGrenade(Vector3 target, float timeToTarget, float countdown, float impactPower)
+    public void SetupGrenade(LayerMask allyLayerMask, Vector3 target, float timeToTarget, float countdown, float impactPower)
     {
+        canExplode = true;
+
+        this.allyLayerMask = allyLayerMask;
         rb.linearVelocity = CalculateLaunchVelocity(target, timeToTarget);
         timer = countdown + timeToTarget;
         this.impactPower = impactPower;
+    }
+
+    private bool IsTargetValid(Collider collider)
+    {
+        if (GameManager.Instance.firendlyFire) return true;
+
+        if ((allyLayerMask.value & (1 << collider.gameObject.layer)) > 0) return false;
+
+        return true;
     }
 
     // 计算手雷飞行速度

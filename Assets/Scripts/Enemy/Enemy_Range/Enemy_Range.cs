@@ -137,11 +137,11 @@ public class Enemy_Range : Enemy
         /* 如果角色死亡，且正在投掷手雷，则让手雷滚到自己旁边 */
         if(stateMachine.currentState == deadState)
         {
-            newGrenadeScript.SetupGrenade(transform.position, 1, explosionTimer, impactPower);
+            newGrenadeScript.SetupGrenade(whatIsAlly, transform.position, 1, explosionTimer, impactPower);
             return;
         }
 
-        newGrenadeScript.SetupGrenade(player.transform.position, timeToTarget, explosionTimer, impactPower);
+        newGrenadeScript.SetupGrenade(whatIsAlly, player.transform.position, timeToTarget, explosionTimer, impactPower);
     }
 
     #endregion
