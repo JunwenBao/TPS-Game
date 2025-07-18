@@ -31,9 +31,16 @@ public class PlayerMovement : MonoBehaviour
 
     private bool isRunning;
 
+    private AudioSource walkSFX;
+    private AudioSource runSFX;
+
     private void Start()
     {
         player = GetComponent<Player>();
+
+        walkSFX = player.sound.walkSFX;
+        runSFX = player.sound.runSFX;
+
         controller = GetComponent<CharacterController>();
         animator = GetComponentInChildren<Animator>();
 
@@ -60,7 +67,32 @@ public class PlayerMovement : MonoBehaviour
         {
             velocity.y = Mathf.Sqrt(jumpHeight * -2f * gravity);
         }
+
+        /* 播放角色移动脚步音效 */
+        PlayFootstepSFX();
     }
+
+    #region Sound Effect
+
+    private void PlayFootstepSFX()
+    {
+        if (isRunning && runSFX.isPlaying == false)
+        {
+            runSFX.Play();
+        }
+        else if (walkSFX.isPlaying == false)
+        {
+            walkSFX.Play();
+        }
+    }
+
+    private void StopFootstepSFX()
+    {
+        walkSFX.Stop();
+        runSFX.Stop();
+    }
+
+    #endregion
 
     // 控制角色动画：使用点积
     private void AnimatorControllers()
