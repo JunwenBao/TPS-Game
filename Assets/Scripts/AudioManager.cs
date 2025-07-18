@@ -8,30 +8,17 @@ public class AudioManager : MonoBehaviour
 
     private int bgmIndex;
 
-    private bool hasStopped = false;
-
     private void Update()
     {
-        if (!playBgm)
-        {
-            if (BGMIsPlaying())
-            {
-                Debug.Log("1");
-                StopAllBGM();
-                hasStopped = true;
-            }
-        }
-        else
-        {
-            if (!BGMIsPlaying() && hasStopped)
-            {
-                Debug.Log("2");
-                PlayRandomBGM();
-                hasStopped = false;
-            }
-        }
+        if (playBgm == false && BGMIsPlaying())
+            StopAllBGM();
+
+
+        if (playBgm && bgm[bgmIndex].isPlaying == false)
+            PlayRandomBGM();
     }
 
+    #region BGM
 
     public void PlayBGM(int index)
     {
@@ -52,6 +39,7 @@ public class AudioManager : MonoBehaviour
     [ContextMenu("Play Random Music")]
     public void PlayRandomBGM()
     {
+        StopAllBGM();
         bgmIndex = Random.Range(0, bgm.Length);
         PlayBGM(bgmIndex);
     }
@@ -65,4 +53,6 @@ public class AudioManager : MonoBehaviour
 
         return false;
     }
+
+    #endregion
 }

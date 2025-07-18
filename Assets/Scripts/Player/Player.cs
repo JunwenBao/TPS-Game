@@ -11,8 +11,8 @@ public class Player : MonoBehaviour
     public PlayerInteraction interaction { get; private set; }
     public Player_Health health { get; private set; }
     public Ragdoll ragdoll { get; private set; }
-
     public Animator animator { get; private set; }
+    public Player_SoundFX sound { get; private set; }
 
     public bool isAiming;
 
@@ -28,6 +28,7 @@ public class Player : MonoBehaviour
         weapon = GetComponent<PlayerWeaponController>();
         weaponVisuals = GetComponent<PlayerWeaponVisuals>();
         interaction = GetComponent<PlayerInteraction>();
+        sound = GetComponent<Player_SoundFX>();
     }
 
     private void OnEnable()

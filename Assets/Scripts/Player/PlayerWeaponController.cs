@@ -111,8 +111,13 @@ public class PlayerWeaponController : MonoBehaviour
         player.weaponVisuals.SwichOnBackupWeaponWeaponModel();
     }
 
-    //
-    public void SetWeaponReady(bool ready) => weaponReady = ready;
+    // 武器准备就绪
+    public void SetWeaponReady(bool ready)
+    {
+        weaponReady = ready;
+        if(ready) player.sound.weaponReady.Play();
+    }
+
     public bool WeaponReady() => weaponReady;
     #endregion 
 
@@ -159,6 +164,9 @@ public class PlayerWeaponController : MonoBehaviour
     {
         currentWeapon.bulletInMagzine--;
 
+        /* 播放射击音效 */
+        player.weaponVisuals.CurrentWeaponModle().fireSFX.Play();
+
         /* 从对象池中获取子弹GameObject */
         GameObject newBullet = ObjectPool.Instance.GetObject(bulletPrefab, GunPoint());
 
@@ -181,6 +189,8 @@ public class PlayerWeaponController : MonoBehaviour
     {
         SetWeaponReady(false);
         player.weaponVisuals.PlayReloadAnimation();
+
+        player.weaponVisuals.CurrentWeaponModle().reloadSFX.Play();
     }
 
     // 计算子弹的飞行方向
