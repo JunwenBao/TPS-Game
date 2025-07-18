@@ -11,8 +11,11 @@ public class CameraSwitcher : MonoBehaviour
     [SerializeField] private CinemachineInputAxisController inputAxisController;
     [SerializeField] private Camera mainCamera;
     [SerializeField] private Player player;
-    [SerializeField] private GameObject crosshairUI;
     [SerializeField] private PlayerControls input;
+
+    [Header("UI")]
+    [SerializeField] private GameObject crosshairUI;
+    [SerializeField] private GameObject weaponUI;
 
     private InputAction aimAction;
     private bool isAiming = false;
@@ -50,6 +53,7 @@ public class CameraSwitcher : MonoBehaviour
     private void EnterAimMode()
     {
         crosshairUI.SetActive(true);
+        weaponUI.SetActive(true);
 
         isAiming = true;
 
@@ -64,6 +68,7 @@ public class CameraSwitcher : MonoBehaviour
     private void ExitAimMode()
     {
         crosshairUI.SetActive(false);
+        weaponUI.SetActive(false);
 
         isAiming = false;
 

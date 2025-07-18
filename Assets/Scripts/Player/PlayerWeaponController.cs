@@ -31,6 +31,9 @@ public class PlayerWeaponController : MonoBehaviour
 
     [SerializeField] private GameObject weaponPickupPrefab;
 
+    [Header("Weapon UI")]
+    [SerializeField] private Weapon_UI weaponUI;
+
     private void Start()
     {
         player = GetComponent<Player>();
@@ -115,6 +118,11 @@ public class PlayerWeaponController : MonoBehaviour
     public void SetWeaponReady(bool ready)
     {
         weaponReady = ready;
+
+        /* 初始化武器UI */
+        weaponUI.InitialWeaponUI(currentWeapon.weaponType, currentWeapon.bulletInMagzine, currentWeapon.totalReserveAmmo);
+
+        /* 播放音效 */
         if(ready) player.sound.weaponReady.Play();
     }
 
@@ -163,6 +171,9 @@ public class PlayerWeaponController : MonoBehaviour
     private void FireSingleBullet()
     {
         currentWeapon.bulletInMagzine--;
+
+        /* 更新UI */
+        weaponUI.UpdateWeaponUI();
 
         /* 播放射击音效 */
         player.weaponVisuals.CurrentWeaponModle().fireSFX.Play();

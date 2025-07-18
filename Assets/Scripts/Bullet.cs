@@ -77,7 +77,7 @@ public class Bullet : MonoBehaviour
     // ×Óµ¯×²»÷
     protected virtual void OnCollisionEnter(Collision collision)
     {
-        Debug.Log($"Åö×²µ½£º{collision.gameObject.name}");
+        //Debug.Log($"Åö×²µ½£º{collision.gameObject.name}");
         /* ¼ì²âÓÑÉË */
         if(FriendlyFire() == false)
         {

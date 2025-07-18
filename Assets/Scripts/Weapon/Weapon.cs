@@ -47,12 +47,10 @@ public class Weapon
     [Header("Spread")]
     private float baseSpread;                 // 基础spread值
     private float maximumSpread = 3;          // 最大spread值
-    private float currentSpread = 2;         // 当前spread值
-
+    private float currentSpread = 2;          // 当前spread值
     private float spreadIncreaseRate = 0.15f; //spread值增量
-
-    private float lastSpreadUpdateTime = 1;  // 最后更新spread值的时间（用于重置该值）
-    private float spreadCooldown;            // 重置spread值所需时间
+    private float lastSpreadUpdateTime = 1;   // 最后更新spread值的时间（用于重置该值）
+    private float spreadCooldown;             // 重置spread值所需时间
 
     public Weapon_Data weaponData {  get; private set; }
 
